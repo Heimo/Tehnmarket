@@ -3,17 +3,48 @@ package com.tehnomarket.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class User {
 	
 	private long id;
+	
+	@NotNull
+	@NotEmpty
+	@Email
 	private String email;
+	
+	@NotNull
+	@NotEmpty
 	private String firstName;
+	
+	@NotNull
+	@NotEmpty
 	private String lastName;
+	
+	@NotNull
+	@NotEmpty
 	private String password;
+	
+	@NotNull
+	@NotEmpty
+	private String passwordCheck;
+	
+	@NotNull
+	@NotEmpty
 	private String gender;
+	
+	@NotNull
+	@NotEmpty
 	private Date dateOfBirth;
+	
 	private boolean isAdmin;
 	
+	
+	public User() {}
 	
 	public User(String email, String firstName, String lastName, String password, String gender, Date dateOfBirth,
 			boolean isAdmin) {
@@ -77,6 +108,44 @@ public class User {
 	public boolean isAdmin() {
 		return isAdmin;
 	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public String getPasswordCheck() {
+		return passwordCheck;
+	}
+
+	public void setPasswordCheck(String passwordCheck) {
+		this.passwordCheck = passwordCheck;
+	}
+	
+	
 	
 	
 }
