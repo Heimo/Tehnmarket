@@ -1,5 +1,7 @@
 package com.tehnomarket.controller;
 
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +12,7 @@ import com.tehnomarket.model.User;
 import com.tehnomarket.model.dao.UserDao;
 
 @Controller
+//@RequestMapping(value="/try")
 public class UserController {
 
 	
@@ -22,7 +25,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String newUser(@ModelAttribute User u) {
+	public String newUser(@ModelAttribute User u) throws SQLException {
 		
 		UserDao.getInstance().saveUser(u);
 		return "index";

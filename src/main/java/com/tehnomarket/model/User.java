@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class User {
 	
@@ -39,6 +40,7 @@ public class User {
 	
 	@NotNull
 	@NotEmpty
+	@DateTimeFormat(pattern = "MM-dd-yyyy")
 	private Date dateOfBirth;
 	
 	private boolean isAdmin;

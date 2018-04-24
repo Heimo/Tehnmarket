@@ -10,18 +10,20 @@
 </head>
 	<body>
 		<f:form commandName="new_user">
-			<f:input path="email"/><br>
-			<f:input path="firstName"/><br>
-			<f:input path="lastName"/><br>
-			<f:input path="password"/><br>
-			<f:input path="passwordCheck"/><br>
+			E-mail<f:input path="email"/><br>
+			First name<f:input path="firstName"/><br>
+			Last name<f:input path="lastName"/><br>
+			password<f:input path="password"/><br>
+			check password<f:input path="passwordCheck"/><br>
 			
-			<f:input type="date" path="dateOfBirth"/></br>
+			Birthdate<f:input type="date" path="dateOfBirth"/></br>
 			
 			<f:radiobutton path = "gender" value = "M" label = "Male" />
             <f:radiobutton path = "gender" value = "F" label = "Female" />
             <f:radiobutton path = "gender" value = "G" label = "God" />
 			
+			
+			<input type="submit" value="Register" />
 		</f:form>
 	
 	
