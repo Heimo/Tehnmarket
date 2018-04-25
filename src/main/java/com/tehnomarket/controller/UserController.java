@@ -27,15 +27,8 @@ public class UserController {
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public String newUser(@ModelAttribute User u) {
 		
-		System.out.println(u.getEmail());
-		System.out.println(u.getFirstName());
-		System.out.println(u.getLastName());
-		System.out.println(u.getPassword());
-		System.out.println(u.getGender());
-		System.out.println(u.getDateOfBirth().toString());
-		
 		try {
-			UserDao.getInstance().saveUser(u);
+			UserDao.saveUser(u);
 		} catch (SQLException e) {
 			System.out.println("CANT CREATE USER");
 		}
