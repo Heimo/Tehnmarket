@@ -26,16 +26,18 @@ public class UserDao {
 		return instance;
 	}
 
-	public void saveUser(User u) throws SQLException {
+	public static void saveUser(User u) throws SQLException {
 		String sql = "INSERT INTO users(email, first_name, last_name, password, gender, birth_date, is_admin) VALUES (?, ?, ?, ?,?,?,?)";
-		PreparedStatement ps = manager.getConnection().prepareStatement(sql);
+		Connection connection = DBManager.getInstance().getConnection();
+		
+		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setString(1, u.getEmail());
 		ps.setString(2, u.getFirstName());
 		ps.setString(3, u.getLastName());
 		ps.setString(4, u.getPassword());
 		ps.setString(5, u.getGender());
 		ps.setDate(6, u.getDateOfBirth());
-		ps.setBoolean(7, u.isAdmin());
+		ps.setBoolean(7, false);
 		ps.executeUpdate();
 	}
 

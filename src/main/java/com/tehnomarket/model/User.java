@@ -40,7 +40,7 @@ public class User {
 	
 	@NotNull
 	@NotEmpty
-	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	
 	private Date dateOfBirth;
 	
 	private boolean isAdmin;

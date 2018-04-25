@@ -13,8 +13,8 @@
 			E-mail<f:input path="email"/><br>
 			First name<f:input path="firstName"/><br>
 			Last name<f:input path="lastName"/><br>
-			password<f:input path="password"/><br>
-			check password<f:input path="passwordCheck"/><br>
+			password<f:input type="password" path="password"/><br>
+			check password<f:input type="password" path="passwordCheck"/><br>
 			
 			Birthdate<f:input type="date" path="dateOfBirth"/></br>
 			

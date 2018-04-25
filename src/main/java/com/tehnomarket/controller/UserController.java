@@ -25,9 +25,20 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String newUser(@ModelAttribute User u) throws SQLException {
+	public String newUser(@ModelAttribute User u) {
 		
-		UserDao.getInstance().saveUser(u);
+		System.out.println(u.getEmail());
+		System.out.println(u.getFirstName());
+		System.out.println(u.getLastName());
+		System.out.println(u.getPassword());
+		System.out.println(u.getGender());
+		System.out.println(u.getDateOfBirth().toString());
+		
+		try {
+			UserDao.getInstance().saveUser(u);
+		} catch (SQLException e) {
+			System.out.println("CANT CREATE USER");
+		}
 		return "index";
 	}
 }
