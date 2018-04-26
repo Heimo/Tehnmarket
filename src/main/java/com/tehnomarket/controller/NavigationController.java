@@ -1,5 +1,7 @@
 package com.tehnomarket.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class NavigationController {
 
 
-	@RequestMapping(value="/index.html",method=RequestMethod.GET)
-	public String sendIndex(Model m) {
+	@RequestMapping(value= {"/index.html","homepage"},method=RequestMethod.GET)
+	public String sendIndex() {
 		return "index";
+	}
+	
+	@RequestMapping(value="cart",method=RequestMethod.GET)
+	public String goToCart() {
+		return "cart";
 	}
 }
