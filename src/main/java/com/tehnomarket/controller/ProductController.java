@@ -21,6 +21,27 @@ import com.tehnomarket.model.dao.ProductDao;
 @Controller
 public class ProductController {
 
+	@RequestMapping(value="products/{categoryId}",method=RequestMethod.GET)
+	public String goToProducts(@RequestParam("categoryId") int catId,Model m) {
+		
+		ArrayList<Product> products = new ArrayList<Product>();
+		
+		try {
+			 products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(catId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "products_error_page";
+		}
+		
+		m.addAttribute("products", products);
+		if(products.isEmpty()) {
+			return "products_error_page";
+		}
+		return "products";
+	}
+	
+	
+	
 	@RequestMapping(value="add_to_cart/{productId}",method=RequestMethod.GET)
 	public void addToCart(HttpSession session,@RequestParam("productId") int productId) {
 		// add to session 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -56,11 +57,10 @@
 
 
 		<div id="search">
-			<form action="search" method="get">
-				<input type="text" name="search" requred> 
-				<input type="submit" value="Search">
-	
-			</form>
+			<f:form commandName="search_product">
+				<f:input type="text" path="search" requred/> 
+				<input type="submit" value="Search"/>
+			</f:form>
 		</div>
 
 		<div >
