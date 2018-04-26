@@ -21,12 +21,13 @@ public class OrderController {
 		
 		HashMap<Product,Integer> cart = (HashMap<Product, Integer>) session.getAttribute("cart");
 		if(cart.isEmpty()) {
+			// make a jsp that just says "Your cart is empty and a sad face"
 			return "emptyCart";
 		}
 		
 		// we get an array with the products in the cart
 		Product[] products = (Product[]) cart.keySet().toArray();
-		
+		m.addAttribute("produkti", products );
 			
 		return "cart";
 	}
