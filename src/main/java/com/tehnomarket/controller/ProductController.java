@@ -11,6 +11,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpSessionRequiredException;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,11 +46,14 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="searchProduct",method=RequestMethod.POST)
-	public String searchProducts(HttpServletRequest request) {
-		String search=(String) request.getAttribute("search");	
-		ArrayList<Product> product = new ArrayList<>();
+	public String searchProducts(@ModelAttribute("search") String search,Model m) {
+		System.out.println(search);
+		ArrayList<Product> products = new ArrayList<>();
+		
 		try {
-			product = (ArrayList<Product>) ProductDao.getInstance().search(search);
+			products = (ArrayList<Product>) ProductDao.getInstance().search(search);
+			m.addAttribute("products",products);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,36 +61,62 @@ public class ProductController {
 		}
 		
 		
-		return "products";
+		return "index";
 	}
 	
 	
-	@RequestMapping(value="add_to_cart/{productId}",method=RequestMethod.GET)
-	public void addToCart(HttpSession session,@RequestParam("productId") int productId) {
+	@RequestMapping(value="add_to_cart",method=RequestMethod.GET)
+	public String addToCart(HttpSession session,HttpServletRequest request) {
 		// add to session 
 		// check if basket exists in session
 		// basket should be a collection of products and their quantity
 		// quantity by default will be 1 when added 
 		
-		final int QUANTITY = 1; 
-		
-		Map<Product,Integer> cart = new HashMap();
-		
-		
-		if(session.getAttribute("cart")!=null) {
-			cart = (HashMap<Product,Integer>) session.getAttribute("basket");
-		}
-		
+		int productId = Integer.parseInt(request.getParameter("id"));
+		Product product = null;
 		try {
-			cart.put(ProductDao.getInstance().getProductById(productId),QUANTITY);
+		 product = ProductDao.getInstance().getProductById(productId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		session.setAttribute("cart", cart);
+		Map<Product,Integer> cart = (HashMap<Product,Integer>) session.getAttribute("cart");
 		
+		System.out.println("cart "+cart);
+		if(cart==null) {
+			cart = new HashMap();
+		}
+		System.out.println("product "+ product);
+		
+		if(cart.get(product)!=null) {
+				cart.put(product, cart.get(product)+1);
+		}
+		else {
+			cart.put(product, 1);
+		}
+			
+		session.setAttribute("cart", cart);
+		return "index";
 	}
 	
-	
+	@RequestMapping(value="product",method=RequestMethod.GET)
+	public String goToProduct(HttpServletRequest request,Model m) {
+		
+		int productId = Integer.parseInt(request.getParameter("id"));
+		try {
+			Product product = ProductDao.getInstance().getProductById(productId);
+			m.addAttribute("product",product);
+			System.out.println("tuak "+ productId + " sum "+product );
+			if(product!=null){
+				return "product";
+			}
+			else {
+				return "products_error_page";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "products_error_page";
+		}
+	}
 }
