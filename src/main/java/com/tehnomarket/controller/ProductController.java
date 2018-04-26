@@ -44,10 +44,8 @@ public class ProductController {
 	
 	@RequestMapping(value="searchProduct",method=RequestMethod.POST)
 	public String searchProducts(HttpServletRequest request) {
-		String search=(String) request.getAttribute("search");
-		
+		String search=(String) request.getAttribute("search");	
 		ArrayList<Product> product = new ArrayList<>();
-		
 		try {
 			product = (ArrayList<Product>) ProductDao.getInstance().search(search);
 		} catch (SQLException e) {
