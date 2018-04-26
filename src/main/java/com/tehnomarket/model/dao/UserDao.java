@@ -41,7 +41,7 @@ public class UserDao {
 		ps.executeUpdate();
 	}
 
-	public User getUser(String email, String pass) throws SQLException {
+	public static User getUser(String email, String pass) throws SQLException {
 		String sql = "SELECT id, email, first_name, last_name, password, gender, birth_date, is_admin FROM users WHERE email = ? AND password = ?";
 		//PreparedStatement ps = manager.getConnection().prepareStatement(sql);
 		
@@ -66,9 +66,9 @@ public class UserDao {
 		}
 	}
 
-	public String getHashPass(String email) throws SQLException {
+	public static String getHashPass(String email) throws SQLException {
 		String sql = "SELECT password FROM users WHERE email = ? ";
-		PreparedStatement ps = manager.getConnection().prepareStatement(sql);
+		PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql);
 		ps.setString(1, email);
 		ResultSet result = ps.executeQuery();
 		if(result.next()) {

@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.tehnomarket.util.HashPassword;
+
 public class User {
 	
 	private long id;
@@ -146,8 +148,7 @@ public class User {
 	public void setPasswordCheck(String passwordCheck) {
 		this.passwordCheck = passwordCheck;
 	}
-	
-	
+
 	
 	
 }

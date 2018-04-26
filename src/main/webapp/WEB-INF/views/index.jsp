@@ -1,3 +1,6 @@
+<%@page import="com.tehnomarket.model.Product"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tehnomarket.model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
@@ -171,9 +174,25 @@
 		  
 		</div>
 		
-		<div>
-			<img src="https://i.imgur.com/CPdEDMx.jpg" alternative="pointless filler image">
-		</div>
+		<% User user = (User) session.getAttribute("user");
+	       ArrayList<Product> cart = (ArrayList<Product>)session.getAttribute("cart");
+	    %>
+		
+		<a href="#">
+			Cart:
+			<% if(cart == null){ %>
+			 0
+			<% }else{
+			cart.size();
+			}%>
+		</a>
+		<br>
+		<% if(user != null) {%>
+		Hello <%= user.getFirstName()+" "+user.getLastName() %>
+		<a href="login">Click here to logout</a>
+		<%} else {%>
+		<a href="login">Click here to login</a>
+		<%} %>
 
 	</body>
 </html>
