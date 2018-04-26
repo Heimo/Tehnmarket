@@ -28,7 +28,9 @@ public class ProductDao {
 		}
 		return instance;
 	}
-
+	
+	
+	// search works with name
 	public Collection<Product> search(String search) throws SQLException {
 		Collection<Product> products = new ArrayList<Product>();
 		String sql = "SELECT id, name, brand, price,info, discount, discount_end, product_image, categories_id FROM products WHERE LOCATE(?,name)";
@@ -53,6 +55,7 @@ public class ProductDao {
 		return products;
 	}
 	
+	// returns product by id
 	public Product getProductById(int id) throws SQLException {
 		String sql = "SELECT id, name, brand, price,info, discount, discount_end, product_image, categories_id FROM products WHERE id = ?";
 		

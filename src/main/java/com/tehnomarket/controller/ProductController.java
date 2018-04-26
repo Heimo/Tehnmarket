@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +42,23 @@ public class ProductController {
 		return "products";
 	}
 	
+	@RequestMapping(value="searchProduct",method=RequestMethod.POST)
+	public String searchProducts(HttpServletRequest request) {
+		String search=(String) request.getAttribute("search");
+		
+		ArrayList<Product> product = new ArrayList<>();
+		
+		try {
+			product = (ArrayList<Product>) ProductDao.getInstance().search(search);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "products_error_page";
+		}
+		
+		
+		return "products";
+	}
 	
 	
 	@RequestMapping(value="add_to_cart/{productId}",method=RequestMethod.GET)

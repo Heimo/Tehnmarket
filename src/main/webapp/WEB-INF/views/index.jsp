@@ -57,8 +57,8 @@
 
 
 		<div id="search">
-			<f:form commandName="search_product">
-				<f:input type="text" path="search" requred/> 
+			<f:form commandName="searchProduct">
+				<input type="text" name="search" requred/> 
 				<input type="submit" value="Search"/>
 			</f:form>
 		</div>
@@ -69,7 +69,7 @@
 		    <li>
 		      <a href="#">ТЕЛЕВИЗОРИ И АУДИО</a>
 		      <ul>
-		        <li><a href="#">Телевизори</a></li>
+		        <li><a href="products/7">Телевизори</a></li>
 		        <li><a href="#">ТВ аксесоари</a></li>
 		        <li><a href="#">Домашно кино</a></li>
 		        <li><a href="#">DVD плейъри</a></li>
@@ -86,7 +86,7 @@
 		    <li>
 		      <a href="#">КОМПЮТРИ И ПЕРИФЕРИЯ</a>
 		      <ul>
-		       <li><a href="#">Лаптопи</a></li>
+		       <li><a href="products/16">Лаптопи</a></li>
 		        <li><a href="#">Аксесоари за Лаптоп</a></li>
 		        <li><a href="#">Компютри</a></li>
 		        <li><a href="#">Монитори</a></li>
@@ -105,7 +105,7 @@
 		    <li>
 		      <a href="#">ТЕЛЕФОНИ И ТАБЛЕТИ</a>
 		      <ul>
-		        <li><a href="#">Мобилни Телефони</a></li>
+		        <li><a href="products/22">Мобилни Телефони</a></li>
 		        <li><a href="#">"Умни" часовници и гривни</a></li>
 		        <li><a href="#">Аксесоари за мобилни телефони</a></li>
 		        <li><a href="#">Таблети</a></li>
