@@ -43,7 +43,11 @@ public class UserDao {
 
 	public User getUser(String email, String pass) throws SQLException {
 		String sql = "SELECT id, email, first_name, last_name, password, gender, birth_date, is_admin FROM users WHERE email = ? AND password = ?";
-		PreparedStatement ps = manager.getConnection().prepareStatement(sql);
+		//PreparedStatement ps = manager.getConnection().prepareStatement(sql);
+		
+		Connection connection = DBManager.getInstance().getConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		
 		ps.setString(1, email);
 		ps.setString(2, pass);
 		ResultSet result = ps.executeQuery();

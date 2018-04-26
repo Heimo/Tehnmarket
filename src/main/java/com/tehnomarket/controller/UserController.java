@@ -30,7 +30,7 @@ public class UserController {
 		try {
 			UserDao.saveUser(u);
 		} catch (SQLException e) {
-			System.out.println("CANT CREATE USER");
+			return "registrationError";
 		}
 		return "index";
 	}
