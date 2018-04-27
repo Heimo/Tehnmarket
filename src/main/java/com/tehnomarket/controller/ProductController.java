@@ -26,13 +26,16 @@ import com.tehnomarket.model.dao.ProductDao;
 @Controller
 public class ProductController {
 
-	@RequestMapping(value="products/{categoryId}",method=RequestMethod.GET)
-	public String goToProducts(@RequestParam("categoryId") int catId,Model m) {
+	@RequestMapping(value="/products/{catId}",method=RequestMethod.GET)
+	public String goToProducts(@PathVariable("catId") Integer catId,Model m) {
+		
+		System.out.println(catId);
 		
 		ArrayList<Product> products = new ArrayList<Product>();
 		
 		try {
 			 products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(catId);
+			 System.out.println("no problem from db");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return "products_error_page";
@@ -40,6 +43,7 @@ public class ProductController {
 		
 		m.addAttribute("products", products);
 		if(products.isEmpty()) {
+			System.out.println("nqma produkti");
 			return "products_error_page";
 		}
 		return "products";

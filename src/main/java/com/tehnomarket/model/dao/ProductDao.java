@@ -31,7 +31,7 @@ public class ProductDao {
 	
 	
 	// search works with name
-	public Collection<Product> search(String search) throws SQLException {
+	public static Collection<Product> search(String search) throws SQLException {
 		Collection<Product> products = new ArrayList<Product>();
 		String sql = "SELECT id, name, brand, price, discount, discount_end, product_image, categories_id FROM products WHERE LOCATE(?,name)";
 
@@ -56,7 +56,7 @@ public class ProductDao {
 	}
 	
 	// returns product by id
-	public Product getProductById(int id) throws SQLException {
+	public static Product getProductById(int id) throws SQLException {
 		String sql = "SELECT id, name, brand, price, discount, discount_end, product_image, categories_id FROM products WHERE id = ?";
 		
 		Connection connection = DBManager.getInstance().getConnection();
@@ -81,7 +81,7 @@ public class ProductDao {
 	
 	
 	// Function for returning product pages by categories
-	public List<Product> getProductByCat(int catId) throws SQLException{
+	public static List<Product> getProductByCat(int catId) throws SQLException{
 		List<Product> products = new ArrayList<Product>();
 		String sql = "SELECT id, name, brand, price,info, discount, discount_end, product_image, categories_id FROM products WHERE categories_id=?";
 
@@ -100,9 +100,16 @@ public class ProductDao {
 					result.getDate("discount_end"),
 					result.getString("product_image"),
 					result.getInt("categories_id"));
+			products.add(p);
+		}
+		if(products.isEmpty()) {
+			return null;
+		}
+		else {
 			return products;
 		}
-		return null;
+		
+	
 		
 	}
 		
