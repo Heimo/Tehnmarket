@@ -20,7 +20,7 @@
 		<jsp:include page="header.jsp"/>
 		
 		<% User user = (User) session.getAttribute("user");
-		 HashSet<Integer> cart = (HashSet<Integer>)session.getAttribute("cart");
+		 ArrayList<Integer> cart = (ArrayList<Integer>)session.getAttribute("cart");
 	       ArrayList<Product> products = (ArrayList<Product>)request.getAttribute("products");
 	    %>
 		

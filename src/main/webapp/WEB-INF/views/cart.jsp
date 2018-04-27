@@ -16,7 +16,7 @@
 
 	<% User user = (User) session.getAttribute("user");
 	Product product = (Product) request.getAttribute("product");
-	 Map<Product,Integer> cart = (HashMap<Product,Integer>)session.getAttribute("cart");
+	 ArrayList<Integer> cart = (ArrayList<Integer>)session.getAttribute("cart");
    %>
 	   
 <body>
@@ -39,18 +39,9 @@
 	<a href="login">Click here to login</a>
 	<%} %>
 	
-	<br>
-	<br>
-	<%if(cart!= null){
-		for(Entry<Product,Integer> e: cart.entrySet()){ %>
-				Id:<%=e.getKey().getId() %><br>
-				Name:<%=e.getKey().getName() %><br>
-				Brand:<%=e.getKey().getBrand() %><br>
-				Price:<%=e.getKey().getPrice() %><br>
-				Quantity:<%=e.getValue() %><br>
-			<br>	
-		<%}
-		}%>
-	
+	<%for(int i=0;i<cart.size();i++){ %>
+		This item is number <%=cart.get(i) %>
+		<br>
+		<%} %>
 </body>
 </html>

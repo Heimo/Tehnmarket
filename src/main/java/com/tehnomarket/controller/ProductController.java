@@ -72,7 +72,7 @@ public class ProductController {
 	}
 	
 	
-	// The cart is saved in a session with a HashSet
+	// The cart is saved in a session with an ArrayList 
 	@RequestMapping(value="products/add_to_cart/{id}",method=RequestMethod.GET)
 	public String addToCart(HttpSession session,@PathVariable("id") Integer id) {
 		// add to session 
@@ -82,22 +82,27 @@ public class ProductController {
 		System.out.println("Adding "+id+"to the cart");
 		
 		//get the cart from session
-		HashSet<Integer> theCart = new HashSet<Integer>();
+		ArrayList<Integer> theCart = new ArrayList<Integer>();
 		
-		HashSet<Integer> cart = (HashSet<Integer>) session.getAttribute("cart");
+		ArrayList<Integer> cart1 = (ArrayList<Integer>) session.getAttribute("cart");
 		
 		// do this if cart does not exist already
-		if(cart!=null) {
-			theCart.addAll(cart);
+		if(cart1!=null) {
+			theCart.addAll(cart1);
 		}
 		
 		//add product id to set
 		theCart.add(id);
 		
+		//put them in a set to remove possible duplicates
+		HashSet<Integer> temp = new HashSet<Integer>(theCart);
+		theCart.clear();
+		theCart.addAll(temp);
+		
 		//save new cart to session	
 		session.setAttribute("cart", theCart);
 		
-		return "index";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="product/{id}",method=RequestMethod.GET)
