@@ -91,7 +91,7 @@ public class ProductDao {
 		ps.setInt(1, catId);
 		ResultSet result = ps.executeQuery();
 		while(result.next()) {
-			System.out.println("one more item");
+			
 			Product p = new Product(result.getInt("id"),
 					result.getString("name"),
 					result.getString("brand"),
