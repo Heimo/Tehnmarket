@@ -21,7 +21,7 @@
 					${product.price }
 				</div>
 				<div id="product">
-					<a href="product?id=${product.id}">
+					<a href="product/${product.id}">
 						<img src="https://i.imgur.com/01HYjJA.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>

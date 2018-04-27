@@ -1,4 +1,5 @@
 <%@page import="java.util.HashMap"%>
+<%@page import="java.util.HashSet"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.tehnomarket.model.Product"%>
 <%@page import="java.util.ArrayList"%>
@@ -19,7 +20,7 @@
 		<jsp:include page="header.jsp"/>
 		
 		<% User user = (User) session.getAttribute("user");
-		 Map<Product,Integer> cart = (HashMap<Product,Integer>)session.getAttribute("cart");
+		 HashSet<Integer> cart = (HashSet<Integer>)session.getAttribute("cart");
 	       ArrayList<Product> products = (ArrayList<Product>)request.getAttribute("products");
 	    %>
 		
