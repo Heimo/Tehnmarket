@@ -2,6 +2,8 @@ package com.tehnomarket.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,7 +32,7 @@ import com.tehnomarket.model.dao.ProductDao;
 public class ProductController {
 
 	@RequestMapping(value="/products/{catId}",method=RequestMethod.GET)
-	public String goToProducts(@PathVariable("catId") Integer catId,Model m) {
+	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session) {
 		
 		System.out.println(catId);
 		
@@ -49,6 +51,36 @@ public class ProductController {
 			System.out.println("nqma produkti");
 			return "products_error_page";
 		}
+		
+		
+		m.addAttribute("categoryId", catId);
+		session.setAttribute("position", catId);
+		return "/products";
+	}
+	
+	@RequestMapping(value="sort/{sort}",method=RequestMethod.GET)
+	public String goToProductsSorted(@PathVariable("sort") String sortType,Model m,HttpSession session) {
+		
+		
+		int position = (int) session.getAttribute("position");
+		ArrayList<Product> products = new ArrayList<Product>();
+		
+		try {
+			 products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(position);
+			 System.out.println("no problem from db");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "products_error_page";
+		}
+		
+		if(sortType.equals("min")) {
+			Collections.sort(products, (p1,p2)-> Float.compare(p1.getPrice(), p2.getPrice()));
+		}
+		else {
+			Collections.sort(products, (p1,p2)-> Float.compare(p2.getPrice(), p1.getPrice()));
+		}
+		m.addAttribute("products", products);
+		
 		return "products";
 	}
 	
@@ -106,8 +138,11 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="product/{id}",method=RequestMethod.GET)
-	public String goToProduct(HttpServletRequest request,Model m,@PathVariable("id") Integer id) {
+	public String goToProduct(HttpServletRequest request,Model m,@PathVariable("id") Integer id,HttpSession session) {
 		
+		
+		session.setAttribute("position", id);
+		System.out.println("SESSION ID IS"+id);
 		int productId = Integer.parseInt(request.getParameter("id"));
 		// D change 
 		productId = id;

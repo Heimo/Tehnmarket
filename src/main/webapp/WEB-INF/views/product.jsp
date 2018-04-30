@@ -14,7 +14,7 @@
 
 	<% User user = (User) session.getAttribute("user");
 	Product product = (Product) request.getAttribute("product");
-	 Map<Product,Integer> cart = (Map<Product,Integer>)session.getAttribute("cart");
+	 ArrayList<Integer> cart =(ArrayList<Integer>) session.getAttribute("cart");
    %>
 	   
 <body>

@@ -10,7 +10,19 @@
 	
 	<body>
 		
+		<jsp:include page="header.jsp"/>
+		
+		<div id="arrow_down">
+					<a href="sort/min">
+						<img src="https://i.imgur.com/WJEhGM1.png" alt="cart" style="width:42px;height:42px;border:0">
+					</a>
+		</div>
 	
+		<div id="arrow_up">
+					<a href="sort/max">
+						<img src="https://i.imgur.com/oG3CR7i.png" alt="cart" style="width:42px;height:42px;border:0">
+					</a>
+		</div>
 		
 		<c:forEach var="product" items="${ products }"  >
 			<div id="product">

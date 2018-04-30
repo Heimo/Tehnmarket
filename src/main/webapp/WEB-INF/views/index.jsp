@@ -35,6 +35,7 @@
 		<br>
 		<% if(user != null) {%>
 		Hello <%= user.getFirstName()+" "+user.getLastName() %>
+		<a href="Account">Account page</a>
 		<a href="login">Click here to logout</a>
 		<%} else {%>
 		<a href="login">Click here to login</a>

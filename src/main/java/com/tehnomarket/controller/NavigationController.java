@@ -20,7 +20,7 @@ public class NavigationController {
 
 	@RequestMapping(value= {"/index.html","homepage"},method=RequestMethod.GET)
 	public String sendIndex() {
-		return "index";
+		return "/index";
 	}
 	
 	@RequestMapping(value="cart",method=RequestMethod.GET)
