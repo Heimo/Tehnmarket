@@ -42,8 +42,7 @@
 		ul li ul li:hover {background: #666;}
 		
 	</style>
-</head>
-<link href="css/header.css" rel="stylesheet" type="text/css" />	
+</head>	
 <body>
 		<div id="banner">
 		<a href="index.html">
