@@ -92,7 +92,8 @@ public class ProductDao {
 		ResultSet result = ps.executeQuery();
 		while(result.next()) {
 			
-			Product p = new Product(result.getInt("id"),
+			Product p = new Product(
+					result.getInt("id"),
 					result.getString("name"),
 					result.getString("brand"),
 					result.getFloat("price"),
@@ -112,6 +113,33 @@ public class ProductDao {
 		
 	
 		
+	}
+
+
+	public static ArrayList<Integer> getProductQuantities(ArrayList<Integer> itemIds) throws SQLException {
+		ArrayList<Integer> quantities = new ArrayList<Integer>();
+		
+		System.out.println("GOT TO THE DAO");
+		
+		for(int i=0;i<itemIds.size();i++) {
+			String sql = "SELECT quantity FROM products_has_store WHERE products_id=?";
+			
+			Connection connection = DBManager.getInstance().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			
+			ps.setInt(1, itemIds.get(i));
+			ResultSet result = ps.executeQuery();
+			
+			System.out.println("INSIDE FOR LOOP"+i);
+			while(result.next()) {
+				System.out.println(result.getInt("quantity"));
+				quantities.add(result.getInt("quantity"));
+			}
+			
+			
+		}
+		
+		return quantities;
 	}
 		
 
