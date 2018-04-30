@@ -3,6 +3,46 @@
     <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<head>
+	<style>
+		div a {
+		    text-decoration: none;
+		    color: white;
+		    font-size: 20px;
+		    padding: 15px;
+		    display:inline-block;
+		}
+		
+		banner{
+			display:inline-block;
+		}
+		
+		search {
+			display:inline-block;
+		}
+		
+		ul {
+		  display: inline;
+		  margin: 0;
+		  padding: 0;
+		}
+		ul li {display: inline-block;}
+		ul li:hover {background: gray;}
+		ul li:hover ul {display: block;}
+		ul li ul {
+		  position: absolute;
+		  width: 200px;
+		  display: none;
+		}
+		ul li ul li { 
+		  background: black; 
+		  display: block; 
+		}
+		ul li ul li a {display:block !important;} 
+		ul li ul li:hover {background: #666;}
+		
+	</style>
+</head>
 <link href="css/header.css" rel="stylesheet" type="text/css" />	
 <body>
 		<div id="banner">

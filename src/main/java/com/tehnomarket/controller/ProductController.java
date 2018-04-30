@@ -105,12 +105,13 @@ public class ProductController {
 	
 	
 	// The cart is saved in a session with an ArrayList 
-	@RequestMapping(value="products/add_to_cart/{id}",method=RequestMethod.GET)
-	public String addToCart(HttpSession session,@PathVariable("id") Integer id) {
+	@RequestMapping(value="*/add_to_cart",method=RequestMethod.GET)
+	public String addToCart(HttpSession session,HttpServletRequest request) {
 		// add to session 
 		// check if basket exists in session
 		// basket should be a collection of products and their quantity
 		// quantity by default will be 1 when added
+		int id =Integer.parseInt(request.getParameter("id"));
 		System.out.println("Adding "+id+"to the cart");
 		
 		//get the cart from session

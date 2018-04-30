@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.tehnomarket.model.Product"%>
 <%@page import="com.tehnomarket.model.User"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -48,7 +49,7 @@
 		<div align="right" style="font-size: 40px;">
 			Price:<%=product.getPrice() %><br>
 			<form action="add_to_cart" method="get">
-				<button name ="id" type="submit" value="<%= product.getId() %>">Add to Basket</button>
+				<button id="button" name ="id" type="submit" value="<%= product.getId() %>">Add to Basket</button>
 			</form>
 		</div>
 	
