@@ -143,7 +143,7 @@ public class ProductController {
 		
 		session.setAttribute("position", id);
 		System.out.println("SESSION ID IS"+id);
-		int productId = Integer.parseInt(request.getParameter("id"));
+		int productId;
 		// D change 
 		productId = id;
 		

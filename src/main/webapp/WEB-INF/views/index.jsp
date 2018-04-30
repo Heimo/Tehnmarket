@@ -46,7 +46,7 @@
 		
 		<%if(products!= null){
 		for(Product p: products){ %>
-			<a href="product?id=<%=p.getId()%>">
+			<a href="product/<%=p.getId()%>">
 				Id:<%=p.getId() %><br>
 				Name:<%=p.getName() %><br>
 				Brand:<%=p.getBrand() %><br>
