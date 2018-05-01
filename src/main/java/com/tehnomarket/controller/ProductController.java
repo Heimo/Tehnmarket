@@ -166,17 +166,17 @@ public class ProductController {
 	}
 	
 	// Controller for adding to favourites
-	@RequestMapping(value="*/add_to_fav",method=RequestMethod.GET)
-	public String addToFav(HttpServletRequest request,HttpSession session ) {
+	@RequestMapping(value="*/add_to_fav/{id}",method=RequestMethod.GET)
+	public String addToFav(HttpServletRequest request,HttpSession session,@PathVariable("id") Integer id ) {
 		
-		int idItem =Integer.parseInt(request.getParameter("id"));
-		System.out.println("Adding "+idItem+"to the fav");
+		//int idItem =Integer.parseInt(request.getParameter("id"));
+		System.out.println("Adding "+id+"to the fav");
 		User user = (User) session.getAttribute("user");
 		
 		long userId = user.getId();
 		
 		try {
-			ProductDao.addToFavourites(userId,idItem);
+			ProductDao.addToFavourites(userId,id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
