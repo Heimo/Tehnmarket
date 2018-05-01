@@ -41,5 +41,9 @@
 				<button type="submit">Change Product</button>
 			</form>
 	
+	<form action="editUser" method="get">
+				<button type="submit">Edit User Data</button>
+			</form>
+	
 </body>
 </html>

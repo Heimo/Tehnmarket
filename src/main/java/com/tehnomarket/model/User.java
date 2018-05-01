@@ -61,7 +61,19 @@ public class User {
 		this.dateOfBirth = dateOfBirth;
 		this.isAdmin = isAdmin;
 	}
+		
 	
+	public User(String firstName, String lastName, String password, String passwordCheck, String gender,
+			Date dateOfBirth) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.passwordCheck = passwordCheck;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	public User(long id, String email, String firstName, String lastName, String password, String gender, Date dateOfBirth,
 			boolean isAdmin) {
 		this(email,firstName,lastName,password,gender,dateOfBirth,isAdmin);

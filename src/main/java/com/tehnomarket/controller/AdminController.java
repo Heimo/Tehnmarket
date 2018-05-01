@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tehnomarket.model.Category;
 import com.tehnomarket.model.Product;
+import com.tehnomarket.model.User;
 import com.tehnomarket.model.dao.CategoryDao;
 import com.tehnomarket.model.dao.ProductDao;
+import com.tehnomarket.model.dao.UserDao;
+import com.tehnomarket.util.HashPassword;
 
 @Controller
 public class AdminController {
@@ -75,4 +79,43 @@ public class AdminController {
 		}
 		return "index";
 	}
+	
+	// CONTROLERS FOR EDITING USER 
+	
+	@RequestMapping(value="editUser",method=RequestMethod.GET)
+	public String editUser(HttpSession session,Model m) {
+		User oldUser = (User) session.getAttribute("user");
+		User u = new User();
+		
+		// set the data as the old data ! 
+		u.setFirstName(oldUser.getFirstName());
+		u.setLastName(oldUser.getLastName());
+		u.setDateOfBirth(oldUser.getDateOfBirth());
+		u.setGender(oldUser.getGender());
+		
+		m.addAttribute("edit_user", u);
+		
+		return "editUser";
+	}
+	
+	@RequestMapping(value="editUser",method=RequestMethod.POST)
+	public String newEditUser(@ModelAttribute User u) {
+		
+		try {
+			if(u.getPassword().equals(u.getPasswordCheck())) {
+				u.setPassword(HashPassword.hashPassword(u.getPassword()));
+				UserDao.editUser(u);
+			}
+			else {
+				return "registrationError";
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return "registrationError";
+		}
+		
+		
+		return "index";
+	}
+	
 }

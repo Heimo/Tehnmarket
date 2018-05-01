@@ -26,7 +26,9 @@ public class ImageController {
 	public String showUploadForm() {
 		return "upload";
 	}
-
+	
+	// NOT FIXED FOR OUR SITE, copy/paste from krasi !!!
+	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String saveImage(Model m, @RequestParam("failche") MultipartFile uploadedFile) throws IOException {
 //		String extension = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
