@@ -16,6 +16,7 @@ public class Product {
 	
 	//will do a builder here
 	
+	public Product() {}
 	
 	public Product(int id, String name, String brand, float price,String info, int discount,Date discountEnd,String image,long categoryId) {
 		this.id = id;
@@ -60,6 +61,38 @@ public class Product {
 
 	public void setInfo(String info) {
 		this.info = info;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public void setDiscountEnd(Date discountEnd) {
+		this.discountEnd = discountEnd;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
 	}
 	
 	

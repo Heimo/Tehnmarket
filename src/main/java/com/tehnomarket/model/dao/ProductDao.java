@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.tehnomarket.controller.DBManager;
 import com.tehnomarket.model.Product;
+import com.tehnomarket.model.User;
 
 
 @Component
@@ -142,5 +143,50 @@ public class ProductDao {
 		return quantities;
 	}
 		
+	public static void saveProduct(Product p) throws SQLException {
+		String sql = "INSERT INTO products(name, brand, price, discount, discount_end, product_image,categories_id) VALUES (?, ?, ?, ?,?,?,?)";
+		Connection connection = DBManager.getInstance().getConnection();
+		
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setString(1, p.getName());
+		ps.setString(2, p.getBrand());
+		ps.setFloat(3, p.getPrice());
+		ps.setInt(4, p.getDiscount());
+		ps.setDate(5, p.getDiscountEnd());
+		ps.setString(6, p.getImage());
+		ps.setLong(7, p.getCategoryId());
+		ps.executeUpdate();
+	}
+	
+	public static void deleteProductById(int id) throws SQLException {
+		String sql = "DELETE FROM products WHERE id= ?";
+		Connection connection = DBManager.getInstance().getConnection();
+		
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ps.setInt(1, id);
+		ps.executeUpdate();
+	}
+	
+	public static Collection<Product> getAllProducts() throws SQLException {
+		Collection<Product> products = new ArrayList<Product>();
+		String sql = "SELECT id, name, brand, price, discount, discount_end, product_image, categories_id FROM products";
+
+		Connection connection = DBManager.getInstance().getConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		ResultSet result = ps.executeQuery();
+		while(result.next()) {
+			Product p = new Product(result.getInt("id"),
+					result.getString("name"),
+					result.getString("brand"),
+					result.getFloat("price"),
+					null,
+					result.getInt("discount"),
+					result.getDate("discount_end"),
+					result.getString("product_image"),
+					result.getInt("categories_id"));
+			products.add(p);
+		}
+		return products;
+	}
 
 }
