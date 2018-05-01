@@ -28,7 +28,7 @@
 			<br>
 				Name:<%=product.getName() %><br>
 				Brand:<%=product.getBrand() %><br>
-				
+				<img src="${pageContext.request.contextPath}/download/<%=product.getBrand()%>.jpg">
 		</div>
 		
 		<div align="right" style="font-size: 40px;">
