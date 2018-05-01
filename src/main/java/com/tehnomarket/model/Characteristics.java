@@ -4,9 +4,9 @@ public class Characteristics {
 
 	private int id;
 	private String name;
-	private Categories category;
+	private Category category;
 	
-	public Characteristics(int id,String name,Categories cat) {
+	public Characteristics(int id,String name,Category cat) {
 		this.id=id;
 		this.name=name;
 		this.category=cat;
@@ -28,11 +28,11 @@ public class Characteristics {
 		this.name = name;
 	}
 
-	public Categories getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(Categories category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 	

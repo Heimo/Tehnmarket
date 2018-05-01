@@ -1,17 +1,17 @@
 package com.tehnomarket.model;
 
-public class Categories {
+public class Category {
 
 	private int categoryId;
 	private String categoryName;
 	private int parentCategoryId;
 	
-	public Categories(int id,String name){
+	public Category(int id,String name){
 		this.categoryId = id;
 		this.categoryName = name;
 	}
 	
-	public Categories(int id,String name,int parent) {
+	public Category(int id,String name,int parent) {
 		this(id,name);
 		this.parentCategoryId = parent;
 	}
