@@ -38,7 +38,11 @@
 					</a>
 				</div>
 				<div id="cart">	
+<<<<<<< HEAD
 					<a href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
+=======
+					<a href="add_to_cart?id=${product.id}">
+>>>>>>> 87c5facf9f97ca6e4ddce609e72c4db100250d1c
   					<img src="https://i.imgur.com/0WDHoat.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>

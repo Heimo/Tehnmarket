@@ -2,38 +2,42 @@ package com.tehnomarket.model;
 
 public class Characteristics {
 
-	private int id;
+	private int productsId;
+	private int characteristicsId;
 	private String name;
-	private Category category;
+	private String input;
+		
+	public Characteristics(int productsId, int characteristicsId, String name, String input) {
+		super();
+		this.productsId = productsId;
+		this.characteristicsId = characteristicsId;
+		this.name = name;
+		this.input = input;
+	}
 	
-	public Characteristics(int id,String name,Category cat) {
-		this.id=id;
-		this.name=name;
-		this.category=cat;
+	public int getProductsId() {
+		return productsId;
 	}
-
-	public int getId() {
-		return id;
+	public void setProductsId(int productsId) {
+		this.productsId = productsId;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public int getCharacteristicsId() {
+		return characteristicsId;
 	}
-
+	public void setCharacteristicsId(int characteristicsId) {
+		this.characteristicsId = characteristicsId;
+	}
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Category getCategory() {
-		return category;
+	public String getInput() {
+		return input;
 	}
-
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setInput(String input) {
+		this.input = input;
 	}
 	
 	

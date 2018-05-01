@@ -32,8 +32,15 @@ import com.tehnomarket.model.dao.ProductDao;
 @Controller
 public class ProductController {
 
+<<<<<<< HEAD
 	@RequestMapping(value="/products/{catId}",method=RequestMethod.GET)
 	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session,HttpServletRequest request) {
+=======
+	@RequestMapping(value= {"/products/{catId}","*/products/{catId}"},method=RequestMethod.GET)
+	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session) {
+		
+		System.out.println(catId);
+>>>>>>> 87c5facf9f97ca6e4ddce609e72c4db100250d1c
 		
 		System.out.println(catId + request.getContextPath());
 	
@@ -53,12 +60,21 @@ public class ProductController {
 			return "products_error_page";
 		}
 		
+<<<<<<< HEAD
 		//m.addAttribute("categoryId", catId);
+=======
+		
+		m.addAttribute("categoryId", catId);
+		
+		// "position in session saves the last category you have been 
+>>>>>>> 87c5facf9f97ca6e4ddce609e72c4db100250d1c
 		session.setAttribute("position", catId);
 		return "products";
 	}
 	
-	@RequestMapping(value="sort/{sort}",method=RequestMethod.GET)
+	
+	// SORTING OF PRODUCTS 
+	@RequestMapping(value="*/sort/{sort}",method=RequestMethod.GET)
 	public String goToProductsSorted(@PathVariable("sort") String sortType,Model m,HttpSession session) {
 		
 		
