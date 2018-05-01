@@ -13,13 +13,13 @@
 		<jsp:include page="header.jsp"/>
 		
 		<div id="arrow_down">
-					<a href="sort/min">
+					<a href="${pageContext.request.contextPath}/sort/min">
 						<img src="https://i.imgur.com/WJEhGM1.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 		</div>
 	
 		<div id="arrow_up">
-					<a href="sort/max">
+					<a href="${pageContext.request.contextPath}/sort/max">
 						<img src="https://i.imgur.com/oG3CR7i.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 		</div>
@@ -33,17 +33,17 @@
 					${product.price }
 				</div>
 				<div id="product">
-					<a href="product/${product.id}">
+					<a href="${pageContext.request.contextPath}/product/${product.id}">
 						<img src="https://i.imgur.com/01HYjJA.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>
 				<div id="cart">	
-					<a href="add_to_cart/${product.id}">
+					<a href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
   					<img src="https://i.imgur.com/0WDHoat.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>
 				<div id="fav">
-					<a href="add_to_fav/${product.id}">
+					<a href="${pageContext.request.contextPath}/add_to_fav/${product.id}">
   					<img src="https://i.imgur.com/66Z0rB5.png" alt="heart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>

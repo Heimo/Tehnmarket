@@ -13,31 +13,15 @@
 <title>Insert title here</title>
 </head>
 
-	<% User user = (User) session.getAttribute("user");
+	<%
 	Product product = (Product) request.getAttribute("product");
-	 ArrayList<Integer> cart =(ArrayList<Integer>) session.getAttribute("cart");
    %>
 	   
 <body>
 
 	<jsp:include page="header.jsp"/>
 	
-	<a href="cart">
-		Cart:
-		<% if(cart == null){ %>
-		 0
-		<% }else{%>
-			<%=cart.size()%>
-			<% }%>
-	</a>
-	<br>
-	<% if(user != null) {%>
-	Hello <%= user.getFirstName()+" "+user.getLastName() %>
-	<a href="login">Click here to logout</a>
-	<%} else {%>
-	<a href="login">Click here to login</a>
-	<%} %>
-	
+
 	<div style="height: 300px;width: 400px;">
 		<div align="left">
 			<br>

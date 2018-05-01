@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpRequest;
@@ -32,10 +33,10 @@ import com.tehnomarket.model.dao.ProductDao;
 public class ProductController {
 
 	@RequestMapping(value="/products/{catId}",method=RequestMethod.GET)
-	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session) {
+	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session,HttpServletRequest request) {
 		
-		System.out.println(catId);
-		
+		System.out.println(catId + request.getContextPath());
+	
 		ArrayList<Product> products = new ArrayList<Product>();
 		
 		try {
@@ -52,10 +53,9 @@ public class ProductController {
 			return "products_error_page";
 		}
 		
-		
-		m.addAttribute("categoryId", catId);
+		//m.addAttribute("categoryId", catId);
 		session.setAttribute("position", catId);
-		return "/products";
+		return "products";
 	}
 	
 	@RequestMapping(value="sort/{sort}",method=RequestMethod.GET)

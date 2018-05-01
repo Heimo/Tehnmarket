@@ -1,6 +1,9 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tehnomarket.model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,7 +48,7 @@
 </head>	
 <body>
 		<div id="banner">
-		<a href="index.html">
+		<a href="${pageContext.request.contextPath}/index.html">
 			<img src="https://i.imgur.com/7tnAVEG.png" alternative="banner">
 		</a>
 			
@@ -53,7 +56,7 @@
 
 
 		<div id="search">
-			<f:form action="searchProduct">
+			<f:form action="${pageContext.request.contextPath}/searchProduct">
 				<input type="text" name="search" requred/> 
 				<input type="submit" value="Search"/>
 			</f:form>
@@ -65,7 +68,7 @@
 		    <li>
 		      <a href="#">ТЕЛЕВИЗОРИ И АУДИО</a>
 		      <ul>
-		        <li><a href="products/7">Телевизори</a></li>
+		        <li><a href="${pageContext.request.contextPath}/products/7">Телевизори</a></li>
 		        <li><a href="#">ТВ аксесоари</a></li>
 		        <li><a href="#">Домашно кино</a></li>
 		        <li><a href="#">DVD плейъри</a></li>
@@ -82,7 +85,7 @@
 		    <li>
 		      <a href="#">КОМПЮТРИ И ПЕРИФЕРИЯ</a>
 		      <ul>
-		       <li><a href="products/16">Лаптопи</a></li>
+		       <li><a href="${pageContext.request.contextPath}/products/16">Лаптопи</a></li>
 		        <li><a href="#">Аксесоари за Лаптоп</a></li>
 		        <li><a href="#">Компютри</a></li>
 		        <li><a href="#">Монитори</a></li>
@@ -101,7 +104,7 @@
 		    <li>
 		      <a href="#">ТЕЛЕФОНИ И ТАБЛЕТИ</a>
 		      <ul>
-		        <li><a href="products/22">Мобилни Телефони</a></li>
+		        <li><a href="${pageContext.request.contextPath}/products/22">Мобилни Телефони</a></li>
 		        <li><a href="#">"Умни" часовници и гривни</a></li>
 		        <li><a href="#">Аксесоари за мобилни телефони</a></li>
 		        <li><a href="#">Таблети</a></li>
@@ -166,5 +169,29 @@
 		  </ul>
 		  
 		</div>
+		
+		<% User user = (User) session.getAttribute("user");
+		 ArrayList<Integer> cart = (ArrayList<Integer>)session.getAttribute("cart");
+		 %>
+		 
+		 <a href="${pageContext.request.contextPath}/cart">
+			Cart:
+			<% if(cart == null){ %>
+			 0
+			<% }else{%>
+			<%=cart.size()%>
+			<% }%>
+		</a>
+		<br>
+		<% if(user != null) {%>
+		Hello <%= user.getFirstName()+" "+user.getLastName() %>
+		<a href="${pageContext.request.contextPath}/Account">Account page</a>
+		<a href="${pageContext.request.contextPath}/login">Click here to logout</a>
+		<%} else {%>
+		<a href="${pageContext.request.contextPath}/login">Click here to login</a>
+		<%} %>
+		
+		<br>
+		<br>
 </body>
 </html>

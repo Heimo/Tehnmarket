@@ -19,30 +19,11 @@
 		
 		<jsp:include page="header.jsp"/>
 		
-		<% User user = (User) session.getAttribute("user");
-		 ArrayList<Integer> cart = (ArrayList<Integer>)session.getAttribute("cart");
+		<%
 	       ArrayList<Product> products = (ArrayList<Product>)request.getAttribute("products");
 	    %>
 		
-		<a href="cart">
-			Cart:
-			<% if(cart == null){ %>
-			 0
-			<% }else{%>
-			<%=cart.size()%>
-			<% }%>
-		</a>
-		<br>
-		<% if(user != null) {%>
-		Hello <%= user.getFirstName()+" "+user.getLastName() %>
-		<a href="Account">Account page</a>
-		<a href="login">Click here to logout</a>
-		<%} else {%>
-		<a href="login">Click here to login</a>
-		<%} %>
 		
-		<br>
-		<br>
 		
 		<%if(products!= null){
 		for(Product p: products){ %>
