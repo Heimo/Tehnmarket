@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tehnomarket.model.Characteristics;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
+import com.tehnomarket.model.dao.CharacteristicsDao;
 import com.tehnomarket.model.dao.ProductDao;
 
 @Controller
@@ -161,6 +163,7 @@ public class ProductController {
 	@RequestMapping(value="product/{id}",method=RequestMethod.GET)
 	public String goToProduct(HttpServletRequest request,Model m,@PathVariable("id") Integer id,HttpSession session) {
 		
+		ArrayList<Characteristics> characts = new ArrayList<Characteristics>();
 		
 		session.setAttribute("position", id);
 		System.out.println("SESSION ID IS"+id);
@@ -171,7 +174,9 @@ public class ProductController {
 		
 		try {
 			Product product = ProductDao.getInstance().getProductById(productId);
+			characts = CharacteristicsDao.getInstance().getAllProductChar(productId);
 			m.addAttribute("product",product);
+			m.addAttribute("characeristics",characts);
 			System.out.println("tuka "+ productId + " sum "+product );
 			if(product!=null){
 				return "product";
@@ -186,7 +191,7 @@ public class ProductController {
 	}
 	
 	// Controller for adding to favourites
-	@RequestMapping(value="*/add_to_fav/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/add_to_fav/{id}",method=RequestMethod.GET)
 	public String addToFav(HttpServletRequest request,HttpSession session,@PathVariable("id") Integer id ) {
 		
 		//int idItem =Integer.parseInt(request.getParameter("id"));
