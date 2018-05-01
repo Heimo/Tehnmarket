@@ -55,8 +55,6 @@ public class ProductController {
 			return "products_error_page";
 		}
 		
-		m.addAttribute("categoryId", catId);
-		
 		// "position in session saves the last category you have been 
 		m.addAttribute("categoryId", catId);
 		
@@ -67,19 +65,30 @@ public class ProductController {
 	
 	
 	// SORTING OF PRODUCTS 
-	@RequestMapping(value="*/sort/{sort}",method=RequestMethod.GET)
+	@RequestMapping(value="/sort/{sort}",method=RequestMethod.GET)
 	public String goToProductsSorted(@PathVariable("sort") String sortType,Model m,HttpSession session) {
 		
-		
-		int position = (int) session.getAttribute("position");
 		ArrayList<Product> products = new ArrayList<Product>();
 		
-		try {
-			 products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(position);
-			 System.out.println("no problem from db");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return "products_error_page";
+		//sort by category
+		Integer position = (Integer) session.getAttribute("position");
+		if(position != null) {
+			try {
+				products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(position);
+				System.out.println("no problem from db");
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return "products_error_page";
+			}
+		}else {
+			String search = (String) session.getAttribute("search");
+			try {
+				products = (ArrayList<Product>) ProductDao.getInstance().search(search);
+				System.out.println("no problem from db");
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return "products_error_page";
+			}
 		}
 		
 		if(sortType.equals("min")) {
@@ -94,7 +103,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="searchProduct",method=RequestMethod.POST)
-	public String searchProducts(@ModelAttribute("search") String search,Model m) {
+	public String searchProducts(@ModelAttribute("search") String search,Model m,HttpSession session) {
+		session.setAttribute("position", null);
 		System.out.println(search);
 		ArrayList<Product> products = new ArrayList<>();
 		
@@ -108,8 +118,9 @@ public class ProductController {
 			return "products_error_page";
 		}
 		
+		session.setAttribute("search",search);
 		
-		return "index";
+		return "products";
 	}
 	
 	
