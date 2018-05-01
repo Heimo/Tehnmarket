@@ -31,7 +31,7 @@ import com.tehnomarket.model.dao.ProductDao;
 @Controller
 public class ProductController {
 
-	@RequestMapping(value="/products/{catId}",method=RequestMethod.GET)
+	@RequestMapping(value= {"/products/{catId}","*/products/{catId}"},method=RequestMethod.GET)
 	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session) {
 		
 		System.out.println(catId);
@@ -58,7 +58,7 @@ public class ProductController {
 		return "/products";
 	}
 	
-	@RequestMapping(value="sort/{sort}",method=RequestMethod.GET)
+	@RequestMapping(value="*/sort/{sort}",method=RequestMethod.GET)
 	public String goToProductsSorted(@PathVariable("sort") String sortType,Model m,HttpSession session) {
 		
 		
