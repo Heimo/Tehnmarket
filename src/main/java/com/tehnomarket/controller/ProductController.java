@@ -164,4 +164,25 @@ public class ProductController {
 			return "products_error_page";
 		}
 	}
+	
+	// Controller for adding to favourites
+	@RequestMapping(value="*/add_to_fav",method=RequestMethod.GET)
+	public String addToFav(HttpServletRequest request,HttpSession session ) {
+		
+		int idItem =Integer.parseInt(request.getParameter("id"));
+		System.out.println("Adding "+idItem+"to the fav");
+		User user = (User) session.getAttribute("user");
+		
+		long userId = user.getId();
+		
+		try {
+			ProductDao.addToFavourites(userId,idItem);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "products_error_page";
+		}
+		
+		return "redirect:/";
+	}
 }

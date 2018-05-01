@@ -189,4 +189,30 @@ public class ProductDao {
 		return products;
 	}
 
+	// adds fav product 
+	public static void addToFavourites(long userId, int idItem) throws SQLException {
+		
+		String sql = "INSERT INTO favourite_products (users_id,products_id) VALUES (?,?)";
+		Connection connection = DBManager.getInstance().getConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		int userID = (int) userId;
+		ps.setInt(1, userID);
+		ps.setInt(2, idItem);
+		
+		ps.executeUpdate();				
+	}
+	
+	// removes fav product 
+	public static void removeFromFavourites(long userId,int idItem) throws SQLException {
+		
+		String sql = "DELETE FROM favourite_products WHERE users_id=? AND products_id=?";
+		Connection connection = DBManager.getInstance().getConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		int userID = (int) userId;
+		ps.setInt(1, userID);
+		ps.setInt(2, idItem);
+		
+		ps.executeUpdate();
+	}
+
 }
