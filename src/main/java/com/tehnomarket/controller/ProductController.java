@@ -54,10 +54,14 @@ public class ProductController {
 		
 		
 		m.addAttribute("categoryId", catId);
+		
+		// "position in session saves the last category you have been 
 		session.setAttribute("position", catId);
 		return "/products";
 	}
 	
+	
+	// SORTING OF PRODUCTS 
 	@RequestMapping(value="*/sort/{sort}",method=RequestMethod.GET)
 	public String goToProductsSorted(@PathVariable("sort") String sortType,Model m,HttpSession session) {
 		
