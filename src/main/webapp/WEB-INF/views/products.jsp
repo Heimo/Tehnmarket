@@ -39,6 +39,7 @@
 				</div>
 				<div id="cart">	
 					<a href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
+
   					<img src="https://i.imgur.com/0WDHoat.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>
