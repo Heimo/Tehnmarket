@@ -87,6 +87,9 @@ public class AdminController {
 	
 	@RequestMapping(value="editUser",method=RequestMethod.GET)
 	public String editUser(HttpSession session,Model m) {
+		
+		
+		
 		User oldUser = (User) session.getAttribute("user");
 		User u = new User();
 		
@@ -110,16 +113,18 @@ public class AdminController {
 				UserDao.editUser(u);
 			}
 			else {
+				System.out.println("PASSWORDS DIDN' MATCH OR SOMETHING");
 				m.addAttribute("error","Registration error");
 				return "error";
 			}
 		} catch (SQLException e) {
+			System.out.println("SOMETHING WENT WRONG WITH THE SQL ");
 			m.addAttribute("error","REgistration eror");
 			return "registrationError";
 		}
 		
 		
-		return "index";
+		return "redirect:/";
 	}
 	
 }

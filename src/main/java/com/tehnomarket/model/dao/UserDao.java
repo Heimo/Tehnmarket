@@ -86,11 +86,17 @@ public class UserDao {
 		PreparedStatement ps = connection.prepareStatement(sql);
 		
 		ps.setString(1, u.getPassword());
+		System.out.println(u.getPassword());
 		ps.setString(2, u.getFirstName());
-		ps.setString(1, u.getLastName());
+		System.out.println(u.getFirstName());
+		ps.setString(3, u.getLastName());
+		System.out.println(u.getLastName());
 		ps.setDate(4, u.getDateOfBirth());
+		System.out.println(u.getDateOfBirth());
 		ps.setString(5, u.getGender());
-		ps.setInt(1, (int)u.getId());
+		System.out.println(u.getGender());
+		ps.setInt(6, (int)u.getId());
+		System.out.println(u.getId());
 		
 		ps.executeUpdate();
 	}
