@@ -17,7 +17,7 @@ import com.tehnomarket.model.Product;
 public class OrderController {
 
 	
-	@RequestMapping(value="cart",method=RequestMethod.POST)
+	@RequestMapping(value="/cart",method=RequestMethod.POST)
 	public String goToOrder(Model m,HttpSession session) {
 		
 		HashMap<Product,Integer> cart = (HashMap<Product, Integer>) session.getAttribute("cart");

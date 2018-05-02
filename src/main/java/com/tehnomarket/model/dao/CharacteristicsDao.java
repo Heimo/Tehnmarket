@@ -43,6 +43,8 @@ public class CharacteristicsDao {
 		ps.setInt(1, productId);
 		ResultSet result = ps.executeQuery();
 		
+		
+		// handle with an empty arraylist
 		if(result==null || result.wasNull()) {
 			Characteristics c= new Characteristics(0,0,"none","none");
 			all.add(c);

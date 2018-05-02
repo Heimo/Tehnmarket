@@ -105,7 +105,7 @@ public class ProductController {
 		return "products";
 	}
 	
-	@RequestMapping(value="searchProduct",method=RequestMethod.POST)
+	@RequestMapping(value="/searchProduct",method=RequestMethod.POST)
 	public String searchProducts(@ModelAttribute("search") String search,Model m,HttpSession session) {
 		session.setAttribute("position", null);
 		System.out.println(search);
@@ -128,7 +128,7 @@ public class ProductController {
 	
 	
 	// The cart is saved in a session with an ArrayList 
-	@RequestMapping(value="add_to_cart/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/add_to_cart/{id}",method=RequestMethod.GET)
 	public String addToCart(HttpSession session,HttpServletRequest request,@PathVariable("id") int id) {
 		// add to session 
 		// check if basket exists in session
@@ -160,7 +160,7 @@ public class ProductController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="product/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/product/{id}",method=RequestMethod.GET)
 	public String goToProduct(HttpServletRequest request,Model m,@PathVariable("id") Integer id,HttpSession session) {
 		
 		ArrayList<Characteristics> characts = new ArrayList<Characteristics>();

@@ -95,7 +95,7 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value="favourites",method=RequestMethod.GET)
+	@RequestMapping(value="/favourites",method=RequestMethod.GET)
 	public String changeProduct(Model m,HttpSession session) {
 		
 		User u = (User)session.getAttribute("user");
@@ -113,7 +113,7 @@ public class UserController {
 		return "favouriteProducts";
 	}
 	
-	@RequestMapping(value="removeFavourite/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/removeFavourite/{id}",method=RequestMethod.GET)
 	public String removeFavourite(Model m,HttpSession session,@PathVariable("id") int productId) {
 		
 		User u = (User)session.getAttribute("user");

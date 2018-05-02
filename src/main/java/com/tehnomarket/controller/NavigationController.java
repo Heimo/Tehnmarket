@@ -18,7 +18,7 @@ import com.tehnomarket.model.dao.ProductDao;
 public class NavigationController {
 
 
-	@RequestMapping(value= {"index.html","homepage"},method=RequestMethod.GET)
+	@RequestMapping(value= {"/index.html","homepage"},method=RequestMethod.GET)
 	public String sendIndex() {
 		return "index";
 	}
@@ -29,7 +29,7 @@ public class NavigationController {
 	}
 
 	
-	@RequestMapping(value="cart",method=RequestMethod.GET)
+	@RequestMapping(value="/cart",method=RequestMethod.GET)
 	public String goToCart(HttpSession session,Model m) {
 		
 		//check if cart is empty

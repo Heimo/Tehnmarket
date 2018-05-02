@@ -23,12 +23,12 @@ import com.tehnomarket.util.HashPassword;
 @Controller
 public class AdminController {
 	
-	@RequestMapping(value="Account",method=RequestMethod.GET)
+	@RequestMapping(value="/Account",method=RequestMethod.GET)
 	public String accountPage(){
 		return "account";
 	}
 	
-	@RequestMapping(value="addProduct",method=RequestMethod.GET)
+	@RequestMapping(value="/addProduct",method=RequestMethod.GET)
 	public String addProduct(Model m) {
 		Product p = new Product();
 		ArrayList<Category> categories;
@@ -43,7 +43,7 @@ public class AdminController {
 		return "addProduct";
 	}
 	
-	@RequestMapping(value="addProduct",method=RequestMethod.POST)
+	@RequestMapping(value="/addProduct",method=RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("new_product") Product p,Model m) {
 		try {
 			System.out.println(p.getName() + " "+p.getBrand());
@@ -56,7 +56,7 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value="changeProduct",method=RequestMethod.GET)
+	@RequestMapping(value="/changeProduct",method=RequestMethod.GET)
 	public String changeProduct(Model m) {
 		
 		try {
@@ -69,7 +69,7 @@ public class AdminController {
 		return "changeProduct";
 	}
 	
-	@RequestMapping(value="deleteProduct",method=RequestMethod.GET)
+	@RequestMapping(value="/deleteProduct",method=RequestMethod.GET)
 	public String deleteProduct(HttpServletRequest request,Model m) {
 		
 		int id=Integer.parseInt(request.getParameter("id"));
@@ -85,7 +85,7 @@ public class AdminController {
 	
 	// CONTROLERS FOR EDITING USER 
 	
-	@RequestMapping(value="editUser",method=RequestMethod.GET)
+	@RequestMapping(value="/editUser",method=RequestMethod.GET)
 	public String editUser(HttpSession session,Model m) {
 		
 		
@@ -93,7 +93,9 @@ public class AdminController {
 		User oldUser = (User) session.getAttribute("user");
 		User u = new User();
 		
-		// set the data as the old data ! 
+		// set the data as the old data !
+		System.out.println("TESTING USER ID IS "+oldUser.getId());
+		u.setId(oldUser.getId());
 		u.setFirstName(oldUser.getFirstName());
 		u.setLastName(oldUser.getLastName());
 		u.setDateOfBirth(oldUser.getDateOfBirth());
@@ -104,10 +106,12 @@ public class AdminController {
 		return "editUser";
 	}
 	
-	@RequestMapping(value="editUser",method=RequestMethod.POST)
-	public String newEditUser(@ModelAttribute User u,Model m) {
+	@RequestMapping(value="/editUser",method=RequestMethod.POST)
+	public String newEditUser(@ModelAttribute User u,Model m,HttpSession session) {
 		
 		try {
+			User oldUser = (User) session.getAttribute("user");
+			u.setId(oldUser.getId());
 			if(u.getPassword().equals(u.getPasswordCheck())) {
 				u.setPassword(HashPassword.hashPassword(u.getPassword()));
 				UserDao.editUser(u);
