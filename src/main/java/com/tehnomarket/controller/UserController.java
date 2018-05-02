@@ -29,7 +29,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String newUser(@ModelAttribute User u) {
+	public String newUser(@ModelAttribute User u,Model m) {
 		
 		try {
 			if(u.getPassword().equals(u.getPasswordCheck())) {
@@ -37,11 +37,12 @@ public class UserController {
 				UserDao.saveUser(u);
 			}
 			else {
-				return "registrationError";
+				m.addAttribute("error", "Could not register");
+				return "error";
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return "registrationError";
+			m.addAttribute("error", "Could not register");
+			return "error";
 		}
 		return "index";
 		

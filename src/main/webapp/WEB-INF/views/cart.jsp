@@ -7,7 +7,8 @@
 <%@page import="com.tehnomarket.model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-	<%@include file="header.jsp"%>
+<%@include file="header.jsp"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,10 +18,18 @@
 
 	   
 <body>
-	
-	<%for(int i=0;i<cart.size();i++){ %>
-		This item is number <%=cart.get(i) %>
-		<br>
-		<%} %>
+	<c:choose>
+  		<c:when test="${cart == null}">
+   			Your cart is null
+  		</c:when>
+  		<c:when test="${cart.size() == 0}">
+   			Your cart is empty
+  		</c:when>		
+ 	 	<c:otherwise>
+    		<c:forEach var="product" items="${cart}">
+    			This item is number ${product}
+    		</c:forEach>
+  		</c:otherwise>
+	</c:choose>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class NavigationController {
 		
 		//check if cart is empty
 		if(session.getAttribute("cart")==null) {
-			return "empty_cart_page";
+			return "cart";
 		}
 		
 		ArrayList<Integer> itemIds = (ArrayList<Integer>) session.getAttribute("cart");
@@ -48,7 +48,8 @@ public class NavigationController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("PROBLEM WITH GETTING PRODUCTS ARRAY");
-				return "database_error_page";
+				m.addAttribute("error","Could not get products");
+				return "error";
 			}
 		}
 		// get quantities for the products 
@@ -60,6 +61,7 @@ public class NavigationController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("PROBLEM WITH QUANTITY ARRAY");
+			m.addAttribute("error","Could not get products");
 			return "database_error_page";
 		}
 		

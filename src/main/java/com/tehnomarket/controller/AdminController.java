@@ -35,6 +35,7 @@ public class AdminController {
 		try {
 			categories = (ArrayList<Category>) CategoryDao.getInstance().getAllCategories();
 		} catch (SQLException e) {
+			m.addAttribute("error","SQL error");
 			return "error";
 		}
 		m.addAttribute("new_product", p);
@@ -43,12 +44,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="addProduct",method=RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("new_product") Product p) {
+	public String saveProduct(@ModelAttribute("new_product") Product p,Model m) {
 		try {
 			System.out.println(p.getName() + " "+p.getBrand());
 			ProductDao.getInstance().saveProduct(p);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			m.addAttribute("error","Could not save product");
 			return "error";
 		}
 		return "index";
@@ -62,19 +63,21 @@ public class AdminController {
 			ArrayList<Product> products = (ArrayList<Product>) ProductDao.getInstance().getAllProducts();
 			m.addAttribute("products",products);
 		} catch (SQLException e) {
+			m.addAttribute("error","Could not get products");
 			return "error";
 		}
 		return "changeProduct";
 	}
 	
 	@RequestMapping(value="deleteProduct",method=RequestMethod.GET)
-	public String deleteProduct(HttpServletRequest request) {
+	public String deleteProduct(HttpServletRequest request,Model m) {
 		
 		int id=Integer.parseInt(request.getParameter("id"));
 		try {
 
 			ProductDao.getInstance().deleteProductById(id);
 		} catch (SQLException e) {
+			m.addAttribute("error","Could not delete product");
 			return "error";
 		}
 		return "index";
@@ -99,7 +102,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="editUser",method=RequestMethod.POST)
-	public String newEditUser(@ModelAttribute User u) {
+	public String newEditUser(@ModelAttribute User u,Model m) {
 		
 		try {
 			if(u.getPassword().equals(u.getPasswordCheck())) {
@@ -107,10 +110,11 @@ public class AdminController {
 				UserDao.editUser(u);
 			}
 			else {
-				return "registrationError";
+				m.addAttribute("error","Registration error");
+				return "error";
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			m.addAttribute("error","REgistration eror");
 			return "registrationError";
 		}
 		

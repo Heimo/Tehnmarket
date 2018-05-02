@@ -48,13 +48,14 @@ public class ProductController {
 			 System.out.println("no problem from db");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "products_error_page";
+			m.addAttribute("error", "Could not get products");
+			return "error";
 		}
 		
 		m.addAttribute("products", products);
 		if(products.isEmpty()) {
-			System.out.println("nqma produkti");
-			return "products_error_page";
+			m.addAttribute("error", "No products found");
+			return "error";
 		}
 		
 		// "position in session saves the last category you have been 
@@ -79,8 +80,8 @@ public class ProductController {
 				products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(position);
 				System.out.println("no problem from db");
 			} catch (SQLException e) {
-				e.printStackTrace();
-				return "products_error_page";
+				m.addAttribute("error", "Could not sort");
+				return "error";
 			}
 		}else {
 			String search = (String) session.getAttribute("search");
@@ -88,8 +89,8 @@ public class ProductController {
 				products = (ArrayList<Product>) ProductDao.getInstance().search(search);
 				System.out.println("no problem from db");
 			} catch (SQLException e) {
-				e.printStackTrace();
-				return "products_error_page";
+				m.addAttribute("error", "Could not sort");
+				return "error";
 			}
 		}
 		
@@ -116,8 +117,8 @@ public class ProductController {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "products_error_page";
+			m.addAttribute("error", "Could not find products");
+			return "error";
 		}
 		
 		session.setAttribute("search",search);
@@ -127,13 +128,12 @@ public class ProductController {
 	
 	
 	// The cart is saved in a session with an ArrayList 
-	@RequestMapping(value="*/add_to_cart",method=RequestMethod.GET)
-	public String addToCart(HttpSession session,HttpServletRequest request) {
+	@RequestMapping(value="add_to_cart/{id}",method=RequestMethod.GET)
+	public String addToCart(HttpSession session,HttpServletRequest request,@PathVariable("id") int id) {
 		// add to session 
 		// check if basket exists in session
 		// basket should be a collection of products and their quantity
 		// quantity by default will be 1 when added
-		int id =Integer.parseInt(request.getParameter("id"));
 		System.out.println("Adding "+id+"to the cart");
 		
 		//get the cart from session
@@ -182,17 +182,18 @@ public class ProductController {
 				return "product";
 			}
 			else {
-				return "products_error_page";
+				m.addAttribute("error", "Could not load product");
+				return "error";
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return "products_error_page";
+			m.addAttribute("error", "Could not find products");
+			return "error";
 		}
 	}
 	
 	// Controller for adding to favourites
 	@RequestMapping(value="/add_to_fav/{id}",method=RequestMethod.GET)
-	public String addToFav(HttpServletRequest request,HttpSession session,@PathVariable("id") Integer id ) {
+	public String addToFav(HttpServletRequest request,HttpSession session,@PathVariable("id") Integer id,Model m ) {
 		
 		//int idItem =Integer.parseInt(request.getParameter("id"));
 		System.out.println("Adding "+id+"to the fav");
@@ -204,8 +205,8 @@ public class ProductController {
 			ProductDao.addToFavourites(userId,id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "products_error_page";
+			m.addAttribute("error", "Could not add to favourites");
+			return "error";
 		}
 		
 		return "redirect:/";
