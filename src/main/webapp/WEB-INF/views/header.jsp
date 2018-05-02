@@ -1,5 +1,10 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.tehnomarket.model.User"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map.Entry"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tehnomarket.model.Product"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
@@ -171,7 +176,7 @@
 		</div>
 		
 		<% User user = (User) session.getAttribute("user");
-		 ArrayList<Integer> cart = (ArrayList<Integer>)session.getAttribute("cart");
+			HashMap<Product,Integer> cart = (HashMap<Product,Integer>) session.getAttribute("cart");
 		 %>
 		 
 		 <a href="${pageContext.request.contextPath}/cart">

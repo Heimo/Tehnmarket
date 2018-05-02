@@ -1,4 +1,3 @@
-
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="java.util.Map"%>
@@ -13,23 +12,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+
+<title>Tehnomarket Cart</title>
 </head>
 
 	   
 <body>
-	<c:choose>
-  		<c:when test="${cart == null}">
-   			Your cart is null
-  		</c:when>
-  		<c:when test="${cart.size() == 0}">
-   			Your cart is empty
-  		</c:when>		
- 	 	<c:otherwise>
-    		<c:forEach var="product" items="${cart}">
-    			This item is number ${product}
-    		</c:forEach>
-  		</c:otherwise>
-	</c:choose>
+	
+	
+
+	
+	
 </body>
 </html>

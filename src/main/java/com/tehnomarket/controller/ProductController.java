@@ -127,9 +127,10 @@ public class ProductController {
 	}
 	
 	
-	// The cart is saved in a session with an ArrayList 
+	// The cart is saved in a session with a HashMap
 	@RequestMapping(value="/add_to_cart/{id}",method=RequestMethod.GET)
-	public String addToCart(HttpSession session,HttpServletRequest request,@PathVariable("id") int id) {
+	public String addToCart(HttpSession session,HttpServletRequest request,@PathVariable("id") int id) throws SQLException {
+		final int initialQuantitiy = 1; 
 		// add to session 
 		// check if basket exists in session
 		// basket should be a collection of products and their quantity
@@ -137,24 +138,18 @@ public class ProductController {
 		System.out.println("Adding "+id+"to the cart");
 		
 		//get the cart from session
-		ArrayList<Integer> theCart = new ArrayList<Integer>();
-		
-		ArrayList<Integer> cart1 = (ArrayList<Integer>) session.getAttribute("cart");
+		HashMap<Product,Integer> theCart = (HashMap<Product,Integer>) session.getAttribute("cart");
 		
 		// do this if cart does not exist already
-		if(cart1!=null) {
-			theCart.addAll(cart1);
+		if(theCart==null) {
+			theCart = new HashMap<Product,Integer>();
 		}
 		
-		//add product id to set
-		theCart.add(id);
 		
-		//put them in a set to remove possible duplicates
-		HashSet<Integer> temp = new HashSet<Integer>(theCart);
-		theCart.clear();
-		theCart.addAll(temp);
+		//add product id to set , quantity is set to 1 as default 
+		theCart.put(ProductDao.getProductById(id), initialQuantitiy);
 		
-		//save new cart to session	
+		// save it in the session
 		session.setAttribute("cart", theCart);
 		
 		return "redirect:/";

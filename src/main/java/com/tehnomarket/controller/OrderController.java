@@ -26,9 +26,9 @@ public class OrderController {
 			return "emptyCart";
 		}
 		
-		// we get an array with the products in the cart
-		Product[] products = (Product[]) cart.keySet().toArray();
-		m.addAttribute("produkti", products );
+		HashMap<Product,Integer> cartProducts = (HashMap<Product, Integer>) session.getAttribute("cart");
+		
+		m.addAttribute("theCart", cartProducts);
 			
 		return "cart";
 	}

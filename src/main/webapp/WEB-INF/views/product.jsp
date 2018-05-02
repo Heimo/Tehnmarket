@@ -33,9 +33,12 @@
 		
 		<div align="right" style="font-size: 40px;">
 			Price:<%=product.getPrice() %><br>
-			<form action="add_to_cart" method="get">
-				<button id="button" name ="id" type="submit" value="<%= product.getId() %>">Add to Basket</button>
-			</form>
+			<div id="cart">	
+					<a href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
+
+  					<img src="https://i.imgur.com/0WDHoat.png" alt="cart" style="width:42px;height:42px;border:0">
+					</a>
+			</div>
 		</div>
 	
 	<table>
