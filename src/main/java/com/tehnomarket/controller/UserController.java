@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -102,6 +103,7 @@ public class UserController {
 			ArrayList<Product> products = (ArrayList<Product>) ProductDao.getInstance().getFavouritesByUserId(u.getId());
 			m.addAttribute("products",products);
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			m.addAttribute("error","Could not get products");
 			return "error";
 		}catch (Exception e) {
@@ -109,5 +111,22 @@ public class UserController {
 			return "error";
 		}
 		return "favouriteProducts";
+	}
+	
+	@RequestMapping(value="removeFavourite/{id}",method=RequestMethod.GET)
+	public String removeFavourite(Model m,HttpSession session,@PathVariable("id") int productId) {
+		
+		User u = (User)session.getAttribute("user");
+		try {
+			ProductDao.removeFromFavourites(u.getId(), productId);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			m.addAttribute("error","Could find product");
+			return "error";
+		}catch (Exception e) {
+			m.addAttribute("error","Not logged");
+			return "error";
+		}
+		return "index";
 	}
 }
