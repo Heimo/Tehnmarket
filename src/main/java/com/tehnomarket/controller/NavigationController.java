@@ -77,6 +77,13 @@ public class NavigationController {
 		 * maxQuantitiy which is a map with the product as a key and its max quantity from db
 		 */
 		
+		for(int i=0;i<productArr.size();i++) {
+			Product p = productArr.get(i);
+			int amount = mapProduct.get(p);
+			p.setAmount(amount);
+			productArr.set(i, p);
+		}
+		
 		m.addAttribute("productArr", productArr);
 		m.addAttribute("mapProduct",mapProduct);
 		session.setAttribute("productQuantity", maxQuantity);

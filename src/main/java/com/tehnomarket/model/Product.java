@@ -14,6 +14,7 @@ public class Product {
 	private String image;
 	private long categoryId;
 	private Product theProduct = this;
+	private int amount;
 	
 	//will do a builder here
 	
@@ -104,6 +105,16 @@ public class Product {
 
 	public void setCategoryId(long categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 	@Override

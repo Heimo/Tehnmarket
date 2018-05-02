@@ -148,7 +148,7 @@ public class ProductController {
 		
 		//add product id to set , quantity is set to 1 as default
 		Product product = ProductDao.getProductById(id);
-		System.out.println("THIS IS THE PRODUCT WE ARE ADDING TO THE CART "+ product);
+		
 		theCart.put(product, initialQuantitiy);
 		
 		// save it in the session

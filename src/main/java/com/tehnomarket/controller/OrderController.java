@@ -50,16 +50,13 @@ public class OrderController {
 		
 		
 		Product product = (Product) ProductDao.getProductById(productId);
-		System.out.println("THIS IS OUR KEY FOR THE KART "+product);
+		
 		
 		HashMap<Product,Integer> theCart = (HashMap<Product, Integer>) session.getAttribute("cart");
-		System.out.println("THESE ARE ALL THE KEYS FOR THE CART" + theCart.keySet());
+		
 		
 		HashMap<Product,Integer> maxQuantity = (HashMap<Product, Integer>) session.getAttribute("productQuantity");
-		
-		
-		
-		
+				
 		int currentQuant = theCart.get(product);
 		int maxQuant = maxQuantity.get(product);
 		
@@ -73,6 +70,7 @@ public class OrderController {
 		}
 		else {
 			currentQuant+=amount;
+			System.out.println("CHANGING AMOUNT: "+currentQuant);
 			theCart.put(product,currentQuant);
 			session.setAttribute("cart", theCart);
 		}

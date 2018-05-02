@@ -47,7 +47,7 @@
 			
 			
 			<div id="item_quantity">
-				Quantity is: 
+				Quantity is: ${product.amount}
 			</div>
 			
 			
