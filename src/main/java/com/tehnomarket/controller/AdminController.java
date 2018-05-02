@@ -95,7 +95,7 @@ public class AdminController {
 		
 		// set the data as the old data !
 		System.out.println("TESTING USER ID IS "+oldUser.getId());
-		u.setId(oldUser.getId());
+		
 		u.setFirstName(oldUser.getFirstName());
 		u.setLastName(oldUser.getLastName());
 		u.setDateOfBirth(oldUser.getDateOfBirth());

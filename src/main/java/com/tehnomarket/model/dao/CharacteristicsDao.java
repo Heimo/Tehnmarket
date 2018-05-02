@@ -44,10 +44,8 @@ public class CharacteristicsDao {
 		ResultSet result = ps.executeQuery();
 		
 		
-		// handle with an empty arraylist
+		// handle with an empty arraylist if no characteristics are in db
 		if(result==null || result.wasNull()) {
-			Characteristics c= new Characteristics(0,0,"none","none");
-			all.add(c);
 			return all;
 		}
 		
