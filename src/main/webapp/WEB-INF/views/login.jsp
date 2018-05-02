@@ -46,6 +46,12 @@
 									New? Create account
 								</a>
 							</div>
+							
+							<div>
+								<a href="forgotPass">
+									Forgot your Password? 
+								</a>
+							</div>
 						</div>
 	
 						<div class="container-login100-form-btn m-t-17">

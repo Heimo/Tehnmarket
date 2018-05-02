@@ -129,4 +129,31 @@ public class UserController {
 		}
 		return "index";
 	}
+	
+	// FORGOT PASS
+	@RequestMapping(value="/forgotPass",method=RequestMethod.GET)
+	public String forgotPass(Model m) {
+		
+		User u = new User();
+		m.addAttribute("new_pass", u);
+		return "NewPassword";
+	}
+	
+	@RequestMapping(value="/forgotPass",method=RequestMethod.POST)
+	public String restorePass(@ModelAttribute User u,Model m) {
+		
+		boolean check = UserDao.checkEmail(u.getEmail());
+		
+		if(check) {
+			//new password
+			//edit user
+			//send password
+		}
+		else {
+			return "NoSuchUser";
+		}
+		
+		
+		return "index";
+	}
 }
