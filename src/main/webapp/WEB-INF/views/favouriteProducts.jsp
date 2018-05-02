@@ -15,8 +15,8 @@
 				<td>${product.brand }</td>	
 				<td>${product.price }</td>	
 				<td>${product.categoryId }</td>	
-				<td><form action="removeFavourite" method="get">
-						<button type="submit" name="id" value="${product.id }">Remove</button>
+				<td><form action="removeFavourite/${product.id}" method="get">
+						<button type="submit" name="id" value="">Remove</button>
 					</form>
 				</td>			
 			</tr>

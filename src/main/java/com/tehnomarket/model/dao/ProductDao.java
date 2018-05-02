@@ -225,7 +225,7 @@ public class ProductDao {
 		ps.setLong(1, userID);
 		ResultSet rs = 	ps.executeQuery();
 		while(rs.next()) {
-			products.add(getProductById(rs.getInt("id")));
+			products.add(getProductById(rs.getInt("products_id")));
 		}
 		return products;
 	}
