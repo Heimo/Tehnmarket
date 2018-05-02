@@ -27,7 +27,7 @@ public class OrderController {
 
 	
 	@RequestMapping(value="/cart",method=RequestMethod.POST)
-	public String goToOrder(Model m,HttpSession session,@ModelAttribute Order o) {
+	public String goToOrder(Model m,HttpSession session,@ModelAttribute Order o) throws SQLException {
 		
 		// tehnically nobody should be able to see the make order button without
 		// having anything in the cart , but just in case 

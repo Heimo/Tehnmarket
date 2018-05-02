@@ -1,11 +1,13 @@
 package com.tehnomarket.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,7 @@ public class ProductDao {
 					result.getInt("categories_id"));
 			products.add(p);
 		}
+		
 		return products;
 	}
 	
@@ -66,6 +69,7 @@ public class ProductDao {
 		
 		ps.setInt(1, id);
 		ResultSet result = ps.executeQuery();
+		 
 		if(result.next()) {
 			Product p = new Product(result.getInt("id"),
 					result.getString("name"),
@@ -76,6 +80,7 @@ public class ProductDao {
 					result.getDate("discount_end"),
 					result.getString("product_image"),
 					result.getInt("categories_id"));
+			
 			return p;
 		}
 		return null;
@@ -107,9 +112,11 @@ public class ProductDao {
 			products.add(p);
 		}
 		if(products.isEmpty()) {
+			
 			return null;
 		}
 		else {
+			
 			return products;
 		}
 		
@@ -157,6 +164,7 @@ public class ProductDao {
 		ps.setString(6, p.getImage());
 		ps.setLong(7, p.getCategoryId());
 		ps.executeUpdate();
+		
 	}
 	
 	public static void deleteProductById(int id) throws SQLException {
@@ -166,6 +174,7 @@ public class ProductDao {
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setInt(1, id);
 		ps.executeUpdate();
+		
 	}
 	
 	public static Collection<Product> getAllProducts() throws SQLException {
@@ -187,6 +196,7 @@ public class ProductDao {
 					result.getInt("categories_id"));
 			products.add(p);
 		}
+		
 		return products;
 	}
 
@@ -200,7 +210,8 @@ public class ProductDao {
 		ps.setInt(1, userID);
 		ps.setInt(2, idItem);
 		
-		ps.executeUpdate();				
+		ps.executeUpdate();
+		
 	}
 	
 	// removes fav product 
@@ -214,6 +225,7 @@ public class ProductDao {
 		ps.setInt(2, idItem);
 		
 		ps.executeUpdate();
+		
 	}
 	
 	//gets fav products by user
@@ -228,6 +240,7 @@ public class ProductDao {
 		while(rs.next()) {
 			products.add(getProductById(rs.getInt("products_id")));
 		}
+		
 		return products;
 	}
 
@@ -236,9 +249,116 @@ public class ProductDao {
 	 * 2. Multiple entrances in product_order
 	 * 3. Update product quantity table
 	 */
-	public static void makeOrder(Order o) {
+	public static void makeOrder(Order o) throws SQLException {
 		
+		PreparedStatement orderInsert = null;
+		PreparedStatement orderId = null;
+		PreparedStatement productOrders = null;
+		PreparedStatement quantityUpdate = null; 
 		
+		String sql1 = "INSERT INTO orders (the_date,total_cost,the_status,users_id,city,street,entrance,phone_number) VALUES (?,?,?,?,?,?,?,?)";
+		String sql2 = "SELECT id FROM orders WHERE the_date=? AND users_id=?";
+		String sql3 = "INSERT INTO product_orders (order_id,products_id,quantity) VALUES (?,?,?)";
+		String sql4 = "UPDATE products_has_store SET quantity=quantity-? WHERE products_id=?";
+		
+		Connection connection = DBManager.getInstance().getConnection();
+		
+		try {
+			
+			connection.setAutoCommit(false);
+			
+			// first input 
+			orderInsert = connection.prepareStatement(sql1);
+			
+			Date sqlDate = new Date(o.getDateOfOrder().getTime());
+			orderInsert.setDate(1, sqlDate);
+			
+			orderInsert.setDouble(2,o.getTotalCost());
+			orderInsert.setInt(3, o.getStatus());
+			orderInsert.setInt(4, (int) o.getUserId());
+			orderInsert.setString(5, o.getCity());
+			orderInsert.setString(6, o.getStreet());
+			orderInsert.setString(7, o.getEntrance());
+			orderInsert.setInt(8,o.getPhoneNumber());
+			
+			orderInsert.executeUpdate();
+			
+			// second query 
+			orderId = connection.prepareStatement(sql2);
+			
+			Date sqlDate2 = new Date(o.getDateOfOrder().getTime());
+			orderId.setDate(1, sqlDate2);
+			orderId.setInt(2, (int) o.getUserId());
+			
+			ResultSet rs = orderId.executeQuery();
+			
+			Integer intOrderId=null;
+			while(rs.next()) {
+				
+				intOrderId = rs.getInt("id");
+				System.out.println(intOrderId);
+			}
+			if(intOrderId==null) {
+				System.out.println("DIDNT GET ORDER ID");
+				throw new IllegalArgumentException();
+			}
+			
+			// third input 
+			productOrders = connection.prepareStatement(sql3);
+			HashMap<Product,Integer> theCart = o.getOrder();
+			for(Product key : theCart.keySet()) {
+				Product p = key;
+				int quantity = theCart.get(key);
+				int productId = p.getId();
+				productOrders.setInt(1,intOrderId);
+				productOrders.setInt(2,productId);
+				productOrders.setInt(3,quantity);
+				productOrders.executeUpdate();
+			}
+			
+			//fourth input 
+			quantityUpdate = connection.prepareStatement(sql4);
+			for(Product key : theCart.keySet()) {
+				Product p = key;
+				int quantity = theCart.get(key);
+				int productId = p.getId();
+				quantityUpdate.setInt(1, quantity);
+				quantityUpdate.setInt(2,productId);
+				quantityUpdate.executeUpdate();
+			}
+			
+			connection.commit();
+		}
+		catch(SQLException e) {
+			System.out.println(e.getMessage());
+			try {
+				connection.rollback();
+				connection.setAutoCommit(true);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		/*
+		finally {
+			connection.setAutoCommit(true);
+			if(orderInsert != null) {
+				orderInsert.close();
+			}
+			if(orderId != null) {
+				orderId.close();
+			}
+			if(productOrders != null) {
+				orderInsert.close();
+			}
+			if(quantityUpdate != null) {
+				quantityUpdate.close();
+			}
+			if(connection != null) {
+				connection.close();
+			}
+		}
+		*/
 	}
 
 }
