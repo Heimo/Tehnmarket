@@ -65,15 +65,21 @@ public class NavigationController {
 			return "database_error_page";
 		}
 		
+		HashMap<Product,Integer> maxQuantity = new HashMap<Product,Integer>();
+		
+		for(int i=0;i<quantities.size();i++) {
+			maxQuantity.put(productArr.get(i), quantities.get(i));
+		}
+		
 		/* mapProduct which is the cart
 		 * productArr which is an Array with the products from the cart
 		 * quantities which is information from db for available quantitiy of products
-		 * 
+		 * maxQuantitiy which is a map with the product as a key and its max quantity from db
 		 */
 		
 		m.addAttribute("productArr", productArr);
-		m.addAttribute("quantities", quantities); // might have to be saved in session
-		
+		m.addAttribute("mapProduct",mapProduct);
+		session.setAttribute("productQuantity", maxQuantity);
 		
 		return "cart";
 	}

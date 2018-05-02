@@ -13,6 +13,7 @@ public class Product {
 	private Date discountEnd;
 	private String image;
 	private long categoryId;
+	private Product theProduct = this;
 	
 	//will do a builder here
 	
@@ -57,6 +58,16 @@ public class Product {
 
 	public String getInfo() {
 		return info;
+	}
+	
+	
+
+	public Product getTheProduct() {
+		return theProduct;
+	}
+
+	public void setTheProduct(Product theProduct) {
+		this.theProduct = theProduct;
 	}
 
 	public void setInfo(String info) {
@@ -105,16 +116,14 @@ public class Product {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Product other = (Product) obj;
-		if (id != other.id)
+		if(id==other.id) {
+			return true;
+		}
+		else {
 			return false;
-		return true;
+		}
+		
 	}
 	
 	

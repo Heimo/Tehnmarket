@@ -130,7 +130,7 @@ public class ProductController {
 	// The cart is saved in a session with a HashMap
 	@RequestMapping(value="/add_to_cart/{id}",method=RequestMethod.GET)
 	public String addToCart(HttpSession session,HttpServletRequest request,@PathVariable("id") int id) throws SQLException {
-		final int initialQuantitiy = 1; 
+		final Integer initialQuantitiy = 1; 
 		// add to session 
 		// check if basket exists in session
 		// basket should be a collection of products and their quantity
@@ -146,8 +146,10 @@ public class ProductController {
 		}
 		
 		
-		//add product id to set , quantity is set to 1 as default 
-		theCart.put(ProductDao.getProductById(id), initialQuantitiy);
+		//add product id to set , quantity is set to 1 as default
+		Product product = ProductDao.getProductById(id);
+		System.out.println("THIS IS THE PRODUCT WE ARE ADDING TO THE CART "+ product);
+		theCart.put(product, initialQuantitiy);
 		
 		// save it in the session
 		session.setAttribute("cart", theCart);

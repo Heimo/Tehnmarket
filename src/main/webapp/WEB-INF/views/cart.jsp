@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.tehnomarket.model.Product"%>
 <%@page import="com.tehnomarket.model.User"%>
+<%@page import="com.tehnomarket.model.dao.ProductDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@include file="header.jsp"%>
@@ -15,9 +16,48 @@
 
 <title>Tehnomarket Cart</title>
 </head>
-
+	
 	   
 <body>
+	
+	
+	
+	
+	<c:forEach var="product" items="${ productArr }"  >
+	
+			
+		
+			<div id="product_name">
+				Product is: <td>${product.name }
+			</div>
+			
+			<div id="image">
+			<img src="${pageContext.request.contextPath}/download/${product.brand}.jpg">
+			</div>
+			
+			<div id="price">
+			Price is:${product.price }
+			</div>
+			
+			<div id="plus_sign">
+					<a href="quantity/${product.id}/increase">
+						<img src="https://i.imgur.com/xGPJKup.png" alt="cart" style="width:32px;height:32px;border:0">
+					</a>
+			</div>
+			
+			
+			<div id="item_quantity">
+				Quantity is: 
+			</div>
+			
+			
+			<div id="minus_sign">
+					<a href="quantity/${product.id}/decrease">
+						<img src="https://i.imgur.com/4BNjGLm.png" alt="cart" style="width:32px;height:32px;border:0">
+					</a>
+			</div>				
+	</c:forEach>
+	
 	
 	
 
