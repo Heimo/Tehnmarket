@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tehnomarket.controller.DBManager;
+import com.tehnomarket.model.Order;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
 
@@ -228,6 +229,16 @@ public class ProductDao {
 			products.add(getProductById(rs.getInt("products_id")));
 		}
 		return products;
+	}
+
+	/*
+	 * 1. Entrance in order
+	 * 2. Multiple entrances in product_order
+	 * 3. Update product quantity table
+	 */
+	public static void makeOrder(Order o) {
+		
+		
 	}
 
 }

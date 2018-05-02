@@ -1,94 +1,118 @@
 package com.tehnomarket.model;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 public class Order {
 
 	
-	private long orderId;
-	private SimpleDateFormat dateOfOrder;
-	private boolean status;
-	private int quantity;
-	private SimpleDateFormat dateOfDelivery;
-	private int discount;
+	private Date dateOfOrder;
+	private double totalCost;
+	// Status should have more than two conditions , it can be in processing, canceled, lost or delayed , not just delivered or not 
+	private int status;
+	private long userId;
+	private String City;
+	private String Street;
+	private String Entrance;
+	private int phoneNumber;
+	private HashMap<Product,Integer> order;
 	
-	
-	public Order(SimpleDateFormat dateOfOrder, boolean status, int quantity, SimpleDateFormat dateOfDelivery,
-			int discount) {
+	public Order() {
 		
-		this.dateOfOrder = dateOfOrder;
-		this.status = status;
-		this.quantity = quantity;
-		this.dateOfDelivery = dateOfDelivery;
-		this.discount = discount;
+	}
+	
+	public Order(String city, String street, String entrance, int phoneNumber) {
+		super();
+		City = city;
+		Street = street;
+		Entrance = entrance;
+		this.phoneNumber = phoneNumber;
 	}
 
-
-	public Order(long orderId,SimpleDateFormat dateOfOrder, boolean status, int quantity, SimpleDateFormat dateOfDelivery,
-			int discount) {
-		this(dateOfOrder,status, quantity, dateOfDelivery,discount);
-		this.orderId = orderId;
-	}
-
-
-	public long getOrderId() {
-		return orderId;
-	}
-
-
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
-	}
-
-
-	public SimpleDateFormat getDateOfOrder() {
+	public Date getDateOfOrder() {
 		return dateOfOrder;
 	}
 
-
-	public void setDateOfOrder(SimpleDateFormat dateOfOrder) {
+	public void setDateOfOrder(Date dateOfOrder) {
 		this.dateOfOrder = dateOfOrder;
 	}
 
+	public double getTotalCost() {
+		return totalCost;
+	}
 
-	public boolean isStatus() {
+	public void setTotalCost(double totalCost) {
+		this.totalCost = totalCost;
+	}
+
+	public int getStatus() {
 		return status;
 	}
 
-
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
-
-	public int getQuantity() {
-		return quantity;
+	public long getUserId() {
+		return userId;
 	}
 
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setUserId(long l) {
+		this.userId = l;
 	}
 
-
-	public SimpleDateFormat getDateOfDelivery() {
-		return dateOfDelivery;
+	public String getCity() {
+		return City;
 	}
 
-
-	public void setDateOfDelivery(SimpleDateFormat dateOfDelivery) {
-		this.dateOfDelivery = dateOfDelivery;
+	public void setCity(String city) {
+		City = city;
 	}
 
-
-	public int getDiscount() {
-		return discount;
+	public String getStreet() {
+		return Street;
 	}
 
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
+	public void setStreet(String street) {
+		Street = street;
 	}
+
+	public String getEntrance() {
+		return Entrance;
+	}
+
+	public void setEntrance(String entrance) {
+		Entrance = entrance;
+	}
+
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public HashMap<Product, Integer> getOrder() {
+		return order;
+	}
+
+	public void setOrder(HashMap<Product, Integer> order) {
+		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [dateOfOrder=" + dateOfOrder + ", totalCost=" + totalCost + ", status=" + status + ", userId="
+				+ userId + ", City=" + City + ", Street=" + Street + ", Entrance=" + Entrance + ", phoneNumber="
+				+ phoneNumber + "]";
+	}
+	
+	
+	
+	
+	
 	
 	
 	

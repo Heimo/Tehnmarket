@@ -58,7 +58,19 @@
 			</div>				
 	</c:forEach>
 	
+	<hr>
 	
+	<h2>Input your date for the order</h2>
+	
+	<f:form commandName="new_order">
+			City: <f:input path="City"/><br>
+			Street: <f:input path="Street"/><br>
+			Entrance: <f:input path="Entrance"/><br>
+			Phone number: <f:input type="number" path="phoneNumber"/><br>
+			
+				
+			<input type="submit" value="Make Order" />
+	</f:form>
 	
 
 	

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.tehnomarket.model.Order;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.dao.ProductDao;
 
@@ -36,8 +37,11 @@ public class NavigationController {
 		
 		//check if cart is empty
 		if(session.getAttribute("cart")==null) {
-			return "cart";
+			return "emptyCart";
 		}
+		
+		Order o = new Order();
+		m.addAttribute("new_order", o);
 		
 		HashMap<Product,Integer> mapProduct = (HashMap<Product,Integer>) session.getAttribute("cart");
 		
@@ -90,4 +94,6 @@ public class NavigationController {
 		
 		return "cart";
 	}
+	
+	
 }
