@@ -1,6 +1,7 @@
 package com.tehnomarket.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
+import com.tehnomarket.model.dao.ProductDao;
 import com.tehnomarket.model.dao.UserDao;
 import com.tehnomarket.util.HashPassword;
 
@@ -89,5 +92,22 @@ public class UserController {
 			request.setAttribute("error",e.getMessage());
 			return "login";
 		}
+	}
+	
+	@RequestMapping(value="favourites",method=RequestMethod.GET)
+	public String changeProduct(Model m,HttpSession session) {
+		
+		User u = (User)session.getAttribute("user");
+		try {
+			ArrayList<Product> products = (ArrayList<Product>) ProductDao.getInstance().getFavouritesByUserId(u.getId());
+			m.addAttribute("products",products);
+		} catch (SQLException e) {
+			m.addAttribute("error","Could not get products");
+			return "error";
+		}catch (Exception e) {
+			m.addAttribute("error","Not logged");
+			return "error";
+		}
+		return "favouriteProducts";
 	}
 }

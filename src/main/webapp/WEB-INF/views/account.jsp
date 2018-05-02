@@ -40,6 +40,10 @@
 	<form action="changeProduct" method="get">
 				<button type="submit">Change Product</button>
 			</form>
+			
+	<form action="favourites" method="get">
+				<button type="submit">Get Favourite Products</button>
+			</form>
 	
 	<form action="editUser" method="get">
 				<button type="submit">Edit User Data</button>

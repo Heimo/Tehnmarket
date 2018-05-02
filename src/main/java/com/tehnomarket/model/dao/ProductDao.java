@@ -214,5 +214,20 @@ public class ProductDao {
 		
 		ps.executeUpdate();
 	}
+	
+	//gets fav products by user
+	public static Collection<Product> getFavouritesByUserId(long userId) throws SQLException {
+		ArrayList<Product> products = new ArrayList();
+		String sql = "SELECT products_id FROM favourite_products WHERE users_id = ?";
+		Connection connection = DBManager.getInstance().getConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		int userID = (int) userId;
+		ps.setLong(1, userID);
+		ResultSet rs = 	ps.executeQuery();
+		while(rs.next()) {
+			products.add(getProductById(rs.getInt("id")));
+		}
+		return products;
+	}
 
 }
