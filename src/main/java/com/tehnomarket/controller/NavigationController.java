@@ -37,7 +37,8 @@ public class NavigationController {
 		
 		//check if cart is empty
 		if(session.getAttribute("cart")==null) {
-			return "emptyCart";
+			m.addAttribute("error", "your cart is empty, go back and put something in it !");
+			return "error";
 		}
 		
 		Order o = new Order();

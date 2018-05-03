@@ -34,7 +34,8 @@ public class OrderController {
 		HashMap<Product,Integer> cart = (HashMap<Product, Integer>) session.getAttribute("cart");
 		if(cart.isEmpty()) {
 			// make a jsp that just says "Your cart is empty and a sad face"
-			return "emptyCart";
+			m.addAttribute("error", "your cart is empty, go back and put something in it !");
+			return "error";
 		}
 		
 		//now we have product o with input for delivery and number
@@ -100,10 +101,12 @@ public class OrderController {
 		// checks if user is trying to go to negative or above possible amount
 		// changes nothing if either limit is breached 
 		if(currentQuant==1 && amount==-1) {
-			return "cart";
+			//System.out.println("DO WE EVEN GET IN HERE ? ");
+			//m.addAttribute("error", "You can't order something which is below 1 quantity");
+			return "redirect:/cart";
 		}
 		else if(currentQuant==maxQuant && amount==1) {
-			return "cart";
+			return "redirect:/cart";
 		}
 		else {
 			currentQuant+=amount;
