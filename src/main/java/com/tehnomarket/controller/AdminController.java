@@ -103,15 +103,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/editProduct",method=RequestMethod.POST)
-	public String saveEditedProduct(@ModelAttribute("edit_product") Product p,Model m) {
+	@ResponseBody
+	public String saveEditedProduct(@RequestBody Product p,Model m) {
 		
 		try {
+			System.out.println(p.getName());
 			ProductDao.getInstance().editProduct(p);
 		} catch (SQLException e) {
 			m.addAttribute("error","Could not get product " + e.getMessage());
 			return "error";
 		}
-		return "index";
+		return "ok";
 	}
 	
 	@RequestMapping(value="/deleteProduct",method=RequestMethod.GET)

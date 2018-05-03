@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,9 +10,9 @@
 <body>
 	<f:form commandName="edit_product" action="editProduct" method="POST">
 			ID: ${edit_product.id}<br>
-			Name<f:input path="name"/><br>
-			Brand<f:input path="brand"/><br>
-			Price<f:input path="price"/><br>
+			Name<f:input path="name" id="pName"/><br>
+			Brand<f:input path = "brand" id="pBrand"/><br>
+			Price<f:input path="price" id="pPrice"/><br>
 			Category
 			<f:select path="categoryId" id="category" onchange="getCharacteristics()">
 				<c:forEach var="cat" items="${categories}">
@@ -23,8 +22,9 @@
 			</f:select> <br>
 			
 			<f:hidden path="id" /><br>
-			<input type="submit" value="Edit Product" />
+			<button type="button" onclick="saveProduct()" >Edit Product</button>
 	</f:form>
+	<p id="productStatus"></p><br>
 	
 	<div id="old_characts">
 	<h3>Characteristics</h3>
@@ -44,7 +44,6 @@
 		
 	</div>
 	
-	<p id="demo"></p>
 	
 	<script>
 		function getCharacteristics(){
@@ -91,8 +90,34 @@
 			    }
 			  };
 			  xhttp.open("POST", "${pageContext.request.contextPath}/saveCharacteristics", true);
-			  xhttp.setRequestHeader("Content-type", "application/json");
+			  xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
 			  xhttp.send(JSON.stringify(arr));
+		}
+		
+		function saveProduct(){
+			var category = document.getElementById("category");
+			var id = category.options[category.selectedIndex].value;
+			var product = new Object;
+			product.id = ${edit_product.id};
+			product.name = document.getElementById("pName").value;
+			product.brand = document.getElementById("pBrand").value;
+			product.price = document.getElementById("pPrice").value;
+			product.info = ${(empty edit_product.info) ? "null" : edit_product.info};
+			product.discount = ${edit_product.discount};
+			product.discountEnd = ${(empty edit_product.discountEnd) ? "null" : edit_product.discountEnd};
+			product.image = ${(empty edit_product.image) ? "null" : edit_product.image};
+			product.categoryId = id;
+			
+			var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			    	console.log(this.responseText);
+			    	document.getElementById('productStatus').innerHTML = this.responseText;
+			    }
+			  };
+			  xhttp.open("POST", "${pageContext.request.contextPath}/editProduct", true);
+			  xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
+			  xhttp.send(JSON.stringify(product));
 		}
 	</script>
 </body>

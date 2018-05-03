@@ -27,7 +27,7 @@ public class DBManager {
 		}
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://"+DB_IP+":"+DB_PORT+"/"+DB_NAME, DB_USERNAME, DB_PASSWORD);
+			con = DriverManager.getConnection("jdbc:mysql://"+DB_IP+":"+DB_PORT+"/"+DB_NAME + "?characterEncoding=utf8", DB_USERNAME, DB_PASSWORD);
 			System.out.println("GOT CONNECTION SQL");
 			
 		} catch (SQLException e) {
