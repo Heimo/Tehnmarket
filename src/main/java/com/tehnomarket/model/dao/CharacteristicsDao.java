@@ -61,8 +61,32 @@ public class CharacteristicsDao {
 			
 		}
 		
+		return all;
+	}
+
+	
+	public ArrayList<Characteristics> getCategoryCharacteristics(int catId) throws SQLException {
+			ArrayList<Characteristics> all = new ArrayList<Characteristics>();
 		
+		String sql = "SELECT characteristics_id,name From characteristics Where categories_id = ?";
 		
+		Connection connection = DBManager.getInstance().getConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		
+		ps.setInt(1, catId);
+		ResultSet result = ps.executeQuery();
+		
+		while(result.next()) {
+			
+			Characteristics c = new Characteristics(
+							0,
+							result.getInt("characteristics_id"),
+							result.getString("name"),
+							""
+					);
+			all.add(c);
+			
+		}
 		
 		return all;
 	}

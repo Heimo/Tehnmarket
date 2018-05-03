@@ -6,20 +6,33 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
+import org.springframework.boot.json.GsonJsonParser;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tehnomarket.model.Category;
+import com.tehnomarket.model.Characteristics;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
 import com.tehnomarket.model.dao.CategoryDao;
+import com.tehnomarket.model.dao.CharacteristicsDao;
 import com.tehnomarket.model.dao.ProductDao;
 import com.tehnomarket.model.dao.UserDao;
 import com.tehnomarket.util.HashPassword;
 
+@RequestMapping(produces = "text/plain;charset=UTF-8")
 @Controller
 public class AdminController {
 	
@@ -56,8 +69,8 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value="/changeProduct",method=RequestMethod.GET)
-	public String changeProduct(Model m) {
+	@RequestMapping(value="/listProducts",method=RequestMethod.GET)
+	public String listProducts(Model m) {
 		
 		try {
 			ArrayList<Product> products = (ArrayList<Product>) ProductDao.getInstance().getAllProducts();
@@ -66,7 +79,39 @@ public class AdminController {
 			m.addAttribute("error","Could not get products");
 			return "error";
 		}
-		return "changeProduct";
+		return "listProducts";
+	}
+	
+	@RequestMapping(value="/editProduct",method=RequestMethod.GET)
+	public String editProduct(Model m,HttpServletRequest request) {
+		
+		ArrayList<Category> categories;
+		ArrayList<Characteristics> characts = new ArrayList<Characteristics>();
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));
+			Product product = ProductDao.getInstance().getProductById(id);
+			m.addAttribute("edit_product",product);
+			categories = (ArrayList<Category>) CategoryDao.getInstance().getAllCategories();
+			m.addAttribute("categories",categories);
+			characts = CharacteristicsDao.getInstance().getAllProductChar(id);
+			m.addAttribute("characts", characts);
+		} catch (SQLException e) {
+			m.addAttribute("error","Could not get product");
+			return "error";
+		}
+		return "editProduct";
+	}
+	
+	@RequestMapping(value="/editProduct",method=RequestMethod.POST)
+	public String saveEditedProduct(@ModelAttribute("edit_product") Product p,Model m) {
+		
+		try {
+			ProductDao.getInstance().editProduct(p);
+		} catch (SQLException e) {
+			m.addAttribute("error","Could not get product " + e.getMessage());
+			return "error";
+		}
+		return "index";
 	}
 	
 	@RequestMapping(value="/deleteProduct",method=RequestMethod.GET)
@@ -131,4 +176,30 @@ public class AdminController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="/getCharacteristics/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public String getCharacteristics(HttpServletRequest request,@PathVariable("id") int catId){
+		
+		ArrayList<Characteristics> characts = new ArrayList<Characteristics>();
+		try {
+			characts = CharacteristicsDao.getInstance().getCategoryCharacteristics(catId);
+		} catch (SQLException e) {
+			
+			return "error";
+		}
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(characts);
+	}
+	
+	@RequestMapping(value="/saveCharacteristics",method=RequestMethod.POST)
+	@ResponseBody
+	public String saveCharacteristics(HttpServletRequest request,@RequestBody ArrayList<Characteristics> characts){
+		try {
+			ProductDao.getInstance().replaceProductCharacteristics(characts);
+		} catch (SQLException e) {
+			return e.getMessage();
+		}
+		return "ok";
+	}
 }

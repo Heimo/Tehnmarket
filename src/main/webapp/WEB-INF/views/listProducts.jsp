@@ -15,6 +15,10 @@
 				<td>${product.brand }</td>	
 				<td>${product.price }</td>	
 				<td>${product.categoryId }</td>	
+				<td><form action="editProduct" method="get">
+						<button type="submit" name="id" value="${product.id }">Edit Product</button>
+					</form>
+				</td>
 				<td><form action="deleteProduct" method="get">
 						<button type="submit" name="id" value="${product.id }">Delete Product</button>
 					</form>

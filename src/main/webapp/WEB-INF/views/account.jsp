@@ -18,28 +18,13 @@
 	
 	<jsp:include page="header.jsp"/>
 	
-	<a href="cart">
-		Cart:
-		<% if(cart == null){ %>
-		 0
-		<% }else{%>
-			<%=cart.size()%>
-			<% }%>
-	</a>
-	<br>
-	<% if(user != null) {%>
-	Hello <%= user.getFirstName()+" "+user.getLastName() %>
-	<a href="login">Click here to logout</a>
-	<%} else {%>
-	<a href="login">Click here to login</a>
-	<%} %>
 	
 	<form action="addProduct" method="get">
 		<button type="submit">Add Product</button>
 	</form>
 			
-	<form action="changeProduct" method="get">
-				<button type="submit">Change Product</button>
+	<form action="listProducts" method="get">
+				<button type="submit">Edit Products</button>
 			</form>
 			
 	<form action="favourites" method="get">

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tehnomarket.controller.DBManager;
+import com.tehnomarket.model.Characteristics;
 import com.tehnomarket.model.Order;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
@@ -360,5 +361,63 @@ public class ProductDao {
 		}
 		*/
 	}
+	
+	// edit product 
+		public static void editProduct(Product p) throws SQLException {
+			
+			
+			String sql = "UPDATE products SET name = ?, brand = ?, price = ?, info = ?,"
+					+ " discount = ?, discount_end = ?, product_image = ?, categories_id = ? "
+					+ "WHERE id = ?";
+			Connection connection = DBManager.getInstance().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, p.getName());
+			ps.setString(2, p.getBrand());
+			ps.setDouble(3, p.getPrice());
+			ps.setString(4, p.getInfo());
+			ps.setInt(5, p.getDiscount());
+			ps.setDate(6, p.getDiscountEnd());
+			ps.setString(7, p.getImage());
+			ps.setLong(8, p.getCategoryId());
+			ps.setInt(9, p.getId());
+			
+			ps.executeUpdate();
+			
+		}
+
+
+		public void replaceProductCharacteristics(ArrayList<Characteristics> characts) throws SQLException {
+			
+			
+			Connection connection = DBManager.getInstance().getConnection();
+			try {
+			
+				connection = DBManager.getInstance().getConnection();
+				connection.setAutoCommit(false);
+				
+				String sql = "DELETE FROM product_characteristics WHERE products_id=?";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, characts.get(0).getProductsId());
+				ps.executeUpdate();
+				
+				for(Characteristics c : characts) {
+					sql = "INSERT INTO product_characteristics(products_id,characteristics_id,input) VALUES (?,?,?)";
+					
+					ps = connection.prepareStatement(sql);
+					ps.setInt(1, c.getProductsId());
+					ps.setInt(2, c.getCharacteristicsId());
+					ps.setString(3, c.getInput());
+					ps.executeUpdate();
+				}
+				
+				connection.commit();
+				connection.setAutoCommit(true);
+			}finally {
+				
+				connection.setAutoCommit(true);
+			}
+			
+			
+		}
 
 }

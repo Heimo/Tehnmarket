@@ -7,6 +7,8 @@ public class Characteristics {
 	private String name;
 	private String input;
 		
+	public Characteristics() {}
+	
 	public Characteristics(int productsId, int characteristicsId, String name, String input) {
 		super();
 		this.productsId = productsId;
