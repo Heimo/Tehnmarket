@@ -101,6 +101,34 @@ public class UserDao {
 		ps.executeUpdate();
 	}
 
+	public static User checkEmail(String email) throws SQLException {
+		
+		String sql = "SELECT id, email, first_name, last_name, password, gender, birth_date, is_admin FROM users WHERE email = ?";
+		
+		Connection connection = DBManager.getInstance().getConnection();
+		PreparedStatement ps = connection.prepareStatement(sql);
+		
+		ps.setString(1, email);
+		
+		ResultSet result = ps.executeQuery();
+		
+		if(result.next()) {
+				return new User(result.getInt("id"),
+						result.getString("email"),
+						result.getString("first_name"),
+						result.getString("last_name"),
+						result.getString("password"),
+						result.getString("gender"),
+						result.getDate("birth_date"),
+						result.getBoolean("is_admin"));
+		}
+		else {
+			return null;
+		}
+				
+		
+	}
+
 	
 	
 }

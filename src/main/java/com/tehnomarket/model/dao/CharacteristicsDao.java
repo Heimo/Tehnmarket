@@ -30,11 +30,11 @@ public class CharacteristicsDao {
 	
 	public ArrayList<Characteristics> getAllProductChar(int productId) throws SQLException{
 		ArrayList<Characteristics> all = new ArrayList<Characteristics>();
-		
-		String sql = "SELECT P.products_id,P.characteristics_id,C.name,P.input \r\n" + 
-					"FROM product_characteristics P\r\n" + 
-					"LEFT JOIN characteristics C \r\n" + 
-					"ON ( P.characteristics_id = C.characteristics_id)\r\n" + 
+		//\r\n
+		String sql = "SELECT P.products_id,P.characteristics_id,C.name,P.input " + 
+					"FROM product_characteristics P " + 
+					"LEFT JOIN characteristics C " + 
+					"ON ( P.characteristics_id = C.characteristics_id) " + 
 					"WHERE P.products_id=?;";
 		
 		Connection connection = DBManager.getInstance().getConnection();

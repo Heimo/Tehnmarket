@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.core.SpringVersion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,8 @@ import com.tehnomarket.model.User;
 import com.tehnomarket.model.dao.ProductDao;
 import com.tehnomarket.model.dao.UserDao;
 import com.tehnomarket.util.HashPassword;
+import com.tehnomarket.util.SendMailSSL;
+import java.util.UUID;
 
 @Controller
 //@RequestMapping(value="/try")
@@ -140,17 +143,26 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/forgotPass",method=RequestMethod.POST)
-	public String restorePass(@ModelAttribute User u,Model m) {
+	public String restorePass(@ModelAttribute User u,Model m) throws SQLException {
 		
-		boolean check = UserDao.checkEmail(u.getEmail());
+		User check = UserDao.checkEmail(u.getEmail());
 		
-		if(check) {
+		if(check!=null) {
 			//new password
-			//edit user
+			String password = UUID.randomUUID().toString().replace("-", "");
+			String hashPass= HashPassword.hashPassword(password);
+			check.setPassword(hashPass);
+			UserDao.editUser(check);
 			//send password
+			String receiver = check.getEmail();
+			String subject = "Tehnomarket New Password !";
+			String text = "Your new password for Tehnomarket is: "+password;
+			SendMailSSL send = new SendMailSSL(receiver,subject,text);
+			send.sendMail();
 		}
 		else {
-			return "NoSuchUser";
+			m.addAttribute("error","No such user,try again m8");
+			return "error";
 		}
 		
 		
