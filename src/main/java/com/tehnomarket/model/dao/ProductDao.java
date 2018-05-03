@@ -18,6 +18,7 @@ import com.tehnomarket.model.Characteristics;
 import com.tehnomarket.model.Order;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
+import com.tehnomarket.util.SendMailSSL;
 
 
 @Component
@@ -340,26 +341,7 @@ public class ProductDao {
 				e1.printStackTrace();
 			}
 		}
-		/*
-		finally {
-			connection.setAutoCommit(true);
-			if(orderInsert != null) {
-				orderInsert.close();
-			}
-			if(orderId != null) {
-				orderId.close();
-			}
-			if(productOrders != null) {
-				orderInsert.close();
-			}
-			if(quantityUpdate != null) {
-				quantityUpdate.close();
-			}
-			if(connection != null) {
-				connection.close();
-			}
-		}
-		*/
+		
 	}
 	
 	// edit product 
@@ -382,6 +364,27 @@ public class ProductDao {
 			ps.setInt(9, p.getId());
 			
 			ps.executeUpdate();
+			
+			// notify all who have this as a favourite for a change
+			int id = p.getId();
+			
+			sql = "SELECT email " + 
+					"FROM favourite_products F LEFT JOIN users U " + 
+					"ON(F.users_id = U.id) " + 
+					"WHERE F.products_id = ?";
+			
+			PreparedStatement ps2 = connection.prepareStatement(sql);
+			ps2.setInt(1, id);
+			
+			ResultSet rs = ps2.executeQuery();
+			while(rs.next()) {
+				String email = rs.getString("email");
+				String subject = "Something happened with a product you liked!";
+				String text = "The product " + p.getName() + " that you liked has changed, come check it out!";
+				SendMailSSL ssl = new SendMailSSL(email,subject,text);
+				ssl.sendMail();
+			}
+			
 			
 		}
 
