@@ -26,7 +26,7 @@
 				Brand: ${product.brand}<br>
 				
 				<div style="max-width: 300px" >
-					<img src="${pageContext.request.contextPath}/download/${product.image}" style="max-width:100%;" />
+					<img src="${pageContext.request.contextPath}/download/${product.brand}" style="max-width:100%;" />
 				</div>
 		</div>
 		

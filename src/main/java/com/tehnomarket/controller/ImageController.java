@@ -52,8 +52,9 @@ public class ImageController {
 
 	@RequestMapping(value="/download/{filename:.+}", method=RequestMethod.GET)
 	public void downloadFile(HttpServletResponse resp, @PathVariable("filename") String fileName) throws IOException {
+		String completeFileName = fileName+".jpg";
 		System.out.println(fileName);
-		File serverFile = new File(FILE_PATH + fileName);
+		File serverFile = new File(FILE_PATH + completeFileName);
 		Files.copy(serverFile.toPath(), resp.getOutputStream());
 	}
 	
