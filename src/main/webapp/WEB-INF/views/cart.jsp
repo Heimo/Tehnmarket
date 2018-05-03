@@ -32,7 +32,7 @@
 			</div>
 			
 			<div id="image">
-			<img src="${pageContext.request.contextPath}/download/${product.brand}.jpg">
+			<img src="${pageContext.request.contextPath}/download/${product.brand}">
 			</div>
 			
 			<div id="price">

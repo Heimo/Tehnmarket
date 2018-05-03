@@ -58,6 +58,9 @@ public class OrderController {
 		
 		//set user Id
 		User user = (User) session.getAttribute("user");
+		if(user==null) {
+			return "redirect:/login";
+		}
 		o.setUserId(user.getId());
 		
 		//set the products in the order
