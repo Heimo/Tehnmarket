@@ -76,7 +76,7 @@ public class ProductDao {
 					result.getString("name"),
 					result.getString("brand"),
 					result.getFloat("price"),
-					null,
+					result.getString("product_image"),
 					result.getInt("discount"),
 					result.getDate("discount_end"),
 					result.getString("product_image"),

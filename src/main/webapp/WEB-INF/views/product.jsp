@@ -13,10 +13,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-
-	<%
-	Product product = (Product) request.getAttribute("product");
-   %>
 	   
 <body>
 
@@ -26,13 +22,16 @@
 	<div style="height: 300px;width: 400px;">
 		<div align="left">
 			<br>
-				Name:<%=product.getName() %><br>
-				Brand:<%=product.getBrand() %><br>
-				<img src="${pageContext.request.contextPath}/download/<%=product.getBrand()%>.jpg">
+				Name: ${product.name}<br>
+				Brand: ${product.brand}<br>
+				
+				<div style="max-width: 300px" >
+					<img src="${pageContext.request.contextPath}/download/${product.image}" style="max-width:100%;" />
+				</div>
 		</div>
 		
 		<div align="right" style="font-size: 40px;">
-			Price:<%=product.getPrice() %><br>
+			Price: ${product.price}<br><br>
 			<div id="cart">	
 					<a href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
 

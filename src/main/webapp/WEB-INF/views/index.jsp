@@ -7,6 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,24 +20,6 @@
 		
 		<jsp:include page="header.jsp"/>
 		
-		<%
-	       ArrayList<Product> products = (ArrayList<Product>)request.getAttribute("products");
-	    %>
-		
-		
-		
-		<%if(products!= null){
-		for(Product p: products){ %>
-			<a href="product/<%=p.getId()%>">
-				Id:<%=p.getId() %><br>
-				Name:<%=p.getName() %><br>
-				Brand:<%=p.getBrand() %><br>
-				Price:<%=p.getPrice() %><br>
-			</a>
-			<br>
-				
-		<%}
-		}%>
 
 	</body>
 </html>

@@ -24,7 +24,11 @@
 			<f:hidden path="id" /><br>
 			<button type="button" onclick="saveProduct()" >Edit Product</button>
 	</f:form>
-	<image src="download/${edit_product.image}"><br>
+	
+	<div style="max-width: 300px" >
+		<img src="download/${edit_product.image}" style="max-width:100%;" />
+	</div>
+	<br>
 	<form method="post" action="upload" enctype="multipart/form-data">
 		<input type="file" name="file"><br>
 		<input type="text" id="id" name="id" value="${edit_product.id }" hidden>
