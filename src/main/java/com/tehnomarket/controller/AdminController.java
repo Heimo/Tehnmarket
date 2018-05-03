@@ -36,13 +36,19 @@ import com.tehnomarket.util.HashPassword;
 @Controller
 public class AdminController {
 	
-	@RequestMapping(value="/Account",method=RequestMethod.GET)
+	@RequestMapping(value="/account",method=RequestMethod.GET)
 	public String accountPage(){
 		return "account";
 	}
 	
 	@RequestMapping(value="/addProduct",method=RequestMethod.GET)
-	public String addProduct(Model m) {
+	public String addProduct(Model m,HttpSession session) {
+		User u = (User)session.getAttribute("user");
+		
+		if(!u.isAdmin()) {
+			return "redirect:/";
+		}
+		
 		Product p = new Product();
 		ArrayList<Category> categories;
 		try {
@@ -57,7 +63,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/addProduct",method=RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("new_product") Product p,Model m) {
+	public String saveProduct(@ModelAttribute("new_product") Product p,Model m,HttpSession session) {
+		
+		User u = (User)session.getAttribute("user");
+		
+		if(!u.isAdmin()) {
+			return "redirect:/";
+		}	
+		
 		try {
 			System.out.println(p.getName() + " "+p.getBrand());
 			ProductDao.getInstance().saveProduct(p);
@@ -70,7 +83,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/listProducts",method=RequestMethod.GET)
-	public String listProducts(Model m) {
+	public String listProducts(Model m,HttpSession session) {
+		User u = (User)session.getAttribute("user");
+		
+		if(!u.isAdmin()) {
+			return "redirect:/";
+		}
 		
 		try {
 			ArrayList<Product> products = (ArrayList<Product>) ProductDao.getInstance().getAllProducts();
@@ -83,7 +101,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/editProduct",method=RequestMethod.GET)
-	public String editProduct(Model m,HttpServletRequest request) {
+	public String editProduct(Model m,HttpServletRequest request,HttpSession session) {
+		User u = (User)session.getAttribute("user");
+		
+		if(!u.isAdmin()) {
+			return "redirect:/";
+		}
 		
 		ArrayList<Category> categories;
 		ArrayList<Characteristics> characts = new ArrayList<Characteristics>();
@@ -104,7 +127,12 @@ public class AdminController {
 	
 	@RequestMapping(value="/editProduct",method=RequestMethod.POST)
 	@ResponseBody
-	public String saveEditedProduct(@RequestBody Product p,Model m) {
+	public String saveEditedProduct(@RequestBody Product p,Model m,HttpSession session) {
+		User u = (User)session.getAttribute("user");
+		
+		if(!u.isAdmin()) {
+			return "redirect:/";
+		}
 		
 		try {
 			System.out.println(p.getName());
@@ -117,7 +145,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/deleteProduct",method=RequestMethod.GET)
-	public String deleteProduct(HttpServletRequest request,Model m) {
+	public String deleteProduct(HttpServletRequest request,Model m,HttpSession session) {
+		User u = (User)session.getAttribute("user");
+		
+		if(!u.isAdmin()) {
+			return "redirect:/";
+		}
 		
 		int id=Integer.parseInt(request.getParameter("id"));
 		try {

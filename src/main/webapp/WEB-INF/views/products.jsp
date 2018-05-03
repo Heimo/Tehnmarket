@@ -24,35 +24,51 @@
 					</a>
 		</div>
 		
+		<table>
 		<c:forEach var="product" items="${ products }"  >
+			<tr>
 			<div id="product">
+				<td>
 				<div id="product_name">
 					${product.name }
 				</div>
+				</td>
+				<td>
 				<div id="product_price">
 					${product.price }
 				</div>
+				</td>
+				<td>
+				<div style="max-width: 300px" >
+					<img src="${pageContext.request.contextPath}/download/${product.image}" style="max-width:100%;" />
+				</div>
+				</td>
+				<td>
 				<div id="product">
 					<a href="${pageContext.request.contextPath}/product/${product.id}">
 						<img src="https://i.imgur.com/01HYjJA.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>
+				</td>
+				<td>
 				<div id="cart">	
 					<a href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
 
   					<img src="https://i.imgur.com/0WDHoat.png" alt="cart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>
+				</td>
+				<td>
 				<div id="fav">
 					<a href="${pageContext.request.contextPath}/add_to_fav/${product.id}">
   					<img src="https://i.imgur.com/66Z0rB5.png" alt="heart" style="width:42px;height:42px;border:0">
 					</a>
 				</div>
-				
-				
-				<br>
+				</td>
 			</div>
+			</tr>
 		</c:forEach>
+		</table>
 		
 		
 		

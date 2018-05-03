@@ -17,6 +17,11 @@ table, td, th {
 </style>
 </head>
 <body>
+	
+	<form action="${pageContext.request.contextPath}/account">
+    	<input type="submit" value="Go Back to Account Page" />
+	</form>
+
 	<table>
 		<tr>
 			<td>ID</td>

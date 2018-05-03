@@ -190,7 +190,7 @@
 		<br>
 		<% if(user != null) {%>
 		Hello <%= user.getFirstName()+" "+user.getLastName() %>
-		<a href="${pageContext.request.contextPath}/Account">Account page</a>
+		<a href="${pageContext.request.contextPath}/account">Account page</a>
 		<a href="${pageContext.request.contextPath}/login">Click here to logout</a>
 		<%} else {%>
 		<a href="${pageContext.request.contextPath}/login">Click here to login</a>

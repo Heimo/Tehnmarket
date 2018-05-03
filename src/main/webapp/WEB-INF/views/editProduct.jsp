@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<form action="${pageContext.request.contextPath}/account">
+    	<input type="submit" value="Go Back to Account Page" />
+	</form>
+	
 	<f:form commandName="edit_product" action="editProduct" method="POST">
 			ID: ${edit_product.id}<br>
 			Name<f:input path="name" id="pName"/><br>

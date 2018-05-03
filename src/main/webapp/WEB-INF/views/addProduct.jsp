@@ -9,7 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+
+	<form action="${pageContext.request.contextPath}/account">
+    	<input type="submit" value="Go Back to Account Page" />
+	</form>
+		
 	<f:form commandName="new_product" action="addProduct" method="POST">
 			Name<f:input path="name"/><br>
 			Brand<f:input path="brand"/><br>
