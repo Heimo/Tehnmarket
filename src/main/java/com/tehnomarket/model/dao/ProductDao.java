@@ -420,4 +420,15 @@ public class ProductDao {
 			
 		}
 
+
+		public static void addPictureToProductById(String filePath,int id) throws SQLException {
+			String sql = "UPDATE products SET product_image = ? WHERE id = ?";
+			Connection connection = DBManager.getInstance().getConnection();
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, filePath);
+			ps.setInt(2, id);
+			ps.executeUpdate();
+			
+		}
+
 }

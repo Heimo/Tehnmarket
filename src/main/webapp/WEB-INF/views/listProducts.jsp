@@ -5,12 +5,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Insert title here</title>
+<title>Product List</title>
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+</style>
 </head>
 <body>
 	<table>
+		<tr>
+			<td>ID</td>
+			<td>Name</td>
+			<td>Brand</td>
+			<td>Price</td>
+			<td>Category</td>
+			<td>Edit</td>
+			<td>Delete</td>
+		</tr>
 		<c:forEach var="product" items="${products}">
 			<tr>
+				<td>${product.id}</td>
 				<td>${product.name }</td>	
 				<td>${product.brand }</td>	
 				<td>${product.price }</td>	

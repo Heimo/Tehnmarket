@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.tehnomarket.model.dao.ProductDao;
 
 @Controller
 @MultipartConfig
@@ -30,13 +36,18 @@ public class ImageController {
 	// NOT FIXED FOR OUR SITE, copy/paste from krasi !!!
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String saveImage(Model m, @RequestParam("failche") MultipartFile uploadedFile) throws IOException {
-//		String extension = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
-		String fileName = "krasi-"+uploadedFile.getOriginalFilename();
+	public ModelAndView saveImage(Model m, @RequestParam("file") MultipartFile uploadedFile,@RequestParam("id") int id,HttpServletRequest request) throws IOException {
+		String fileName = id + "-mainImage."+ FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
+		System.out.println(uploadedFile.getOriginalFilename());
 		File serverFile = new File(FILE_PATH + fileName);
 		Files.copy(uploadedFile.getInputStream(), serverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		m.addAttribute("filename", fileName);
-		return "upload";
+		request.setAttribute("id",id);
+		try {
+			ProductDao.addPictureToProductById(fileName,id);
+		} catch (SQLException e) {
+			return new ModelAndView("error");
+		}
+		return new ModelAndView("redirect:/editProduct?id="+id);
 	}
 
 	@RequestMapping(value="/download/{filename:.+}", method=RequestMethod.GET)
