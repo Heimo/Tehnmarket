@@ -181,6 +181,7 @@
 		 
 		 <a href="${pageContext.request.contextPath}/cart">
 			Cart:
+			
 			<% if(cart == null){ %>
 			 0
 			<% }else{%>
@@ -189,7 +190,7 @@
 		</a>
 		<br>
 		<% if(user != null) {%>
-		Hello <%= user.getFirstName()+" "+user.getLastName() %>
+		Hello <%= user.getFirstName()+" "+user.getLastName() + " " + user.isAdmin()%>
 		<a href="${pageContext.request.contextPath}/account">Account page</a>
 		<a href="${pageContext.request.contextPath}/login">Click here to logout</a>
 		<%} else {%>

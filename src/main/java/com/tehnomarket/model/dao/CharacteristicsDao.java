@@ -14,15 +14,7 @@ import com.tehnomarket.model.Characteristics;
 @Component
 public class CharacteristicsDao {
 
-	private static CharacteristicsDao instance;
 	private Connection connection;
-	
-	public static CharacteristicsDao getInstance() {
-		if(instance == null) {
-			instance = new CharacteristicsDao();
-		}
-		return instance;
-	}
 	
 	private CharacteristicsDao() {
 		connection = DBManager.getInstance().getConnection();
@@ -37,7 +29,6 @@ public class CharacteristicsDao {
 					"ON ( P.characteristics_id = C.characteristics_id) " + 
 					"WHERE P.products_id=?;";
 		
-		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement ps = connection.prepareStatement(sql);
 		
 		ps.setInt(1, productId);
@@ -70,7 +61,6 @@ public class CharacteristicsDao {
 		
 		String sql = "SELECT characteristics_id,name From characteristics Where categories_id = ?";
 		
-		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement ps = connection.prepareStatement(sql);
 		
 		ps.setInt(1, catId);

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,9 @@ import com.tehnomarket.model.dao.ProductDao;
 @MultipartConfig
 public class ImageController {
 
+	@Autowired
+	private ProductDao productDao;
+	
 	private static final String FILE_PATH = "D:\\TEHNOMARKET_IMAGES\\";
 
 	@RequestMapping(value="/upload", method=RequestMethod.GET)
@@ -43,7 +47,7 @@ public class ImageController {
 		Files.copy(uploadedFile.getInputStream(), serverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		request.setAttribute("id",id);
 		try {
-			ProductDao.addPictureToProductById(fileName,id);
+			productDao.addPictureToProductById(fileName,id);
 		} catch (SQLException e) {
 			return new ModelAndView("error");
 		}

@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
-import org.springframework.boot.json.GsonJsonParser;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.converter.json.GsonBuilderUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -36,6 +32,19 @@ import com.tehnomarket.util.HashPassword;
 @Controller
 public class AdminController {
 	
+	@Autowired
+	private CategoryDao categoryDao;
+	
+	@Autowired
+	private ProductDao productDao;
+	
+	@Autowired
+	private UserDao userDao;
+	
+	@Autowired
+	private CharacteristicsDao characteristicsDao;
+	
+	
 	@RequestMapping(value="/account",method=RequestMethod.GET)
 	public String accountPage(){
 		return "account";
@@ -52,7 +61,7 @@ public class AdminController {
 		Product p = new Product();
 		ArrayList<Category> categories;
 		try {
-			categories = (ArrayList<Category>) CategoryDao.getInstance().getAllCategories();
+			categories = (ArrayList<Category>) categoryDao.getAllCategories();
 		} catch (SQLException e) {
 			m.addAttribute("error","SQL error");
 			return "error";
@@ -73,7 +82,7 @@ public class AdminController {
 		
 		try {
 			System.out.println(p.getName() + " "+p.getBrand());
-			ProductDao.getInstance().saveProduct(p);
+			productDao.saveProduct(p);
 		} catch (Exception e) {
 			m.addAttribute("error","Could not save product");
 			return "error";
@@ -91,7 +100,7 @@ public class AdminController {
 		}
 		
 		try {
-			ArrayList<Product> products = (ArrayList<Product>) ProductDao.getInstance().getAllProducts();
+			ArrayList<Product> products = (ArrayList<Product>) productDao.getAllProducts();
 			m.addAttribute("products",products);
 		} catch (SQLException e) {
 			m.addAttribute("error","Could not get products");
@@ -112,11 +121,11 @@ public class AdminController {
 		ArrayList<Characteristics> characts = new ArrayList<Characteristics>();
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
-			Product product = ProductDao.getInstance().getProductById(id);
+			Product product = productDao.getProductById(id);
 			m.addAttribute("edit_product",product);
-			categories = (ArrayList<Category>) CategoryDao.getInstance().getAllCategories();
+			categories = (ArrayList<Category>) categoryDao.getAllCategories();
 			m.addAttribute("categories",categories);
-			characts = CharacteristicsDao.getInstance().getAllProductChar(id);
+			characts = characteristicsDao.getAllProductChar(id);
 			m.addAttribute("characts", characts);
 		} catch (SQLException e) {
 			m.addAttribute("error","Could not get product");
@@ -136,7 +145,7 @@ public class AdminController {
 		
 		try {
 			System.out.println(p.getName());
-			ProductDao.getInstance().editProduct(p);
+			productDao.editProduct(p);
 		} catch (SQLException e) {
 			m.addAttribute("error","Could not get product " + e.getMessage());
 			return "error";
@@ -155,7 +164,7 @@ public class AdminController {
 		int id=Integer.parseInt(request.getParameter("id"));
 		try {
 
-			ProductDao.getInstance().deleteProductById(id);
+			productDao.deleteProductById(id);
 		} catch (SQLException e) {
 			m.addAttribute("error","Could not delete product");
 			return "error";
@@ -194,7 +203,7 @@ public class AdminController {
 			u.setId(oldUser.getId());
 			if(u.getPassword().equals(u.getPasswordCheck())) {
 				u.setPassword(HashPassword.hashPassword(u.getPassword()));
-				UserDao.editUser(u);
+				userDao.editUser(u);
 			}
 			else {
 				System.out.println("PASSWORDS DIDN' MATCH OR SOMETHING");
@@ -217,7 +226,7 @@ public class AdminController {
 		
 		ArrayList<Characteristics> characts = new ArrayList<Characteristics>();
 		try {
-			characts = CharacteristicsDao.getInstance().getCategoryCharacteristics(catId);
+			characts = characteristicsDao.getCategoryCharacteristics(catId);
 		} catch (SQLException e) {
 			
 			return "error";
@@ -231,7 +240,7 @@ public class AdminController {
 	@ResponseBody
 	public String saveCharacteristics(HttpServletRequest request,@RequestBody ArrayList<Characteristics> characts){
 		try {
-			ProductDao.getInstance().replaceProductCharacteristics(characts);
+			productDao.replaceProductCharacteristics(characts);
 		} catch (SQLException e) {
 			return e.getMessage();
 		}

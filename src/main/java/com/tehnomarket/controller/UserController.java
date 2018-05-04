@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.core.SpringVersion;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,7 +26,11 @@ import java.util.UUID;
 //@RequestMapping(value="/try")
 public class UserController {
 
+	@Autowired
+	private UserDao userDao;
 	
+	@Autowired
+	private ProductDao productDao;
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String registerUser(Model m) {
@@ -41,7 +45,7 @@ public class UserController {
 		try {
 			if(u.getPassword().equals(u.getPasswordCheck())) {
 				u.setPassword(HashPassword.hashPassword(u.getPassword()));
-				UserDao.saveUser(u);
+				userDao.saveUser(u);
 			}
 			else {
 				m.addAttribute("error", "Could not register");
@@ -71,10 +75,10 @@ public class UserController {
 		try {
 			String pass = request.getParameter("pass");
 			String email = request.getParameter("email"); 
-			String hashpass = UserDao.getHashPass(email);
+			String hashpass = userDao.getHashPass(email);
 			User u = null;
 			if(HashPassword.checkPassword(pass, hashpass)) {
-				u = UserDao.getUser(email,hashpass);
+				u = userDao.getUser(email,hashpass);
 			}
 			if(u != null) {
 				session.setAttribute("user", u);
@@ -103,7 +107,7 @@ public class UserController {
 		
 		User u = (User)session.getAttribute("user");
 		try {
-			ArrayList<Product> products = (ArrayList<Product>) ProductDao.getInstance().getFavouritesByUserId(u.getId());
+			ArrayList<Product> products = (ArrayList<Product>) productDao.getFavouritesByUserId(u.getId());
 			m.addAttribute("products",products);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -121,7 +125,7 @@ public class UserController {
 		
 		User u = (User)session.getAttribute("user");
 		try {
-			ProductDao.removeFromFavourites(u.getId(), productId);
+			productDao.removeFromFavourites(u.getId(), productId);
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			m.addAttribute("error","Could find product");
@@ -145,14 +149,14 @@ public class UserController {
 	@RequestMapping(value="/forgotPass",method=RequestMethod.POST)
 	public String restorePass(@ModelAttribute User u,Model m) throws SQLException {
 		
-		User check = UserDao.checkEmail(u.getEmail());
+		User check = userDao.checkEmail(u.getEmail());
 		
 		if(check!=null) {
 			//new password
 			String password = UUID.randomUUID().toString().replace("-", "");
 			String hashPass= HashPassword.hashPassword(password);
 			check.setPassword(hashPass);
-			UserDao.editUser(check);
+			userDao.editUser(check);
 			//send password
 			String receiver = check.getEmail();
 			String subject = "Tehnomarket New Password !";

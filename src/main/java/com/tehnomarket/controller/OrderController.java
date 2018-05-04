@@ -1,15 +1,13 @@
 package com.tehnomarket.controller;
 
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +23,8 @@ import com.tehnomarket.model.dao.ProductDao;
 @Controller
 public class OrderController {
 
+	@Autowired
+	private ProductDao productDao;
 	
 	@RequestMapping(value="/cart",method=RequestMethod.POST)
 	public String goToOrder(Model m,HttpSession session,@ModelAttribute Order o) throws SQLException {
@@ -68,7 +68,7 @@ public class OrderController {
 		
 		System.out.println("Testing ORDER !! : "+o);
 		
-		ProductDao.makeOrder(o);
+		productDao.makeOrder(o);
 		
 		// empty old cart 
 		cart = new HashMap<Product,Integer>();
@@ -90,7 +90,7 @@ public class OrderController {
 		}
 		
 		
-		Product product = (Product) ProductDao.getProductById(productId);
+		Product product = (Product) productDao.getProductById(productId);
 		
 		
 		HashMap<Product,Integer> theCart = (HashMap<Product, Integer>) session.getAttribute("cart");

@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<form action="${pageContext.request.contextPath}/">
+    	<input type="submit" value="Go Back" />
+	</form>
+	
 	<h1>Something went wrong</h1>
 	<h2>error: ${ error }</h2> 
 	<img src="https://i.imgur.com/kAqFB3f.jpg" alt="monkey business"> 
