@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,11 @@ import com.tehnomarket.model.dao.ProductDao;
 @Controller
 public class ProductController {
 
+	@Autowired
+	private ProductDao productDao;
+	
+	@Autowired
+	private CharacteristicsDao characteristicsDao;
 
 	@RequestMapping(value= {"/products/{catId}","*/products/{catId}"},method=RequestMethod.GET)
 	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session) {
@@ -44,7 +50,7 @@ public class ProductController {
 		ArrayList<Product> products = new ArrayList<Product>();
 		
 		try {
-			 products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(catId);
+			 products = (ArrayList<Product>) productDao.getProductByCat(catId);
 			 System.out.println("no problem from db");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,7 +83,7 @@ public class ProductController {
 		Integer position = (Integer) session.getAttribute("position");
 		if(position != null) {
 			try {
-				products = (ArrayList<Product>) ProductDao.getInstance().getProductByCat(position);
+				products = (ArrayList<Product>) productDao.getProductByCat(position);
 				System.out.println("no problem from db");
 			} catch (SQLException e) {
 				m.addAttribute("error", "Could not sort");
@@ -86,7 +92,7 @@ public class ProductController {
 		}else {
 			String search = (String) session.getAttribute("search");
 			try {
-				products = (ArrayList<Product>) ProductDao.getInstance().search(search);
+				products = (ArrayList<Product>) productDao.search(search);
 				System.out.println("no problem from db");
 			} catch (SQLException e) {
 				m.addAttribute("error", "Could not sort");
@@ -112,11 +118,10 @@ public class ProductController {
 		ArrayList<Product> products = new ArrayList<>();
 		
 		try {
-			products = (ArrayList<Product>) ProductDao.getInstance().search(search);
+			products = (ArrayList<Product>) productDao.search(search);
 			m.addAttribute("products",products);
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			m.addAttribute("error", "Could not find products");
 			return "error";
 		}
@@ -147,7 +152,7 @@ public class ProductController {
 		
 		
 		//add product id to set , quantity is set to 1 as default
-		Product product = ProductDao.getProductById(id);
+		Product product = productDao.getProductById(id);
 		
 		theCart.put(product, initialQuantitiy);
 		
@@ -170,8 +175,8 @@ public class ProductController {
 		
 		
 		try {
-			Product product = ProductDao.getInstance().getProductById(productId);
-			characts = CharacteristicsDao.getInstance().getAllProductChar(productId);
+			Product product = productDao.getProductById(productId);
+			characts = characteristicsDao.getAllProductChar(productId);
 			m.addAttribute("product",product);
 			m.addAttribute("characeristics",characts);
 			System.out.println("tuka "+ productId + " sum "+product );
@@ -199,9 +204,8 @@ public class ProductController {
 		long userId = user.getId();
 		
 		try {
-			ProductDao.addToFavourites(userId,id);
+			productDao.addToFavourites(userId,id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			m.addAttribute("error", "Could not add to favourites");
 			return "error";
 		}

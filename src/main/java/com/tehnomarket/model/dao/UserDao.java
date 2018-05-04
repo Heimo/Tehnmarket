@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tehnomarket.controller.DBManager;
@@ -15,21 +14,15 @@ import com.tehnomarket.model.User;
 @Component
 public class UserDao {
 
-	private static UserDao instance;
-	@Autowired
-	private static DBManager manager;
-	
-	public static UserDao getInstance() {
-		if(instance == null) {
-			instance = new UserDao();
-		}
-		return instance;
+	private Connection connection;
+
+	private UserDao() {
+		connection = DBManager.getInstance().getConnection();
 	}
 
-	public static void saveUser(User u) throws SQLException {
+	public void saveUser(User u) throws SQLException {
 		String sql = "INSERT INTO users(email, first_name, last_name, password, gender, birth_date, is_admin) VALUES (?, ?, ?, ?,?,?,?)";
-		Connection connection = DBManager.getInstance().getConnection();
-		
+
 		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setString(1, u.getEmail());
 		ps.setString(2, u.getFirstName());
@@ -41,13 +34,11 @@ public class UserDao {
 		ps.executeUpdate();
 	}
 
-	public static User getUser(String email, String pass) throws SQLException {
+	public User getUser(String email, String pass) throws SQLException {
 		String sql = "SELECT id, email, first_name, last_name, password, gender, birth_date, is_admin FROM users WHERE email = ? AND password = ?";
 		//PreparedStatement ps = manager.getConnection().prepareStatement(sql);
-		
-		Connection connection = DBManager.getInstance().getConnection();
 		PreparedStatement ps = connection.prepareStatement(sql);
-		
+
 		ps.setString(1, email);
 		ps.setString(2, pass);
 		ResultSet result = ps.executeQuery();
@@ -66,9 +57,9 @@ public class UserDao {
 		}
 	}
 
-	public static String getHashPass(String email) throws SQLException {
+	public String getHashPass(String email) throws SQLException {
 		String sql = "SELECT password FROM users WHERE email = ? ";
-		PreparedStatement ps = DBManager.getInstance().getConnection().prepareStatement(sql);
+		PreparedStatement ps = connection.prepareStatement(sql);
 		ps.setString(1, email);
 		ResultSet result = ps.executeQuery();
 		if(result.next()) {
@@ -79,12 +70,11 @@ public class UserDao {
 		}
 	}
 
-	public static void editUser(User u) throws SQLException {
+	public void editUser(User u) throws SQLException {
 		String sql = "UPDATE users SET password=?,first_name=?,last_name=?,birth_date=?,gender=? WHERE id=?";
-		
-		Connection connection = DBManager.getInstance().getConnection();
+
 		PreparedStatement ps = connection.prepareStatement(sql);
-		
+
 		ps.setString(1, u.getPassword());
 		System.out.println(u.getPassword());
 		ps.setString(2, u.getFirstName());
@@ -97,38 +87,35 @@ public class UserDao {
 		System.out.println(u.getGender());
 		ps.setInt(6, (int)u.getId());
 		System.out.println(u.getId());
-		
+
 		ps.executeUpdate();
 	}
 
-	public static User checkEmail(String email) throws SQLException {
-		
+	public User checkEmail(String email) throws SQLException {
+
 		String sql = "SELECT id, email, first_name, last_name, password, gender, birth_date, is_admin FROM users WHERE email = ?";
-		
-		Connection connection = DBManager.getInstance().getConnection();
+
 		PreparedStatement ps = connection.prepareStatement(sql);
-		
+
 		ps.setString(1, email);
-		
+
 		ResultSet result = ps.executeQuery();
-		
+
 		if(result.next()) {
-				return new User(result.getInt("id"),
-						result.getString("email"),
-						result.getString("first_name"),
-						result.getString("last_name"),
-						result.getString("password"),
-						result.getString("gender"),
-						result.getDate("birth_date"),
-						result.getBoolean("is_admin"));
+			return new User(result.getInt("id"),
+					result.getString("email"),
+					result.getString("first_name"),
+					result.getString("last_name"),
+					result.getString("password"),
+					result.getString("gender"),
+					result.getDate("birth_date"),
+					result.getBoolean("is_admin"));
 		}
 		else {
 			return null;
 		}
-				
-		
+
+
 	}
 
-	
-	
 }

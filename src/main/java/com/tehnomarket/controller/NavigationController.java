@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,8 @@ import com.tehnomarket.model.dao.ProductDao;
 @Controller
 public class NavigationController {
 
+	@Autowired
+	private ProductDao productDao;
 
 	@RequestMapping(value= {"/index.html","homepage"},method=RequestMethod.GET)
 	public String sendIndex() {
@@ -61,7 +64,7 @@ public class NavigationController {
 		// get quantities FROM STORE for the products 
 		ArrayList<Integer> quantities = new ArrayList<Integer>();
 		try {
-			 quantities = ProductDao.getProductQuantities(productId);
+			 quantities = productDao.getProductQuantities(productId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
