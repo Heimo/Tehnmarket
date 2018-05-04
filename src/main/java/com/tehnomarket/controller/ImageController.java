@@ -33,7 +33,7 @@ public class ImageController {
 		return "upload";
 	}
 	
-	// NOT FIXED FOR OUR SITE, copy/paste from krasi !!!
+	
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public ModelAndView saveImage(Model m, @RequestParam("file") MultipartFile uploadedFile,@RequestParam("id") int id,HttpServletRequest request) throws IOException {
