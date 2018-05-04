@@ -29,7 +29,7 @@ public class NavigationController {
 		return "index";
 	}
 	
-	@RequestMapping(value= {"*/index.html"},method=RequestMethod.GET)
+	@RequestMapping(value= {"/index.html"},method=RequestMethod.GET)
 	public String sendIndexFromOtherPages() {
 		return "redirect:/";
 	}

@@ -15,8 +15,8 @@
 	<f:form commandName="edit_user">
 			First name<f:input path="firstName"/><br>
 			Last name<f:input path="lastName"/><br>
-			password<f:input type="password" path="password"/><br>
-			check password<f:input type="password" path="passwordCheck"/><br>
+			password<f:input type="password" path="password" required="required"/><br>
+			check password<f:input type="password" path="passwordCheck" required="required"/><br>
 			
 			Birthdate<f:input type="date" path="dateOfBirth"/></br>
 			

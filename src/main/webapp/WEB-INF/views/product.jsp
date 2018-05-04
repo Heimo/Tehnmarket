@@ -7,6 +7,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page session="true" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,6 +57,27 @@
 	</c:forEach>
 	</table>
 	
+	<br><br><br><br><br>
+	
+	<form action = "rateProduct" method="post">
+		Rate:<select name="rate" id="rate">
+    			<option value="1">1</option>
+    			<option value="2">2</option>
+   		 		<option value="3">3</option>
+    			<option value="4">4</option>
+    			<option value="5">5</option>
+  			</select><br>
+		Comment:<input type="text" id="comment" name="comment"/>
+		<input type="text" id="user_id" name="user_id" value="${sessionScope.user.id}" />
+		<input type="text" id="product_id" name="product_id" value="${product.id}" />
+		<input type="submit" value="Give Feedback">
+	</form>	
+	
+	<c:forEach var="review" items="${reviews}">
+		ID:${review.id} User:${review.userId} Date:${review.creationDate.time}<br>
+		Rate:${review.rating} Comment:${review.comment}<br>
+		<br>
+	</c:forEach>
 	
 </body>
 </html>

@@ -42,7 +42,6 @@ public class User {
 	
 	@NotNull
 	@NotEmpty
-	
 	private Date dateOfBirth;
 	
 	private boolean isAdmin;
