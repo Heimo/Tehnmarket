@@ -46,14 +46,16 @@ public class AdminController {
 	private CharacteristicsDao characteristicsDao;
 	
 	
+	
+	
 	@RequestMapping(value="/account",method=RequestMethod.GET)
-	public String accountPage(Model m,HttpSession session){
+	public String accountPage(Model m,HttpSession session) throws SQLException{
 		
 		//orders 
 		User u = (User) session.getAttribute("user");
 		int userId = (int)u.getId();
 		
-		ArrayList<Order> orders = ProductDao.getOrders(userId);
+		ArrayList<Order> orders = productDao.getOrders(userId);
 		
 		
 		m.addAttribute("Orders", orders);
