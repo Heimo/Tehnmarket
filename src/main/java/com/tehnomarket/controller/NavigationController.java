@@ -29,10 +29,11 @@ public class NavigationController {
 		return "index";
 	}
 	
+	/*
 	@RequestMapping(value= {"/index.html"},method=RequestMethod.GET)
 	public String sendIndexFromOtherPages() {
 		return "redirect:/";
-	}
+	}*/
 
 	
 	@RequestMapping(value="/cart",method=RequestMethod.GET)
@@ -92,6 +93,16 @@ public class NavigationController {
 			productArr.set(i, p);
 		}
 		
+		// total price
+		int totalPrice = 0;
+		for(Product key: mapProduct.keySet()) {
+			System.out.println(key.getPrice());
+			System.out.println(mapProduct.get(key));
+			
+			totalPrice += (key.getPrice()*mapProduct.get(key));
+		}
+		
+		m.addAttribute("totalPrice", totalPrice);
 		m.addAttribute("productArr", productArr);
 		m.addAttribute("mapProduct",mapProduct);
 		session.setAttribute("productQuantity", maxQuantity);

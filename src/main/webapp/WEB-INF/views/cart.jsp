@@ -57,6 +57,11 @@
 					</a>
 			</div>				
 	</c:forEach>
+	<hr>
+	
+	<div id="total price">
+		Total price comes to: ${totalPrice}
+	</div>
 	
 	<hr>
 	
