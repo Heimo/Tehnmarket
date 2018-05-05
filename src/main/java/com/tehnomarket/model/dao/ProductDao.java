@@ -287,7 +287,7 @@ public class ProductDao {
 
 			// third input 
 			productOrders = connection.prepareStatement(sql3);
-			HashMap<Product,Integer> theCart = o.getOrder();
+			HashMap<Product,Integer> theCart = o.getTheOrders();
 			for(Product key : theCart.keySet()) {
 				Product p = key;
 				int quantity = theCart.get(key);

@@ -16,7 +16,7 @@ public class Order {
 	private String Street;
 	private String Entrance;
 	private int phoneNumber;
-	private HashMap<Product,Integer> order;
+	private HashMap<Product,Integer> theOrders;
 	
 	public Order() {
 		
@@ -94,12 +94,12 @@ public class Order {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public HashMap<Product, Integer> getOrder() {
-		return order;
+	public HashMap<Product, Integer> getTheOrders() {
+		return theOrders;
 	}
 
-	public void setOrder(HashMap<Product, Integer> order) {
-		this.order = order;
+	public void setTheOrders(HashMap<Product, Integer> order) {
+		this.theOrders = order;
 	}
 	
 	
