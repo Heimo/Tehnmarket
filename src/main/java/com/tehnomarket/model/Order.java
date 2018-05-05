@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Order {
 
-	
+	private int id;
 	private Date dateOfOrder;
 	private double totalCost;
 	// Status should have more than two conditions , it can be in processing, canceled, lost or delayed , not just delivered or not 
@@ -100,6 +100,16 @@ public class Order {
 
 	public void setOrder(HashMap<Product, Integer> order) {
 		this.order = order;
+	}
+	
+	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override

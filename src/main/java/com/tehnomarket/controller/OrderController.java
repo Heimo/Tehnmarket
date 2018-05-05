@@ -49,7 +49,7 @@ public class OrderController {
 		double combinedCost=0;
 		for(Product key: cart.keySet()) {
 			int amount = cart.get(key);
-			combinedCost+=combinedCost + ( amount*(key.getPrice()-key.getDiscount()) );
+			combinedCost+= ( amount*(key.getPrice()-key.getDiscount()) );
 		}
 		o.setTotalCost(combinedCost);
 		

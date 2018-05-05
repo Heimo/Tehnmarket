@@ -332,6 +332,7 @@ public class ProductDao {
 				+ " discount = ?, discount_end = ?, product_image = ?, categories_id = ? "
 				+ "WHERE id = ?";
 		PreparedStatement ps = connection.prepareStatement(sql);
+		
 		ps.setString(1, p.getName());
 		ps.setString(2, p.getBrand());
 		ps.setDouble(3, p.getPrice());
@@ -409,6 +410,61 @@ public class ProductDao {
 		ps.setInt(2, id);
 		ps.executeUpdate();
 
+	}
+	
+	
+	// getting all orders for a user and displaying them in account page 
+	public ArrayList<Order> getOrders(int userId) throws SQLException {
+		String sql = "SELECT id,the_date,total_cost,the_status FROM orders WHERE users_id=?";
+		
+		PreparedStatement ps = connection.prepareStatement(sql);
+		
+		ps.setInt(1, userId);
+		ResultSet result = ps.executeQuery();
+		
+		ArrayList<Order> theOrders = new ArrayList<Order>();
+
+		while(result.next()) {
+			Order o = new Order();
+			o.setId(result.getInt("id"));
+			o.setDateOfOrder(result.getDate("the_date"));
+			o.setTotalCost(result.getDouble("total_cost"));
+			o.setStatus(result.getInt("the_status"));
+			theOrders.add(o);
+		}
+		//now if the arraylist is not empty and the user has orders
+		//we need to fill in the HashMap of products in the order object
+		if(!theOrders.isEmpty()) {
+			for(Order o : theOrders) {
+				int orderId = o.getId();
+				String product = "SELECT O.quantity,P.name,P.brand,P.price,P.product_image " + 
+						"FROM product_orders O " + 
+						"INNER JOIN products P ON(O.order_id = P.id) " + 
+						"WHERE order_id=?";
+				
+				PreparedStatement psProduct = connection.prepareStatement(product);
+				psProduct.setInt(1, orderId);
+				
+				HashMap<Product,Integer> hm = new HashMap<Product,Integer>();
+				
+				ResultSet rs = psProduct.executeQuery();
+				while(rs.next()) {
+					Product p = new Product();
+					p.setAmount(rs.getInt("quantity"));
+					p.setName(rs.getString("name"));
+					p.setBrand(rs.getString("brand"));
+					p.setPrice(rs.getInt("price"));
+					p.setImage(rs.getString("product_image"));
+					hm.put(p, rs.getInt("quantity"));
+				}
+
+			}
+			
+		}
+		
+				
+		return theOrders;
+		
 	}
 
 }

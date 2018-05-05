@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tehnomarket.model.Category;
 import com.tehnomarket.model.Characteristics;
+import com.tehnomarket.model.Order;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
 import com.tehnomarket.model.dao.CategoryDao;
@@ -46,7 +47,17 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/account",method=RequestMethod.GET)
-	public String accountPage(){
+	public String accountPage(Model m,HttpSession session){
+		
+		//orders 
+		User u = (User) session.getAttribute("user");
+		int userId = (int)u.getId();
+		
+		ArrayList<Order> orders = ProductDao.getOrders(userId);
+		
+		
+		m.addAttribute("Orders", orders);
+		//
 		return "account";
 	}
 	

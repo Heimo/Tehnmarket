@@ -18,6 +18,13 @@
 	
 	<jsp:include page="header.jsp"/>
 	
+	<hr>
+	<div id="orders">
+		
+	</div>
+	
+	<hr>
+	
 	
 	<form action="addProduct" method="get">
 		<button type="submit">Add Product</button>
