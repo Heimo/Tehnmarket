@@ -64,7 +64,7 @@ public class OrderController {
 		o.setUserId(user.getId());
 		
 		//set the products in the order
-		o.setOrder(cart);
+		o.setTheOrders(cart);
 		
 		System.out.println("Testing ORDER !! : "+o);
 		

@@ -24,14 +24,15 @@ public class CategoryDao {
 	
 	public Collection<Category> getAllCategories() throws SQLException{
 		Collection<Category> categories = new ArrayList<Category>();
-		String sql = "SELECT id, name FROM categories";
+		String sql = "SELECT id, name, parent_category FROM tehnomarket.categories order by coalesce(parent_category,id), parent_category IS NOT NULL,id";
 
 		PreparedStatement ps = connection.prepareStatement(sql);
 		
 		ResultSet result = ps.executeQuery();
 		while(result.next()) {
 			Category c = new Category(result.getInt("id"),
-					result.getString("name"));
+					result.getString("name"),
+					result.getInt("parent_category"));
 			categories.add(c);
 		}
 		return categories;

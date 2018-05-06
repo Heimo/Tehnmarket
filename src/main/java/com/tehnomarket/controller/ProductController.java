@@ -64,10 +64,6 @@ public class ProductController {
 		}
 		
 		m.addAttribute("products", products);
-		if(products.isEmpty()) {
-			m.addAttribute("error", "No products found");
-			return "error";
-		}
 		
 		// "position in session saves the last category you have been 
 		m.addAttribute("categoryId", catId);

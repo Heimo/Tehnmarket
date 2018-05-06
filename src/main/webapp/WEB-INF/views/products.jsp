@@ -24,6 +24,10 @@
 					</a>
 		</div>
 		
+		<c:if test="${empty products }">
+			No products found
+		</c:if>
+		
 		<table>
 		<c:forEach var="product" items="${ products }"  >
 			<tr>

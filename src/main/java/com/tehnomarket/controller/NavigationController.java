@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.tehnomarket.model.Order;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
+import com.tehnomarket.model.dao.CategoryDao;
 import com.tehnomarket.model.dao.ProductDao;
 
 
@@ -24,9 +25,17 @@ public class NavigationController {
 
 	@Autowired
 	private ProductDao productDao;
+	@Autowired
+	private CategoryDao categoryDao;
 
-	@RequestMapping(value= {"/index.html","homepage"},method=RequestMethod.GET)
-	public String sendIndex() {
+	@RequestMapping(value= {"/index.html","/homepage"},method=RequestMethod.GET)
+	public String sendIndex(Model m) {
+		try {
+			m.addAttribute("categories", categoryDao.getAllCategories());
+		} catch (SQLException e) {
+			m.addAttribute("error","sql error " + e.getMessage());
+			return "error";
+		}
 		return "index";
 	}
 	

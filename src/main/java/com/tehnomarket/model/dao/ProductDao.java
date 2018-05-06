@@ -102,17 +102,7 @@ public class ProductDao {
 					result.getInt("categories_id"));
 			products.add(p);
 		}
-		if(products.isEmpty()) {
-
-			return null;
-		}
-		else {
-
 			return products;
-		}
-
-
-
 	}
 
 

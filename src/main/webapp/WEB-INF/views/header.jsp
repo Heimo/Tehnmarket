@@ -67,8 +67,31 @@
 			</f:form>
 		</div>
 
-		<div style="background-color: rgb(33,33,33);">
+		<div style="background-color: rgb(33,33,33);" id="categories">
 		
+		<c:forEach var="category" items="${ categories }"  varStatus="loop">
+		
+			<c:if test="${(category.parentCategoryId == 0 && !loop.first) || loop.last}">
+				 </ul>
+		        </li>
+		  	  </ul>
+			</c:if>
+			
+			<c:if test="${category.parentCategoryId == 0}">
+			<ul>
+		    <li id= ${category.categoryId }>
+		      <a href="#">${category.categoryName }</a>
+		      <ul>
+				
+			</c:if>
+			
+			<c:if test="${category.parentCategoryId != 0}">
+			 <li><a href="${pageContext.request.contextPath}/products/${category.categoryId}">${category.categoryName }</a></li>
+			</c:if>
+			
+		</c:forEach>
+		
+		<!--  
 		  <ul>
 		    <li>
 		      <a href="#">ТЕЛЕВИЗОРИ И АУДИО</a>
@@ -172,6 +195,8 @@
 		      </ul>
 		    </li>
 		  </ul>
+		  
+		  -->
 		  
 		</div>
 		
