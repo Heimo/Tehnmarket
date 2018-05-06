@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -18,18 +19,22 @@ public class User {
 	@NotNull
 	@NotEmpty
 	@Email
+	@Size(max=100)
 	private String email;
 	
 	@NotNull
 	@NotEmpty
+	@Size(max=45)
 	private String firstName;
 	
 	@NotNull
 	@NotEmpty
+	@Size(max=45)
 	private String lastName;
 	
 	@NotNull
 	@NotEmpty
+	@Size(max=100)
 	private String password;
 	
 	@NotNull

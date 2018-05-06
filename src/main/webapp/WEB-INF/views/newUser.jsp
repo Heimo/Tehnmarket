@@ -10,11 +10,11 @@
 </head>
 	<body>
 		<f:form commandName="new_user">
-			E-mail<f:input path="email"/><br>
-			First name<f:input path="firstName"/><br>
-			Last name<f:input path="lastName"/><br>
-			password<f:input type="password" path="password"/><br>
-			check password<f:input type="password" path="passwordCheck"/><br>
+			E-mail<f:input maxlength="100" path="email"/><br>
+			First name<f:input maxlength="45" path="firstName"/><br>
+			Last name<f:input maxlength="45" path="lastName"/><br>
+			password<f:input maxlength="100" type="password" path="password"/><br>
+			check password<f:input maxlength="100" type="password" path="passwordCheck"/><br>
 			
 			Birthdate<f:input type="date" path="dateOfBirth"/></br>
 			
