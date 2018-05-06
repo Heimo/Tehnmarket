@@ -40,18 +40,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String newUser(@ModelAttribute User u,Model m) {
+	public String newUser(@ModelAttribute User u,Model m) throws SQLException {
 		
-		try {
-			if(u.getPassword().equals(u.getPasswordCheck())) {
-				u.setPassword(HashPassword.hashPassword(u.getPassword()));
-				userDao.saveUser(u);
-			}
-			else {
-				m.addAttribute("error", "Could not register");
-				return "error";
-			}
-		} catch (SQLException e) {
+		if(u.getPassword().equals(u.getPasswordCheck())) {
+			u.setPassword(HashPassword.hashPassword(u.getPassword()));
+			userDao.saveUser(u);
+		}
+		else {
 			m.addAttribute("error", "Could not register");
 			return "error";
 		}
@@ -71,69 +66,38 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String checkLogin(HttpServletRequest request,HttpSession session) {
-		try {
-			String pass = request.getParameter("pass");
-			String email = request.getParameter("email"); 
-			String hashpass = userDao.getHashPass(email);
-			User u = null;
-			if(HashPassword.checkPassword(pass, hashpass)) {
-				u = userDao.getUser(email,hashpass);
-			}
-			if(u != null) {
-				session.setAttribute("user", u);
-				return "index";
-			}
-			else {
-				request.setAttribute("error","Incorrect Login");
-				return "login";
-			}
-
-			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			System.out.println("Failed to connect to db");
-			request.setAttribute("error"," System error");
-			return "login";
-		} catch(IllegalArgumentException e) {
-			System.out.println(e.getMessage());
-			request.setAttribute("error",e.getMessage());
+	public String checkLogin(HttpServletRequest request,HttpSession session) throws SQLException, IllegalArgumentException {
+		String pass = request.getParameter("pass");
+		String email = request.getParameter("email"); 
+		String hashpass = userDao.getHashPass(email);
+		User u = null;
+		if(HashPassword.checkPassword(pass, hashpass)) {
+			u = userDao.getUser(email,hashpass);
+		}
+		if(u != null) {
+			session.setAttribute("user", u);
+			return "index";
+		}
+		else {
+			request.setAttribute("error","Incorrect Login");
 			return "login";
 		}
 	}
 	
 	@RequestMapping(value="/favourites",method=RequestMethod.GET)
-	public String changeProduct(Model m,HttpSession session) {
+	public String changeProduct(Model m,HttpSession session) throws Exception {
 		
 		User u = (User)session.getAttribute("user");
-		try {
-			ArrayList<Product> products = (ArrayList<Product>) productDao.getFavouritesByUserId(u.getId());
-			m.addAttribute("products",products);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			m.addAttribute("error","Could not get products");
-			return "error";
-		}catch (Exception e) {
-			m.addAttribute("error","Not logged");
-			return "error";
-		}
+		ArrayList<Product> products = (ArrayList<Product>) productDao.getFavouritesByUserId(u.getId());
+		m.addAttribute("products",products);
 		return "favouriteProducts";
 	}
 	
 	@RequestMapping(value="/removeFavourite/{id}",method=RequestMethod.GET)
-	public String removeFavourite(Model m,HttpSession session,@PathVariable("id") int productId) {
+	public String removeFavourite(Model m,HttpSession session,@PathVariable("id") int productId) throws Exception {
 		
 		User u = (User)session.getAttribute("user");
-		try {
-			productDao.removeFromFavourites(u.getId(), productId);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			m.addAttribute("error","Could find product");
-			return "error";
-		}catch (Exception e) {
-			m.addAttribute("error","Not logged");
-			return "error";
-		}
+		productDao.removeFromFavourites(u.getId(), productId);
 		return "index";
 	}
 	
