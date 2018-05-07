@@ -107,8 +107,6 @@ public class OrderController {
 		// checks if user is trying to go to negative or above possible amount
 		// changes nothing if either limit is breached 
 		if(currentQuant==1 && amount==-1) {
-			//System.out.println("DO WE EVEN GET IN HERE ? ");
-			//m.addAttribute("error", "You can't order something which is below 1 quantity");
 			return "redirect:/cart";
 		}
 		else if(currentQuant==maxQuant && amount==1) {

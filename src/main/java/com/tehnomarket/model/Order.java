@@ -138,7 +138,7 @@ public class Order {
 	public String toString() {
 		return "Order [dateOfOrder=" + dateOfOrder + ", totalCost=" + totalCost + ", status=" + status + ", userId="
 				+ userId + ", City=" + City + ", Street=" + Street + ", Entrance=" + Entrance + ", phoneNumber="
-				+ phoneNumber + "]";
+				+ phoneNumber + " Orders " + theOrders.toString() +  " ]";
 	}
 	
 	
