@@ -199,7 +199,7 @@
 								<ul class="add-to-links">
 									<li><img src="images/wish.png" alt=""><a
 										href="${pageContext.request.contextPath}/add_to_fav/${product.id}">Add
-											to favourites</a></li>
+											to favorites</a></li>
 								</ul>
 
 							</div>
@@ -207,10 +207,12 @@
 						</div>
 						<div class="col-md-3">
 							<div class="box-info-product">
-								<p class="price2">$130.25</p>
+								<h4>Add to Cart</h4>
+								<p class="price2">$${product.price}</p>
 								<ul class="prosuct-qty">
 
 								</ul>
+								
 								<a
 									href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
 

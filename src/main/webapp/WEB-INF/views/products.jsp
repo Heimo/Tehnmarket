@@ -1,84 +1,120 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Products</title>
-	</head>
-	
-	<body>
-		
-		<jsp:include page="header.jsp"/>
-		
-		<div id="arrow_down">
-					<a href="${pageContext.request.contextPath}/sort/min">
-						<img src="https://i.imgur.com/WJEhGM1.png" alt="cart" style="width:42px;height:42px;border:0">
-					</a>
-		</div>
-	
-		<div id="arrow_up">
-					<a href="${pageContext.request.contextPath}/sort/max">
-						<img src="https://i.imgur.com/oG3CR7i.png" alt="cart" style="width:42px;height:42px;border:0">
-					</a>
-		</div>
-		
-		<c:if test="${empty products }">
+<head>
+
+<title>Products</title>
+<link href="${pageContext.request.contextPath}/css/bootstrap.css"
+	rel='stylesheet' type='text/css' />
+<link href="${pageContext.request.contextPath}/css/style.css"
+	rel='stylesheet' type='text/css' />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<script type="application/x-javascript">
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$(".dropdown img.flag").addClass("flagvisibility");
+
+				$(".dropdown dt a").click(function() {
+					$(".dropdown dd ul").toggle();
+				});
+
+				$(".dropdown dd ul li a").click(
+						function() {
+							var text = $(this).html();
+							$(".dropdown dt a span").html(text);
+							$(".dropdown dd ul").hide();
+							$("#result").html(
+									"Selected value is: "
+											+ getSelectedValue("sample"));
+						});
+
+				function getSelectedValue(id) {
+					return $("#" + id).find("dt a span.value").html();
+				}
+
+				$(document).bind('click', function(e) {
+					var $clicked = $(e.target);
+					if (!$clicked.parents().hasClass("dropdown"))
+						$(".dropdown dd ul").hide();
+				});
+
+				$("#flagSwitcher").click(function() {
+					$(".dropdown img.flag").toggleClass("flagvisibility");
+				});
+			});
+</script>
+</head>
+
+<body>
+
+	<jsp:include page="header.jsp" />
+
+	<div id="arrow_down">
+		<a href="${pageContext.request.contextPath}/sort/min"> <img
+			src="https://i.imgur.com/WJEhGM1.png" alt="cart"
+			style="width: 42px; height: 42px; border: 0">
+		</a>
+	</div>
+
+	<div id="arrow_up">
+		<a href="${pageContext.request.contextPath}/sort/max"> <img
+			src="https://i.imgur.com/oG3CR7i.png" alt="cart"
+			style="width: 42px; height: 42px; border: 0">
+		</a>
+	</div>
+
+	<c:if test="${empty products }">
 			No products found
 		</c:if>
-		
-		<table>
-		<c:forEach var="product" items="${ products }"  >
-			<tr>
-			<div id="product">
-				<td>
-				<div id="product_name">
-					${product.name }
-				</div>
-				</td>
-				<td>
-				<div id="product_price">
-					${product.price }
-				</div>
-				</td>
-				<td>
-				<div style="max-width: 300px" >
-					<img src="${pageContext.request.contextPath}/download/${product.brand}" style="max-width:100%;" />
-				</div>
-				</td>
-				<td>
-				<div id="product">
-					<a href="${pageContext.request.contextPath}/product/${product.id}">
-						<img src="https://i.imgur.com/01HYjJA.png" alt="cart" style="width:42px;height:42px;border:0">
-					</a>
-				</div>
-				</td>
-				<td>
-				<div id="cart">	
-					<a href="${pageContext.request.contextPath}/add_to_cart/${product.id}">
 
-  					<img src="https://i.imgur.com/0WDHoat.png" alt="cart" style="width:42px;height:42px;border:0">
-					</a>
+	<c:forEach var="product" items="${ products }">
+		<div class="main">
+			<div class="shop_top">
+				<div class="container">
+					<div class="row shop_box-top">
+						<div class="col-md-3 shop_box">
+							<a
+								href="${pageContext.request.contextPath}/product/${product.id}">
+								<img
+								src="${pageContext.request.contextPath}/download/${product.brand}"
+								class="img-responsive" alt="" /> <span class="new-box">
+									<span class="new-label">New</span>
+							</span>
+
+								<div class="shop_desc">
+									<h3>
+										<a href="#">${product.name }</a>
+									</h3>
+									<p>${product.brand }</p>
+									<span class="actual">$${product.price }</span><br>
+									<ul class="buttons">
+										<li class="cart"><a
+											href="${pageContext.request.contextPath}/add_to_cart/${product.id}">Add
+												To Cart</a></li>
+										<li class="shop_btn"><a
+											href="${pageContext.request.contextPath}/product/${product.id}">Read
+												More</a></li>
+										<div class="clear"></div>
+									</ul>
+								</div>
+							</a>
+						</div>
+					</div>
 				</div>
-				</td>
-				<td>
-				<div id="fav">
-					<a href="${pageContext.request.contextPath}/add_to_fav/${product.id}">
-  					<img src="https://i.imgur.com/66Z0rB5.png" alt="heart" style="width:42px;height:42px;border:0">
-					</a>
-				</div>
-				</td>
 			</div>
-			</tr>
-		</c:forEach>
-		</table>
-		
-		
-		
-		
-	
-	
-	</body>
-	
+		</div>
+	</c:forEach>
+</body>
+
 </html>
