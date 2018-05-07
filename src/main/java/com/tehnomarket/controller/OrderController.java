@@ -26,6 +26,9 @@ public class OrderController {
 	@Autowired
 	private ProductDao productDao;
 	
+	
+	
+	
 	@RequestMapping(value="/cart",method=RequestMethod.POST)
 	public String goToOrder(Model m,HttpSession session,@ModelAttribute Order o) throws SQLException {
 		
@@ -119,6 +122,15 @@ public class OrderController {
 		}
 		
 		return "redirect:/cart";
+	}
+	
+	// Cancel Order
+	@RequestMapping(value="/cancelOrder/{orderId}",method=RequestMethod.GET)
+	public String orderCancel(@PathVariable("orderId") int orderId) throws SQLException {
+		
+		productDao.cancelOrder(orderId);
+		
+		return "redirect:/account";
 	}
 	
 }

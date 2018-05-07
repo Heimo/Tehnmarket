@@ -18,6 +18,8 @@ public class Order {
 	private int phoneNumber;
 	private HashMap<Product,Integer> theOrders;
 	
+	private String statusOut;
+	
 	public Order() {
 		
 	}
@@ -111,6 +113,26 @@ public class Order {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	
+	
+	public String getStatusOut() {
+		String result="";
+		switch(this.status) {
+			case 0: result = "In processing";
+					break;
+			case 1: result = "Out for delivery";
+					break;
+			case 2: result = "Delivered";
+					break;
+			case 3: result = "Canceled";
+					break;
+			default: result = "We lost it! Order again";
+		}
+		return result;
+	}
+
+	
 
 	@Override
 	public String toString() {

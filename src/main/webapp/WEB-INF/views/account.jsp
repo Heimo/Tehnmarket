@@ -24,14 +24,19 @@
 	<div id="orders">
 		<c:forEach var="order" items="${ Orders }"  >
 			Date : ${order.dateOfOrder } <td>
-			Status : ${order.status } <td>
+			Status : ${order.statusOut } <td>
 			<c:forEach var="product" items="${order.theOrders }">
-				Product: ${product.name } <td>
-				Brand: ${product.brand } <td>
-				Price: ${product.price } <td>
-				Quantity: ${product.amount }
+				Product: ${product.key.name } <td>
+				Brand: ${product.key.brand } <td>
+				Price: ${product.key.price } <td>
+				Quantity: ${product.value }
 			</c:forEach>
-			Total Paid: ${order.totalCost }<td>
+			Total Cost: ${order.totalCost }<td>
+			<form action="cancelOrder/${order.id}" method="get">
+					<button type="submit">Cancel Order</button>
+			</form>
+
+			<br />
 		</c:forEach>
 	</div>
 	

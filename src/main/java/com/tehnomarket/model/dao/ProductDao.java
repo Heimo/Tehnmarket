@@ -456,5 +456,17 @@ public class ProductDao {
 		return theOrders;
 		
 	}
+	// Cancel Order
+	public void cancelOrder(int orderId) throws SQLException {
+		//String sql4 = "UPDATE products_has_store SET quantity=quantity-? WHERE products_id=?";
+		String sql = "UPDATE orders SET the_status=? WHERE id=?";
+		PreparedStatement ps = connection.prepareStatement(sql);
+		
+		ps.setInt(1, 3);
+		ps.setInt(2, orderId);
+		
+		ps.executeUpdate();
+		
+	}
 
 }
