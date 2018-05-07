@@ -27,25 +27,50 @@
 		<div class="container">
 			<div class="row">
 			  <div class="col-md-12">
-				 <div class="header-left">
-					 <div class="logo" style:"display:inline-block; width: 150px;">
+				 
+	    	    
+	            <div class="header_right"  style="display: inline-block;">
+	    		  <!-- start search-->
+	    		  <div class="logo" style:"display:inline-block; width: 150px;">
 						<a href="${pageContext.request.contextPath}/index.html"><img src="https://i.imgur.com/7tnAVEG.png" alt=""/></a>
 					 </div>
-
 					 
-	    		    <div class="clear"></div>
-	    	    </div>
-	            <div class="header_right">
-	    		  <!-- start search-->
-				      <div class="search-box">
-							<div id="sb-search" class="sb-search">
-								<form action="${pageContext.request.contextPath}/searchProduct">
+					  <div class="search-box" style:"width:50%;display: inline-block;">
+							<div id="sb-search" class="sb-search sb-search-open">
+								<form action="${pageContext.request.contextPath}/searchProduct" method="post">
 									<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
 									<input class="sb-search-submit" type="submit" value="">
 									<span class="sb-icon-search"> </span>
 								</form>
 							</div>
 						</div>
+					 
+				     
+				          
+				   						
+				   						
+						<div align="right" style="display: inline-block;color: #ffffff;float:right;">
+							<a href="${pageContext.request.contextPath}/cart">
+								Cart:
+								<c:if test="${empty cart}">
+									0
+								</c:if>
+								<c:if test="${!empty cart}">
+									${fn:length(cart)}
+								</c:if>
+							</a>
+							
+							
+							<c:if test="${empty user}">
+								<div class="login_button"><a href="${pageContext.request.contextPath}/login">login</a></div>
+							</c:if>
+							<c:if test="${!empty user}">
+								Hello ${user.firstName} ${user.lastName} <br>
+								<div class="login_button"><a href="${pageContext.request.contextPath}/account">account</a></div>
+								<div class="login_button"><a href="${pageContext.request.contextPath}/login">logout</a></div>
+							</c:if>
+						</div>
+		
 						<!----search-scripts---->
 						<script src="js/classie.js"></script>
 						<script src="js/uisearch.js"></script>
@@ -53,32 +78,42 @@
 							new UISearch( document.getElementById( 'sb-search' ) );
 						</script>
 						<!----//search-scripts---->
-				    <ul class="icon1 sub-icon1 profile_img">
-					 <li><a class="active-icon c1" href="#"> </a>
-						<ul class="sub-icon1 list">
-						  <div class="product_control_buttons">
-						  	<a href="#"><img src="images/edit.png" alt=""/></a>
-						  		<a href="#"><img src="images/close_edit.png" alt=""/></a>
-						  </div>
-						   <div class="clear"></div>
-						  <li class="list_img"><img src="images/1.jpg" alt=""/></li>
-						  <li class="list_desc"><h4><a href="#">velit esse molestie</a></h4><span class="actual">1 x
-                          $12.00</span></li>
-						  <div class="login_buttons">
-							 <div class="check_button"><a href="checkout.html">Check out</a></div>
-							 <div class="login_button"><a href="login.html">Login</a></div>
-							 <div class="clear"></div>
-						  </div>
-						  <div class="clear"></div>
-						</ul>
-					 </li>
-				   </ul>
-		           <div class="clear"></div>
+				    
+		           
 	       </div>
 	      </div>
+	      
 		 </div>		
 		 
-		 <div class="menu" style:"display:inline-block;">
+				 <ul class="icon1">
+							 <li><a class="active-icon c1" href="#"> </a>
+								<ul class="sub-icon1 list">
+								  <div class="product_control_buttons">
+								  	<a href="#"><img src="images/edit.png" alt=""/></a>
+								  		<a href="#"><img src="images/close_edit.png" alt=""/></a>
+								  </div>
+								   <div class="clear"></div>
+								  <li class="list_img"><img src="images/1.jpg" alt=""/></li>
+								  <li class="list_desc"><h4>Product 1</h4><span class="actual">1 x
+		                          $price</span></li>
+		                           <div class="clear"></div>
+		                           <li class="list_desc"><h4>Product 1</h4><span class="actual">1 x
+		                          $price</span></li>
+		                           <div class="clear"></div>
+		                           
+		                           <li class="list_desc"><h4>Product 1</h4><span class="actual">1 x
+		                          $price</span></li>
+		                          
+								  <div class="login_buttons">
+									 <div class="login_button"><a href="${pageContext.request.contextPath}/cart">Go to Cart</a></div>
+									 <div class="clear"></div>
+								  </div>
+								  <div class="clear"></div>
+								</ul>
+							 </li>
+						   </ul>			 
+						   
+		 <div class="menu" align="center">
 			  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
 			    <ul class="nav" id="nav">
 
@@ -105,31 +140,15 @@
 					</c:forEach>
               
 					<div class="clear"></div>
+					
 				</ul>
 			</div>
+				
 				    
 	    </div>	
 	</div>
 		 
-		 <a href="${pageContext.request.contextPath}/cart">
-			Cart:
-			<c:if test="${empty cart}">
-				0
-			</c:if>
-			<c:if test="${!empty cart}">
-				${fn:length(cart)}
-			</c:if>
-		</a>
-		<br>
-		
-		<c:if test="${empty user}">
-			<a href="${pageContext.request.contextPath}/login">Click here to login</a>
-		</c:if>
-		<c:if test="${!empty user}">
-			Hello ${user.firstName} ${user.lastName}
-			<a href="${pageContext.request.contextPath}/account">Account page</a>
-			<a href="${pageContext.request.contextPath}/login">Click here to logout</a>
-		</c:if>
+		 
 		<br>
 		<br>
 </body>

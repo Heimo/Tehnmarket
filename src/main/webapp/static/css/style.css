@@ -76,7 +76,6 @@ body a{
 	float:left;
 }
 .menu{
-	 float:left;
 	 margin: 17px 0 0;
 }
   .menu li{
@@ -181,17 +180,16 @@ body a{
  }
 .header_right{
 	float:right;
-	width:6%;
+	width:100%;
 	margin-top: 16px;
 }
 .sb-search {
-	position: absolute;
+	position: relative;
 	top:7px;
 	right:0px;
 	width: 0%;
 	min-width: 45px;
 	height: 45px;
-	float: right;
 	overflow: hidden;
 	-webkit-transition: width 0.3s;
 	-moz-transition: width 0.3s;
@@ -268,22 +266,11 @@ z-index: 90;
 	z-index: 90;
 }
 /* start icon styles */
-.icon1:before,.icon1:after {
-	content: "";
-	display: table;
-}
-.icon1:after {
-	clear: both;
-}
-ul.icon1 {
-	float: left;
-	zoom: 1;
-	list-style: none;
-	padding: 0;
-	margin-left:25%;
-}
+
+
+
 .icon1 li {
-	float: left;
+	float: right;
 	position: relative;
 }
 .icon1 li:last-child{
@@ -1825,21 +1812,13 @@ fieldset.input input[type="submit"]:hover {
 }
 /*--responsive design--*/
 @media (max-width:1366px){
-.icon1 ul {
-	width: 270px;
-	top: 64px;
-	right: -98px;
- }
+
 .button a {
  	margin-left: 71%;
  }
 }
 @media (max-width:1280px){
-.icon1 ul {
-	width: 270px;
-	top: 63px;
-	right: -55px;
- }
+
 }
 @media (max-width:1024px){
 .menu li a {
@@ -1848,11 +1827,7 @@ fieldset.input input[type="submit"]:hover {
 .header_right {
 	width: 7%;
  }
-.icon1 ul {
-	width: 250px;
-	top: 59px;
-	right: -25px;
- }
+
  .sub-icon1 ul li p {
 	font-size: 0.8125em;
  }
@@ -1880,11 +1855,7 @@ fieldset.input input[type="submit"]:hover {
   .header_right {
 	 width: 10%;
   }
-  .icon1 ul {
-	width: 250px;
-	top: 59px;
-	right: -15px;
- }
+  
  .search {
 	left: 65%;
 	width: 27%;
@@ -1996,9 +1967,7 @@ fieldset.input input[type="submit"]:hover {
 	left: 56%;
 	width: 33%;
  }
- .icon1 ul {
-	top: 51px;
- }
+
  .content_bottom-text h3, h3.m_3, .content-top h2 {
 	font-size: 1.5em;
  }
