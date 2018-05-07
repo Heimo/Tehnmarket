@@ -9,219 +9,127 @@
     pageEncoding="utf-8"%>
     <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
     <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<style>
-		div a {
-		    text-decoration: none;
-		    color: white;
-		    font-size: 20px;
-		    padding: 15px;
-		    display:inline-block;
-		}
-		
-		banner{
-			display:inline-block;
-		}
-		
-		search {
-			display:inline-block;
-		}
-		
-		ul {
-		  display: inline;
-		  margin: 0;
-		  padding: 0;
-		}
-		ul li {display: inline-block;}
-		ul li:hover {background: gray;}
-		ul li:hover ul {display: block;}
-		ul li ul {
-		  position: absolute;
-		  width: 200px;
-		  display: none;
-		}
-		ul li ul li { 
-		  background: black; 
-		  display: block; 
-		}
-		ul li ul li a {display:block !important;} 
-		ul li ul li:hover {background: #666;}
-		
-	</style>
+<title>Tehnomarket</title>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
 </head>	
 <body>
-		<div id="banner">
-		<a href="${pageContext.request.contextPath}/index.html">
-			<img src="https://i.imgur.com/7tnAVEG.png" alternative="banner">
-		</a>
-			
-		</div>
 
+	<div class="header">
+		<div class="container">
+			<div class="row">
+			  <div class="col-md-12">
+				 <div class="header-left">
+					 <div class="logo" style:"display:inline-block; width: 150px;">
+						<a href="${pageContext.request.contextPath}/index.html"><img src="https://i.imgur.com/7tnAVEG.png" alt=""/></a>
+					 </div>
 
-		<div id="search">
-			<f:form action="${pageContext.request.contextPath}/searchProduct">
-				<input type="text" name="search" requred/> 
-				<input type="submit" value="Search"/>
-			</f:form>
-		</div>
+					 
+	    		    <div class="clear"></div>
+	    	    </div>
+	            <div class="header_right">
+	    		  <!-- start search-->
+				      <div class="search-box">
+							<div id="sb-search" class="sb-search">
+								<form action="${pageContext.request.contextPath}/searchProduct">
+									<input class="sb-search-input" placeholder="Enter your search term..." type="search" name="search" id="search">
+									<input class="sb-search-submit" type="submit" value="">
+									<span class="sb-icon-search"> </span>
+								</form>
+							</div>
+						</div>
+						<!----search-scripts---->
+						<script src="js/classie.js"></script>
+						<script src="js/uisearch.js"></script>
+						<script>
+							new UISearch( document.getElementById( 'sb-search' ) );
+						</script>
+						<!----//search-scripts---->
+				    <ul class="icon1 sub-icon1 profile_img">
+					 <li><a class="active-icon c1" href="#"> </a>
+						<ul class="sub-icon1 list">
+						  <div class="product_control_buttons">
+						  	<a href="#"><img src="images/edit.png" alt=""/></a>
+						  		<a href="#"><img src="images/close_edit.png" alt=""/></a>
+						  </div>
+						   <div class="clear"></div>
+						  <li class="list_img"><img src="images/1.jpg" alt=""/></li>
+						  <li class="list_desc"><h4><a href="#">velit esse molestie</a></h4><span class="actual">1 x
+                          $12.00</span></li>
+						  <div class="login_buttons">
+							 <div class="check_button"><a href="checkout.html">Check out</a></div>
+							 <div class="login_button"><a href="login.html">Login</a></div>
+							 <div class="clear"></div>
+						  </div>
+						  <div class="clear"></div>
+						</ul>
+					 </li>
+				   </ul>
+		           <div class="clear"></div>
+	       </div>
+	      </div>
+		 </div>		
+		 
+		 <div class="menu" style:"display:inline-block;">
+			  <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
+			    <ul class="nav" id="nav">
 
-		<div style="background-color: rgb(33,33,33);" id="categories">
-		
-		<c:forEach var="category" items="${ categories }"  varStatus="loop">
-		
-			<c:if test="${(category.parentCategoryId == 0 && !loop.first) || loop.last}">
-				 </ul>
-		        </li>
-		  	  </ul>
-			</c:if>
-			
-			<c:if test="${category.parentCategoryId == 0}">
-			<ul>
-		    <li id= ${category.categoryId }>
-		      <a href="#">${category.categoryName }</a>
-		      <ul>
-				
-			</c:if>
-			
-			<c:if test="${category.parentCategoryId != 0}">
-			 <li><a href="${pageContext.request.contextPath}/products/${category.categoryId}">${category.categoryName }</a></li>
-			</c:if>
-			
-		</c:forEach>
-		
-		<!--  
-		  <ul>
-		    <li>
-		      <a href="#">ТЕЛЕВИЗОРИ И АУДИО</a>
-		      <ul>
-		        <li><a href="${pageContext.request.contextPath}/products/7">Телевизори</a></li>
-		        <li><a href="#">ТВ аксесоари</a></li>
-		        <li><a href="#">Домашно кино</a></li>
-		        <li><a href="#">DVD плейъри</a></li>
-		        <li><a href="#">Аудио системи</a></li>
-		        <li><a href="#">Аудио аксесоари</a></li>
-		        <li><a href="#">Персонално аудио</a></li>
-		        <li><a href="#">Авто и GPS</a></li>
-		        <li><a href="#">Батерии и зарядни</a></li>
-		      </ul>
-		    </li>
-		  </ul>
-		  
-		  <ul>
-		    <li>
-		      <a href="#">КОМПЮТРИ И ПЕРИФЕРИЯ</a>
-		      <ul>
-		       <li><a href="${pageContext.request.contextPath}/products/16">Лаптопи</a></li>
-		        <li><a href="#">Аксесоари за Лаптоп</a></li>
-		        <li><a href="#">Компютри</a></li>
-		        <li><a href="#">Монитори</a></li>
-		        <li><a href="#">Периферни Устройства</a></li>
-		        <li><a href="#">Принтери и Скенери</a></li>
-		        <li><a href="#">Консумативи за Принтери</a></li>
-		        <li><a href="#">HDD & USB Flash</a></li>
-		        <li><a href="#">Проектори</a></li>
-		        <li><a href="#">Софтуер</a></li>
-		        <li><a href="#">Калкулатори</a></li>
-		      </ul>
-		    </li>
-		  </ul>
-		  
-		  <ul>
-		    <li>
-		      <a href="#">ТЕЛЕФОНИ И ТАБЛЕТИ</a>
-		      <ul>
-		        <li><a href="${pageContext.request.contextPath}/products/22">Мобилни Телефони</a></li>
-		        <li><a href="#">"Умни" часовници и гривни</a></li>
-		        <li><a href="#">Аксесоари за мобилни телефони</a></li>
-		        <li><a href="#">Таблети</a></li>
-		        <li><a href="#">Аксесоари за Таблети</a></li>
-		        <li><a href="#">E-book</a></li>
-		        <li><a href="#">Стационарни телефони и Факс апарати</a></li>
-		        <li><a href="#">Smart home</a></li>
-		        <li><a href="#">Уоки Токи</a></li>
-		        
-		      </ul>
-		    </li>
-		  </ul>
-		  
-		  
-		  <ul>
-		    <li>
-		      <a href="#">ЕЛЕКТРОУРЕДИ</a>
-		      <ul>
-		        <li><a href="#">Климатици</a></li>
-		        <li><a href="#">Уреди за вграждане</a></li>
-		        <li><a href="#">Хладилници и фризери</a></li>
-		        <li><a href="#">Сушилни машини</a></li>
-		        <li><a href="#">Перални машини</a></li>
-		        <li><a href="#">Перални със Сушилня</a></li>
-		        <li><a href="#">Миялни машини</a></li>
-		        <li><a href="#">Микровълнови фурни</a></li>
-		        <li><a href="#">Готварски печки</a></li>
-		        <li><a href="#">Бойлери</a></li>
-		        <li><a href="#">Абсорбатори</a></li>
-		        <li><a href="#">Аксесоари</a></li>
-		        <li><a href="#">Автомат за вода</a></li>
-		        
-		      </ul>
-		    </li>
-		  </ul>
-		  
-		  <ul>
-		    <li>
-		      <a href="#">ФОТО И ВИДЕО</a>
-		      <ul>
-		        <li><a href="#">Фотоапарати</a></li>
-		        <li><a href="#">Камери</a></li>
-		        <li><a href="#">Фото рамки</a></li>
-		        <li><a href="#">Карти памет</a></li>
-		        <li><a href="#">Аксесоари за Фото и Видео</a></li>
-		      </ul>
-		    </li>
-		  </ul>
-		  
-		  <ul>
-		    <li>
-		      <a href="#">МАЛКИ ЕЛЕТРОУРЕДИ</a>
-		      <ul>
-		        <li><a href="#">Уреди за кухнята</a></li>
-		        <li><a href="#">Здраве и красота</a></li>
-		        <li><a href="#">Уреди за дома</a></li>
-		        <li><a href="#">Продукти за бебе</a></li>
-		        <li><a href="#">Енергоспестяващи крушки</a></li>
-		        <li><a href="#">Аксесоари</a></li>
-		      </ul>
-		    </li>
-		  </ul>
-		  
-		  -->
-		  
-		</div>
-		
-		<% User user = (User) session.getAttribute("user");
-			HashMap<Product,Integer> cart = (HashMap<Product,Integer>) session.getAttribute("cart");
-		 %>
+					<c:forEach var="category" items="${ categories }"  varStatus="loop">
+
+						<c:if test="${(category.parentCategoryId == 0 && !loop.first) || loop.last}">
+							 </div>
+                    		</div>
+                  		  </li>
+						</c:if>
+						
+						<c:if test="${category.parentCategoryId == 0}">
+						<li>
+                   		 <div class="dropdown">
+                     	 <button class="dropbtn">${category.categoryName}</button>
+                      	 <div class="dropdown-content">
+							
+						</c:if>
+						
+						<c:if test="${category.parentCategoryId != 0}">
+						<a href="${pageContext.request.contextPath}/products/${category.categoryId}">${category.categoryName }</a>
+						</c:if>
+						
+					</c:forEach>
+              
+					<div class="clear"></div>
+				</ul>
+			</div>
+				    
+	    </div>	
+	</div>
 		 
 		 <a href="${pageContext.request.contextPath}/cart">
 			Cart:
-			
-			<% if(cart == null){ %>
-			 0
-			<% }else{%>
-			<%=cart.size()%>
-			<% }%>
+			<c:if test="${empty cart}">
+				0
+			</c:if>
+			<c:if test="${!empty cart}">
+				${fn:length(cart)}
+			</c:if>
 		</a>
 		<br>
-		<% if(user != null) {%>
-		Hello <%= user.getFirstName()+" "+user.getLastName() + " " + user.isAdmin()%>
-		<a href="${pageContext.request.contextPath}/account">Account page</a>
-		<a href="${pageContext.request.contextPath}/login">Click here to logout</a>
-		<%} else {%>
-		<a href="${pageContext.request.contextPath}/login">Click here to login</a>
-		<%} %>
 		
+		<c:if test="${empty user}">
+			<a href="${pageContext.request.contextPath}/login">Click here to login</a>
+		</c:if>
+		<c:if test="${!empty user}">
+			Hello ${user.firstName} ${user.lastName}
+			<a href="${pageContext.request.contextPath}/account">Account page</a>
+			<a href="${pageContext.request.contextPath}/login">Click here to logout</a>
+		</c:if>
 		<br>
 		<br>
 </body>
