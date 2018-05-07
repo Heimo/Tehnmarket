@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +25,15 @@ import com.tehnomarket.model.dao.ProductDao;
 public class NavigationController {
 
 	@Autowired
+	ServletContext context;
+	
+	@Autowired
 	private ProductDao productDao;
 	@Autowired
 	private CategoryDao categoryDao;
 
 	@RequestMapping(value= {"/index.html","/homepage"},method=RequestMethod.GET)
 	public String sendIndex(Model m) {
-		try {
-			m.addAttribute("categories", categoryDao.getAllCategories());
-		} catch (SQLException e) {
-			m.addAttribute("error","sql error " + e.getMessage());
-			return "error";
-		}
 		return "index";
 	}
 	

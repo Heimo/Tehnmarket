@@ -104,8 +104,7 @@ div.etalage_description.rtl{ direction:rtl; text-align:right }
 
 @media (max-width:1024px){
 #etalage .etalage_thumb_image {
-		width: 240px !important;
-		height: 340px !important;
+		width: 100% !important;
 	}
 	#etalage .etalage_icon {
 		background: url(../images/zoom.png) no-repeat rgba(184, 183, 181, 0.32) -13px -9px;
@@ -121,8 +120,7 @@ div.etalage_description.rtl{ direction:rtl; text-align:right }
 }
 @media (max-width:640px){
 #etalage .etalage_thumb_image {
-		width: 200px !important;
-		height: 300px !important;
+		width: 100% !important;
 	}
 	#etalage .etalage_icon {
 		background: url(../images/zoom.png) no-repeat rgba(184, 183, 181, 0.32) -19px -20px;

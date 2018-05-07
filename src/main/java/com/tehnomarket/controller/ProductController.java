@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,6 +37,9 @@ import com.tehnomarket.model.dao.ReviewDao;
 
 @Controller
 public class ProductController {
+	
+	@Autowired
+	ServletContext context;
 
 	@Autowired
 	private ProductDao productDao;
@@ -50,8 +54,6 @@ public class ProductController {
 	public String goToProducts(@PathVariable("catId") Integer catId,Model m,HttpSession session) {
 		
 		System.out.println(catId);
-
-	
 		ArrayList<Product> products = new ArrayList<Product>();
 		
 		try {
