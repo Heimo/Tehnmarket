@@ -427,10 +427,11 @@ public class ProductDao {
 		if(!theOrders.isEmpty()) {
 			for(Order o : theOrders) {
 				int orderId = o.getId();
-				String product = "SELECT O.quantity,P.name,P.brand,P.price,P.product_image " + 
+				System.out.println("ORDER ID IS:  "+orderId);
+				String product = "SELECT O.quantity,P.id,P.name,P.brand,P.price,P.product_image " + 
 						"FROM product_orders O " + 
-						"INNER JOIN products P ON(O.order_id = P.id) " + 
-						"WHERE order_id=?";
+						"INNER JOIN products P ON(O.products_id = P.id) " + 
+						"WHERE O.order_id=?";
 				
 				PreparedStatement psProduct = connection.prepareStatement(product);
 				psProduct.setInt(1, orderId);
@@ -438,27 +439,40 @@ public class ProductDao {
 				HashMap<Product,Integer> hm = new HashMap<Product,Integer>();
 				
 				ResultSet rs = psProduct.executeQuery();
+				
 				while(rs.next()) {
+					
 					Product p = new Product();
+					p.setId(rs.getInt("id"));
 					p.setAmount(rs.getInt("quantity"));
+					
 					p.setName(rs.getString("name"));
+					System.out.println(rs.getString("name"));
 					p.setBrand(rs.getString("brand"));
+					System.out.println(rs.getString("brand"));
 					p.setPrice(rs.getInt("price"));
+					
 					p.setImage(rs.getString("product_image"));
+					System.out.println(rs.getInt("quantity"));
 					hm.put(p, rs.getInt("quantity"));
 				}
+				o.setTheOrders(hm);
 
 			}
 			
 		}
 		
+		for(int i=0;i<theOrders.size();i++) {
+			Order o = theOrders.get(i);
+			System.out.println(o.toString());
+		}
 				
 		return theOrders;
 		
 	}
 	// Cancel Order
 	public void cancelOrder(int orderId) throws SQLException {
-		//String sql4 = "UPDATE products_has_store SET quantity=quantity-? WHERE products_id=?";
+		
 		String sql = "UPDATE orders SET the_status=? WHERE id=?";
 		PreparedStatement ps = connection.prepareStatement(sql);
 		

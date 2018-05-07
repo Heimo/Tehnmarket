@@ -21,22 +21,27 @@
 	
 	<hr>
 	<a2>Orders</a2>
+	<hr>
+	
 	<div id="orders">
 		<c:forEach var="order" items="${ Orders }"  >
-			Date : ${order.dateOfOrder } <td>
-			Status : ${order.statusOut } <td>
+			Date : ${order.dateOfOrder } <br />
+			Status : ${order.statusOut } <br />
 			<c:forEach var="product" items="${order.theOrders }">
-				Product: ${product.key.name } <td>
-				Brand: ${product.key.brand } <td>
-				Price: ${product.key.price } <td>
-				Quantity: ${product.value }
+			
+				Product: ${product.key.name } <br />
+				Brand: ${product.key.brand } <br />
+				Price: ${product.key.price } <br />
+				Quantity: ${product.value } <br />
 			</c:forEach>
-			Total Cost: ${order.totalCost }<td>
+			<br />
+			Total Cost: ${order.totalCost }<td><br />
 			<form action="cancelOrder/${order.id}" method="get">
 					<button type="submit">Cancel Order</button>
 			</form>
 
 			<br />
+			<hr>
 		</c:forEach>
 	</div>
 	
