@@ -96,7 +96,7 @@
 								href="${pageContext.request.contextPath}/product/${product.id}">
 								<img
 								src="${pageContext.request.contextPath}/download/${product.image}"
-								class="img-responsive" alt="" align="center"/> <span class="new-box">
+								class="img-responsive2" alt="" align="center"/> <span class="new-box">
 								<c:if test="${product.discount != 0 }">
 									<span class="new-label">Sale</span>
 									</c:if>

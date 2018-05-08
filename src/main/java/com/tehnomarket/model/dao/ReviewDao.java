@@ -59,7 +59,6 @@ public class ReviewDao {
 		ResultSet result = ps.executeQuery();
 		
 		while(result.next()) {
-			
 			Review r = new Review(
 							result.getInt("review_id"),
 							result.getInt("users_id"),

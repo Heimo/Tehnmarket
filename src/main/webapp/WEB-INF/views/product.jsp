@@ -200,7 +200,7 @@
 			<br><br>
 			
 			<c:forEach var="review" items="${reviews}">
-				Posted By: ${review.userName} on ${review.creationDate}&ensp; Rating: ${review.rating}
+				Posted By: ${review.userName} on <fmt:formatDate value="${review.creationDate}"/>${review.creationDate}&ensp; Rating: ${review.rating}
 				<br>
 				${review.comment}
 				<c:if test="${review.userId == user.id }">

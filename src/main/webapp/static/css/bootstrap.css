@@ -307,14 +307,19 @@ figure {
 img {
   vertical-align: middle;
 }
-.img-responsive,
+
+.img-responsive2{
+	max-width: 100%;
+  max-height:180px;
+}
+
 .thumbnail > img,
 .thumbnail a > img,
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
   
   max-width: 100%;
-  max-height:180px;
+  max-height:100%;
 }
 .img-rounded {
   border-radius: 6px;
