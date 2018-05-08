@@ -10,6 +10,7 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,19 +54,9 @@
 							</div>
 						</div>
 
-
-
-
-
 						<div align="right"
 							style="display: inline-block; color: #ffffff; float: right;">
-							<a href="${pageContext.request.contextPath}/cart"> Cart: <c:if
-									test="${empty cart}">
-									0
-								</c:if> <c:if test="${!empty cart}">
-									${fn:length(cart)}
-								</c:if>
-							</a>
+							
 
 
 							<c:if test="${empty user}">
@@ -100,29 +91,34 @@
 			</div>
 
 			<ul class="icon1">
-				<li><a class="active-icon c1" href="#"> </a>
+				<li><a class="active-icon c1" href="${pageContext.request.contextPath}/cart">
+					
+						<div class="cartText">${fn:length(cart)}</div>
+					</a>
 					<ul class="sub-icon1 list">
-						<div class="product_control_buttons">
-							<a href="#"><img
-								src="${pageContext.request.contextPath}/images/edit.png" alt="" /></a>
-							<a href="#"><img
-								src="${pageContext.request.contextPath}/images/close_edit.png"
-								alt="" /></a>
-						</div>
+						
+						
+						<c:if test="${empty productArr }">
+							<li class="list_desc"><h4 >Cart is Empty!</h4></li>
+							
+						</c:if>
+						
+						<c:forEach var="product" items="${ productArr }">
+						
+							<li class="list_img"><img
+							src="${pageContext.request.contextPath}/download/${product.image}" alt="" style="width:60px;"/></li>
+						<li class="list_desc"><h4>${product.name }</h4>
+							<span class="actual">${product.amount } x $${product.price }</span></li>
 						<div class="clear"></div>
-						<li class="list_img"><img
-							src="${pageContext.request.contextPath}/images/1.jpg" alt="" /></li>
-						<li class="list_desc"><h4>Product 1</h4>
-							<span class="actual">1 x $price</span></li>
+							
+					</c:forEach>
+						
+						
 						<div class="clear"></div>
-						<li class="list_desc"><h4>Product 1</h4>
-							<span class="actual">1 x $price</span></li>
-						<div class="clear"></div>
-
-						<li class="list_desc"><h4>Product 1</h4>
-							<span class="actual">1 x $price</span></li>
-
 						<div class="login_buttons">
+						 <div class="check_button">
+								<a>Total: $<fmt:formatNumber type = "number" maxFractionDigits = "2" value = "${totalPrice}" /></a>
+							</div>
 							<div class="login_button">
 								<a href="${pageContext.request.contextPath}/cart">Go to Cart</a>
 							</div>

@@ -46,17 +46,13 @@ public class NavigationController {
 	
 	@RequestMapping(value="/cart",method=RequestMethod.GET)
 	public String goToCart(HttpSession session,Model m) {
-		
-		//check if cart is empty
-		if(session.getAttribute("cart")==null) {
-			m.addAttribute("error", "your cart is empty, go back and put something in it !");
-			return "error";
-		}
-		
 		Order o = new Order();
 		m.addAttribute("new_order", o);
 		
 		HashMap<Product,Integer> mapProduct = (HashMap<Product,Integer>) session.getAttribute("cart");
+		if(mapProduct == null) {
+			mapProduct= new HashMap<Product,Integer>();
+		}
 		
 		//get all products from cart as objects
 		Set<Product> productSet = mapProduct.keySet();
@@ -115,9 +111,9 @@ public class NavigationController {
 		 * quantities which is information from db for available quantitiy of products
 		 * maxQuantitiy which is a map with the product as a key and its max quantity from db
 		 */
-		m.addAttribute("totalPrice", totalPrice);
-		m.addAttribute("productArr", productArr);
-		m.addAttribute("mapProduct",mapProduct);
+		session.setAttribute("totalPrice", totalPrice);
+		session.setAttribute("productArr", productArr);
+		session.setAttribute("mapProduct",mapProduct);
 		session.setAttribute("productQuantity", maxQuantity);
 		
 		return "cart";

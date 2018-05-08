@@ -9,6 +9,13 @@ html, body{
 	font-size: 100%;
 }
 
+.cartText {
+    position: absolute;
+    bottom: 0px;
+    left: 2px;
+    font-size: 18px;
+}
+
 #top-bar{
   position: relative;
   height:40px;
@@ -371,14 +378,14 @@ z-index: 90;
 }
 li.list_img{
 	float:left;
-	width:26%;
+	width:2%;
 }
 .login_buttons{
 	margin-top:23%;
 }
 li.list_desc{
 	float:left;
-	width:50%;
+	width:100%;
 }
 li.list_desc h4 a{
 	color:#000;
@@ -498,9 +505,7 @@ li.list_desc h4 a:hover{
 	background: #000;
 	margin:10px 0 0;
 }
-.check_button a:hover{
-	background:#555;
-}
+
 /*--main--*/
 .content-top{
 	padding:10% 0;
