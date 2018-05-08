@@ -71,7 +71,7 @@ public class AdminController {
 	public String saveProduct(@ModelAttribute("new_product") Product p,Model m,HttpSession session) {
 		
 		User u = (User)session.getAttribute("user");
-		
+		p.setImage("noImage.jpg");
 		if(!u.isAdmin()) {
 			return "redirect:/";
 		}	
