@@ -137,7 +137,7 @@
 			</ul>
 
 			<div class="menu" align="center">
-				<a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
+				<a class="toggleMenu" href="#"><img src="${pageContext.request.contextPath}/images/nav.png" alt="" /></a>
 				<ul class="nav" id="nav">
 
 					<c:forEach var="category" items="${ categories }" varStatus="loop">

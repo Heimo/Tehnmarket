@@ -97,7 +97,9 @@
 								<img
 								src="${pageContext.request.contextPath}/download/${product.image}"
 								class="img-responsive" alt="" align="center"/> <span class="new-box">
-									<span class="new-label">New</span>
+								<c:if test="${product.discount != 0 }">
+									<span class="new-label">Sale</span>
+									</c:if>
 							</span>
 
 								<div class="shop_desc">
@@ -105,7 +107,14 @@
 										<a href="#">${product.name }</a>
 									</h3>
 									<p>${product.brand }</p>
-									<span class="actual">$${product.price }</span><br>
+									<c:if test="${product.discount != 0 }">
+										<span class="actual"><strike>$${product.price }</strike> $${product.price - ((product.discount/100)*product.price) }</span><br>
+									</c:if>
+									
+									<c:if test="${product.discount == 0 }">
+										<span class="actual">$${product.price }</span><br>
+									</c:if>
+									
 									<ul class="buttons">
 										<li class="cart"><a
 											href="${pageContext.request.contextPath}/add_to_cart/${product.id}">Add

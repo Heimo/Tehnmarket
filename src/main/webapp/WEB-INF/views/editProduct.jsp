@@ -18,6 +18,8 @@
 			Name<f:input path="name" id="pName"/><br>
 			Brand<f:input path = "brand" id="pBrand"/><br>
 			Price<f:input path="price" id="pPrice"/><br>
+			Discount Percent<f:input path="discount" id="pDiscount"/><br>
+			
 			Category
 			<f:select path="categoryId" id="category" onchange="getCharacteristics()">
 				<c:forEach var="cat" items="${categories}">
@@ -118,7 +120,7 @@
 			product.name = document.getElementById("pName").value;
 			product.brand = document.getElementById("pBrand").value;
 			product.price = document.getElementById("pPrice").value;
-			product.discount = ${edit_product.discount};
+			product.discount = document.getElementById("pDiscount").value;
 			product.discountEnd = ${(empty edit_product.discountEnd) ? "null" : edit_product.discountEnd};
 			product.image = "${(empty edit_product.image) ? "null" : edit_product.image}";
 			product.categoryId = id;
