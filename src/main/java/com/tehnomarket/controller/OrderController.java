@@ -131,4 +131,17 @@ public class OrderController {
 		return "redirect:/account";
 	}
 	
+	//Remove product from cart 
+	@RequestMapping(value="/removeFromCart/{productId}",method=RequestMethod.GET)
+	public String removeFromCart(@PathVariable("productId") int productId, HttpSession session) throws SQLException {
+		
+		Product p = productDao.getProductById(productId);
+		HashMap<Product,Integer> cart = (HashMap<Product, Integer>) session.getAttribute("cart");
+		
+		cart.remove(p);
+		
+		session.setAttribute("cart", cart);
+		
+		return "redirect:/cart";
+	}
 }
