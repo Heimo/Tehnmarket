@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.tehnomarket.model.Order;
 import com.tehnomarket.model.Product;
 import com.tehnomarket.model.User;
 import com.tehnomarket.model.dao.ProductDao;
@@ -135,5 +136,22 @@ public class UserController {
 		
 		
 		return "index";
+	}
+	
+	@RequestMapping(value="/account",method=RequestMethod.GET)
+	public String accountPage(Model m,HttpSession session) throws SQLException{
+		
+		//orders 
+		User u = (User) session.getAttribute("user");
+		int userId = (int)u.getId();
+		
+		ArrayList<Order> orders = productDao.getOrders(userId);
+		
+		
+		
+		
+		m.addAttribute("Orders", orders);
+		//
+		return "account";
 	}
 }

@@ -20,43 +20,75 @@
 	   
 <body>
 	
+	<div class="main" style="text-align:center">
+	<div class="shop_top">
 	
 	
+	<table>
+	<tr>
+		<th align="center">Image</th>
+		<th align="center">Name</th>
+		<th align="center">Price</th>
+		<th align="center"></th>
+		<th align="center">Quantity</th>
+		<th align="center"></th>
+	</tr>
+		
+		    
 	
 	<c:forEach var="product" items="${ productArr }"  >
-	
+			<tr>
 			
-		
+			<td>
+			<div id="image" >
+			<img src="${pageContext.request.contextPath}/download/${product.image}" style="width:128px;height:128px;border:0">
+			</div>
+			</td>
+			
+			<td>
 			<div id="product_name">
-				Product is: <td>${product.name }
+				${product.name }
 			</div>
+			</td>
 			
-			<div id="image">
-			<img src="${pageContext.request.contextPath}/download/${product.brand}">
-			</div>
 			
+			
+			<td>
 			<div id="price">
 			Price is:${product.price }
 			</div>
+			</td>
 			
+			<td>
 			<div id="plus_sign">
 					<a href="quantity/${product.id}/increase">
 						<img src="https://i.imgur.com/xGPJKup.png" alt="cart" style="width:32px;height:32px;border:0">
 					</a>
 			</div>
+			</td>
 			
-			
-			<div id="item_quantity">
-				Quantity is: ${product.amount}
+			<td>
+			<div id="item_quantity" style="text-align:center;">
+				${product.amount}
 			</div>
+			</td>
 			
 			
+			<td>
 			<div id="minus_sign">
 					<a href="quantity/${product.id}/decrease">
 						<img src="https://i.imgur.com/4BNjGLm.png" alt="cart" style="width:32px;height:32px;border:0">
 					</a>
-			</div>				
+			</div>
+			</td>	
+			
+				<td>
+				</td>
+			<tr>			
 	</c:forEach>
+	
+	</table>
+	
 	<hr>
 	
 	<div id="total price">
@@ -78,7 +110,8 @@
 	</f:form>
 	
 
-	
+	</div>
+	</div>
 	
 </body>
 </html>
