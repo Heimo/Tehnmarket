@@ -31,7 +31,7 @@
 	</f:form>
 	
 	<div style="max-width: 300px" >
-		
+		<img src= "download/${edit_product.image }">
 	</div>
 	<br>
 	<form method="post" action="upload" enctype="multipart/form-data">

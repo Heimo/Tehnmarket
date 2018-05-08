@@ -40,17 +40,13 @@ public class ImageController {
 	
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public ModelAndView saveImage(Model m, @RequestParam("file") MultipartFile uploadedFile,@RequestParam("id") int id,HttpServletRequest request) throws IOException {
+	public ModelAndView saveImage(Model m, @RequestParam("file") MultipartFile uploadedFile,@RequestParam("id") int id,HttpServletRequest request) throws IOException, SQLException {
 		String fileName = id + "-mainImage."+ FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
 		System.out.println(uploadedFile.getOriginalFilename());
 		File serverFile = new File(FILE_PATH + fileName);
 		Files.copy(uploadedFile.getInputStream(), serverFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		request.setAttribute("id",id);
-		try {
-			productDao.addPictureToProductById(fileName,id);
-		} catch (SQLException e) {
-			return new ModelAndView("error");
-		}
+		productDao.addPictureToProductById(fileName,id);
 		return new ModelAndView("redirect:/editProduct?id="+id);
 	}
 
@@ -58,7 +54,7 @@ public class ImageController {
 	public void downloadFile(HttpServletResponse resp, @PathVariable("filename") String fileName) throws IOException {
 		String completeFileName = fileName+".jpg";
 		System.out.println(fileName);
-		File serverFile = new File(FILE_PATH + completeFileName);
+		File serverFile = new File(FILE_PATH + fileName);
 		Files.copy(serverFile.toPath(), resp.getOutputStream());
 	}
 	

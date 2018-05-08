@@ -60,35 +60,43 @@
 
 	<jsp:include page="header.jsp" />
 
-	<div id="arrow_down">
+	
+
+	<div class="main" style="text-align:center">
+	<div id="arrow_down" align="center" style="display:inline-block;">
 		<a href="${pageContext.request.contextPath}/sort/min"> <img
 			src="https://i.imgur.com/WJEhGM1.png" alt="cart"
 			style="width: 42px; height: 42px; border: 0">
 		</a>
 	</div>
 
-	<div id="arrow_up">
+	<div id="arrow_up" align="center"style="display:inline-block;">
 		<a href="${pageContext.request.contextPath}/sort/max"> <img
 			src="https://i.imgur.com/oG3CR7i.png" alt="cart"
 			style="width: 42px; height: 42px; border: 0">
 		</a>
 	</div>
+			<div class="shop_top">
+			
+			<div class="container">
+			<div class="row shop_box-top">
+			
+			
 
 	<c:if test="${empty products }">
 			No products found
 		</c:if>
-
-	<c:forEach var="product" items="${ products }">
-		<div class="main">
-			<div class="shop_top">
-				<div class="container">
-					<div class="row shop_box-top">
+		<br>
+	<c:forEach var="product" items="${ products }" varStatus="loop">
+		
+				
+					
 						<div class="col-md-3 shop_box">
 							<a
 								href="${pageContext.request.contextPath}/product/${product.id}">
 								<img
-								src="${pageContext.request.contextPath}/download/${product.brand}"
-								class="img-responsive" alt="" /> <span class="new-box">
+								src="${pageContext.request.contextPath}/download/${product.image}"
+								class="img-responsive" alt="" align="center"/> <span class="new-box">
 									<span class="new-label">New</span>
 							</span>
 
@@ -110,11 +118,16 @@
 								</div>
 							</a>
 						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+						<c:if test="${(loop.index+1) %4 ==0 }">
+						</div>
+						<div class="row shop_box-top">
+						</c:if>
+							
 	</c:forEach>
+	</div>
+	</div>
+	  </div>
+	</div>
 </body>
 
 </html>

@@ -8,6 +8,4 @@ public class Store {
 	private String location;
 	private Map inventory;
 	
-	
-	
 }

@@ -390,9 +390,12 @@ li.list_desc h4 a:hover{
 	color:red;
 }
 .c1{
-	background: url(../images/img-sprite.png) no-repeat -66px -8px;
-	width: 22px;
-	height: 24px;
+	background: url(../images/cart.png) ;
+	background-size:     cover;                     
+    background-repeat:   no-repeat;
+    background-position: center center; 
+	width: 60px;
+	height: 60px;
 	display: inline-block;
 	vertical-align: middle;
 }

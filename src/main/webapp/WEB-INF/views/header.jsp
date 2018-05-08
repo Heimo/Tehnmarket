@@ -19,7 +19,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-
 </head>	
 <body>
 
@@ -72,8 +71,8 @@
 						</div>
 		
 						<!----search-scripts---->
-						<script src="js/classie.js"></script>
-						<script src="js/uisearch.js"></script>
+						<script src="${pageContext.request.contextPath}/js/classie.js"></script>
+						<script src="${pageContext.request.contextPath}/js/uisearch.js"></script>
 						<script>
 							new UISearch( document.getElementById( 'sb-search' ) );
 						</script>
@@ -89,11 +88,11 @@
 							 <li><a class="active-icon c1" href="#"> </a>
 								<ul class="sub-icon1 list">
 								  <div class="product_control_buttons">
-								  	<a href="#"><img src="images/edit.png" alt=""/></a>
-								  		<a href="#"><img src="images/close_edit.png" alt=""/></a>
+								  	<a href="#"><img src="${pageContext.request.contextPath}/images/edit.png" alt=""/></a>
+								  		<a href="#"><img src="${pageContext.request.contextPath}/images/close_edit.png" alt=""/></a>
 								  </div>
 								   <div class="clear"></div>
-								  <li class="list_img"><img src="images/1.jpg" alt=""/></li>
+								  <li class="list_img"><img src="${pageContext.request.contextPath}/images/1.jpg" alt=""/></li>
 								  <li class="list_desc"><h4>Product 1</h4><span class="actual">1 x
 		                          $price</span></li>
 		                           <div class="clear"></div>
