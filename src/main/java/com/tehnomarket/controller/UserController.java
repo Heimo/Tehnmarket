@@ -98,7 +98,7 @@ public class UserController {
 
 		User u = (User) session.getAttribute("user");
 		productDao.removeFromFavourites(u.getId(), productId);
-		return "index";
+		return "redirect:/favourites";
 	}
 
 	// FORGOT PASS
