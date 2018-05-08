@@ -42,14 +42,26 @@ public class UserController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String newUser(@ModelAttribute User u, Model m) throws SQLException {
+		
+		//check that names are not spaces
+		boolean firstName = !u.getFirstName().contains(" ");
+		boolean secondName =! u.getLastName().contains(" ");
+		boolean email = u.getEmail().contains("@");
+		String g = u.getGender();
+		boolean gender = (g.equals("M") || g.equals("F") || g.equals("G"));
+		boolean password = u.getPassword().equals(u.getPasswordCheck());
+		// regex check for password
+		String regex = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
+		boolean password2 = u.getPassword().matches(regex);
+		
 
-		if (u.getPassword().equals(u.getPasswordCheck())) {
+		if (firstName && secondName && email && gender && password && password2) {
 			u.setPassword(HashPassword.hashPassword(u.getPassword()));
 
 			userDao.saveUser(u);
 		} else {
-			m.addAttribute("error", "Could not register");
-			return "error";
+			m.addAttribute("errorMessage", "The input you've entered did not match our standards, password must be at least 8 chars long and etc.");
+			return "login";
 		}
 		return "index";
 
@@ -66,20 +78,24 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String checkLogin(HttpServletRequest request, HttpSession session)
-			throws SQLException, IllegalArgumentException {
+	public String checkLogin(HttpServletRequest request, HttpSession session, Model m)  {
 		String pass = request.getParameter("pass");
 		String email = request.getParameter("email");
-		String hashpass = userDao.getHashPass(email);
-		User u = null;
-		if (HashPassword.checkPassword(pass, hashpass)) {
-			u = userDao.getUser(email, hashpass);
-		}
-		if (u != null) {
-			session.setAttribute("user", u);
-			return "index";
-		} else {
-			request.setAttribute("error", "Incorrect Login");
+		try {
+			String hashpass = userDao.getHashPass(email);
+			User u = null;
+			if (HashPassword.checkPassword(pass, hashpass)) {
+				u = userDao.getUser(email, hashpass);
+			}
+			if (u != null) {
+				session.setAttribute("user", u);
+				return "index";
+			} else {
+				request.setAttribute("error", "Incorrect Login");
+				return "login";
+			}
+		} catch (Exception e) {
+			m.addAttribute("errorMessage", "The entered parameters don't match any in our database!");
 			return "login";
 		}
 	}
@@ -128,25 +144,22 @@ public class UserController {
 			SendMailSSL send = new SendMailSSL(receiver, subject, text);
 			send.sendMail();
 		} else {
-			m.addAttribute("error", "No such user,try again m8");
-			return "error";
+			m.addAttribute("errorMessage", "No such user email,try again!");
+			return "login";
 		}
 
-		return "index";
+		return "login";
 	}
-	
-	@RequestMapping(value="/account",method=RequestMethod.GET)
-	public String accountPage(Model m,HttpSession session) throws SQLException{
-		
-		//orders 
+
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
+	public String accountPage(Model m, HttpSession session) throws SQLException {
+
+		// orders
 		User u = (User) session.getAttribute("user");
-		int userId = (int)u.getId();
-		
+		int userId = (int) u.getId();
+
 		ArrayList<Order> orders = productDao.getOrders(userId);
-		
-		
-		
-		
+
 		m.addAttribute("Orders", orders);
 		//
 		return "account";

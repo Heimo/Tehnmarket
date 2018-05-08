@@ -96,6 +96,7 @@
 			<div class="container">
 				<f:form commandName="new_user">
 					<div class="register-top-grid">
+						<h5>${errorMessage}</h5>
 						<h3>PERSONAL INFORMATION</h3>
 						<div>
 							<span>First Name<label>*</label></span> <f:input maxlength="45" path="firstName" required="required"/>
@@ -134,7 +135,7 @@
 						<div class="clear"></div>
 					</div>
 					<div class="clear"></div>
-					<input type="submit" value="submit">
+					<input type="submit" value="Register">
 				</f:form>
 			</div>
 		</div>

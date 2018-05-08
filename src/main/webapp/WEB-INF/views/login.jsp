@@ -107,6 +107,7 @@
 	<div class="container">
 		<div class="col-md-6">
 			<div class="login-page">
+				
 				<h4 class="title">New Customers</h4>
 				<p>This is a modern site. A site for the millennium. I'm new wave but I'm old school. I interface with my database and my database is in cyberspace, so I'm interactive, I'm hyperactive, and from time to time I'm radioactive. Behind the eight ball, ahead of the curve, riding the wave, dodging the bullet, and pushing the envelope. I'm on point, on task, on message, and off drugs. I got no need for coke and speed. I'm in the moment, on the edge, over the top, but under the radar. A high concept, low profile, medium range ballistic missionary. I wear power ties; I tell power lies; I take power naps; I take victory laps. I eat fast food in the slow lane. I'm toll free, bite size, ready to wear, and I come in all sizes; a fully equipped, factory authorized, hospital tested, clinically proven, scientifically formulated medical miracle. I've been pre-washed, pre-cooked, pre-heated, pre-screened, pre-approved, pre-packaged, post-dated, freeze-dried, double wrapped, vacuum packed, and I have an unlimited broadband capacity. I take it slow; I go with the flow; I ride with the tide; I got glide in my stride; driving and moving, sailing and spinning, living and grooving, wailing and winning. I don't snooze, so I don't lose. I party hardy and lunchtime is crunchtime. I'm hanging in, there ain't no doubt, and I'm hanging tough, over and out."</p>
 				<div class="button1">
@@ -120,6 +121,9 @@
 		
 		<div class="col-md-6">
 			<div class="login-title">
+				<div id=error_messege style="background-color:red">
+					${errorMessage }
+				</div>
 				<h4 class="title">Registered Customers</h4>
 				<div id="loginbox" class="loginbox">
 					<form action="login" method="post" name="login" id="login-form">

@@ -24,6 +24,7 @@
 		<div class="container">
 			<div class="col-md-6">
 				<div class="login-title">
+					
 					<h4 class="title">Recover password</h4>
 					<div id="loginbox" class="loginbox">
 						<f:form commandName="new_pass">
