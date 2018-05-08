@@ -126,12 +126,12 @@
 							<p id="login-form-username">
 								<label for="modlgn_username">Email</label> <input
 									id="modlgn_username" type="text" name="email" class="inputbox"
-									size="18" autocomplete="off">
+									size="18" autocomplete="off" required="required">
 							</p>
 							<p id="login-form-password">
 								<label for="modlgn_passwd">Password</label> <input
 									id="modlgn_passwd" type="password" name="pass"
-									class="inputbox" size="18" autocomplete="off" >
+									class="inputbox" size="18" autocomplete="off" required="required">
 							</p>
 							<div class="remember">
 								<p id="login-form-remember">

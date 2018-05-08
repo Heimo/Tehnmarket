@@ -97,16 +97,16 @@
 					<div class="register-top-grid">
 						<h3>PERSONAL INFORMATION</h3>
 						<div>
-							<span>First Name<label>*</label></span> <f:input maxlength="45" path="firstName" />
+							<span>First Name<label>*</label></span> <f:input maxlength="45" path="firstName" required="required"/>
 						</div>
 						<div>
-							<span>Last Name<label>*</label></span> <f:input maxlength="45" path="lastName" />
+							<span>Last Name<label>*</label></span> <f:input maxlength="45" path="lastName" required="required"/>
 						</div>
 						<div>
-							<span>Email Address<label>*</label></span> <f:input maxlength="100" path="email" />
+							<span>Email Address<label>*</label></span> <f:input maxlength="100" path="email" required="required"/>
 						</div>
 						<div>
-							<span>Birth date<label>*</label></span> <f:input type="date" path="dateOfBirth" />
+							<span>Birth date<label>*</label></span> <f:input type="date" path="dateOfBirth" required="required"/>
 						</div>
 						<div>
 							<f:radiobutton path="gender" value="M" label="Male" />
@@ -124,11 +124,11 @@
 					<div class="register-bottom-grid">
 						<h3>LOGIN INFORMATION</h3>
 						<div>
-							<span>Password<label>*</label></span> <f:input maxlength="100" type="password" path="password" />
+							<span>Password<label>*</label></span> <f:input maxlength="100" type="password" path="password" required="required" />
 						</div>
 						<div>
 							<span>Confirm Password<label>*</label></span> <f:input maxlength="100" type="password"
-						path="passwordCheck" />
+						path="passwordCheck" required="required" />
 						</div>
 						<div class="clear"></div>
 					</div>
