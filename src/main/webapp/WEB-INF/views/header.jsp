@@ -115,7 +115,7 @@
 								src="${pageContext.request.contextPath}/download/${product.image}"
 								alt="" style="width: 60px;" /></li>
 							<li class="list_desc"><h4>${product.name }</h4> <span
-								class="actual">${product.amount } x $${product.price }</span></li>
+								class="actual">${product.amount } x $${product.price - ((product.discount/100)*product.price) }</span></li>
 							<div class="clear"></div>
 
 						</c:forEach>

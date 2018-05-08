@@ -314,7 +314,7 @@ img {
 .carousel-inner > .item > a > img {
   
   max-width: 100%;
-  max-height:200px;
+  max-height:180px;
 }
 .img-rounded {
   border-radius: 6px;
