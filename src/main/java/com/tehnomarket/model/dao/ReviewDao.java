@@ -37,10 +37,21 @@ public class ReviewDao {
 			ps.executeUpdate();
 	}
 	
+	public void deleteReview(Review r) throws SQLException {
+		String sql = "DELETE FROM reviews WHERE users_id= ? AND products_id= ? AND review_id=?";
+
+		PreparedStatement ps = connection.prepareStatement(sql);
+
+		ps.setInt(1, r.getUserId());
+		ps.setInt(2, r.getProductId());
+		ps.setInt(3,r.getId());
+		ps.executeUpdate();
+}
+	
 	public ArrayList<Review> getAllProductReview(int productId) throws SQLException{
 		ArrayList<Review> all = new ArrayList<Review>();
 		//\r\n
-		String sql = "SELECT review_id,users_id,products_id,rating,date,comment FROM reviews WHERE products_id=?";
+		String sql = "SELECT review_id,users_id,products_id,rating,date,comment,first_name,last_name FROM reviews as r,users as u WHERE products_id=? AND r.users_id=u.id;";
 		
 		PreparedStatement ps = connection.prepareStatement(sql);
 		
@@ -55,7 +66,9 @@ public class ReviewDao {
 							result.getInt("products_id"),
 							result.getInt("rating"),
 							result.getTimestamp("date"),
-							result.getString("comment"));
+							result.getString("comment"),
+							result.getString("first_name") + " " + result.getString("last_name"));
+							
 			all.add(r);
 			
 		}

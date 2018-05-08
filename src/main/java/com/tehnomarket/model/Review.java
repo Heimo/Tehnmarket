@@ -10,9 +10,16 @@ public class Review {
 	private int rating;
 	private String comment;
 	private Timestamp creationDate;
+	private String userName;
 	
 	public Review() {}
 	
+	public Review(int id, int userId, int productId) {
+		this.id=id;
+		this.userId = userId;
+		this.productId = productId;
+	}
+			
 	public Review(int userId, int productId, int rating,Timestamp creationDate, String comment) {
 		this.userId = userId;
 		this.productId = productId;
@@ -20,9 +27,10 @@ public class Review {
 		this.comment = comment;
 	}
 	
-	public Review(int id, int userId, int productId, int rating,Timestamp creationDate, String comment) {
+	public Review(int id, int userId, int productId, int rating,Timestamp creationDate, String comment, String userName) {
 		this(userId,productId,rating,creationDate,comment);
 		this.id = id;
+		this.userName=userName;
 	}
 
 	public int getId() {
@@ -71,6 +79,14 @@ public class Review {
 
 	public void setCreationDate(Timestamp creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

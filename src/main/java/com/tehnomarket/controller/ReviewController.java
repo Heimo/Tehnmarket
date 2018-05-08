@@ -36,4 +36,19 @@ public class ReviewController {
 		
 		return "redirect:/";
 	}
+	
+	@RequestMapping(value="/product/deleteRating",method=RequestMethod.POST)
+	public String deleteRating(HttpServletRequest request,Model m) {
+		Review r = new Review( Integer.parseInt(request.getParameter("review_id")),
+								Integer.parseInt(request.getParameter("user_id")),
+							  Integer.parseInt(request.getParameter("product_id")));
+		try {
+			reviewDao.deleteReview(r);
+		} catch (SQLException e) {
+			m.addAttribute("error", "Could not save review " + e.getMessage());
+			return "error";
+		}
+		
+		return "redirect:/";
+	}
 }
