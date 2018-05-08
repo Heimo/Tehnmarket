@@ -115,7 +115,7 @@
 								src="${pageContext.request.contextPath}/download/${product.image}"
 								alt="" style="width: 60px;" /></li>
 							<li class="list_desc"><h4>${product.name }</h4> <span
-								class="actual">${product.amount } x $${product.price }</span></li>
+								class="actual">${product.amount } x $${product.price - ((product.discount/100)*product.price) }</span></li>
 							<div class="clear"></div>
 
 						</c:forEach>
@@ -137,7 +137,7 @@
 			</ul>
 
 			<div class="menu" align="center">
-				<a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
+				<a class="toggleMenu" href="#"><img src="${pageContext.request.contextPath}/images/nav.png" alt="" /></a>
 				<ul class="nav" id="nav">
 
 					<c:forEach var="category" items="${ categories }" varStatus="loop">

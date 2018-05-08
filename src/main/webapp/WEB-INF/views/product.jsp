@@ -146,8 +146,17 @@
 				</div>
 				<div class="col-md-3">
 					<div class="box-info-product">
-						<h4>Add to Cart</h4>
-						<p class="price2">$${product.price}</p>
+						<h4>Price:</h4>
+						<c:if test="${product.discount !=0 }">
+							<p class="price2"><strike>$${product.price}</strike></p>
+							<p class="price2">$${product.price - ((product.discount/100)*product.price) }</p>
+						</c:if>
+						
+						<c:if test="${product.discount ==0 }">
+							<p class="price2">$${product.price}</p>
+						</c:if>
+						
+						
 						<ul class="prosuct-qty">
 
 						</ul>

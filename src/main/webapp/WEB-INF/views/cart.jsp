@@ -58,7 +58,7 @@
 
 
 							<td>
-								<div id="price">$${product.price }</div>
+								<div id="price">$${product.price - ((product.discount/100)*product.price) }</div>
 							</td>
 
 							<td>
