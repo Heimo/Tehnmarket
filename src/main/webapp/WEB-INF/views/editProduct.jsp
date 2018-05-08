@@ -118,10 +118,9 @@
 			product.name = document.getElementById("pName").value;
 			product.brand = document.getElementById("pBrand").value;
 			product.price = document.getElementById("pPrice").value;
-			product.info = ${(empty edit_product.info) ? "null" : edit_product.info};
 			product.discount = ${edit_product.discount};
 			product.discountEnd = ${(empty edit_product.discountEnd) ? "null" : edit_product.discountEnd};
-			product.image = ${(empty edit_product.image) ? "null" : edit_product.image};
+			product.image = "${(empty edit_product.image) ? "null" : edit_product.image}";
 			product.categoryId = id;
 			
 			var xhttp = new XMLHttpRequest();
